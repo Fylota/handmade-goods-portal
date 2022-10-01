@@ -6,7 +6,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "users", schema = "public", catalog = "postgres")
 public class User {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id", nullable = false)
     private long id;
