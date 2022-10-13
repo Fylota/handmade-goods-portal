@@ -1,8 +1,7 @@
 package hu.bme.edu.handmade.models;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.util.Objects;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "reviews", schema = "public", catalog = "postgres")
@@ -10,22 +9,40 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
-    private long id;
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     @Basic
-    @Column(name = "user_id", nullable = true)
-    private Long userId;
-    @Basic
-    @Column(name = "product_id", nullable = true)
-    private Long productId;
-    @Basic
-    @Column(name = "content", nullable = true, length = -1)
+    @Column(name = "content", length = -1)
     private String content;
     @Basic
-    @Column(name = "rating", nullable = true)
+    @Column(name = "rating")
     private Integer rating;
     @Basic
-    @Column(name = "creation_date", nullable = true)
-    private Date creationDate;
+    @Column(name = "creation_date")
+    private LocalDate creationDate;
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public long getId() {
         return id;
@@ -33,22 +50,6 @@ public class Review {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
     }
 
     public String getContent() {
@@ -67,24 +68,11 @@ public class Review {
         this.rating = rating;
     }
 
-    public Date getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Review review = (Review) o;
-        return id == review.id && Objects.equals(userId, review.userId) && Objects.equals(productId, review.productId) && Objects.equals(content, review.content) && Objects.equals(rating, review.rating) && Objects.equals(creationDate, review.creationDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, userId, productId, content, rating, creationDate);
     }
 }

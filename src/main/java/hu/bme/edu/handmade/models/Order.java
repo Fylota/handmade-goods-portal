@@ -1,7 +1,9 @@
 package hu.bme.edu.handmade.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -12,28 +14,30 @@ public class Order {
     @Column(name = "id", nullable = false)
     private Long id;
     @Basic
-    @Column(name = "creation_date", nullable = true)
-    private Date creationDate;
+    @Column(name = "creation_date")
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate creationDate;
     @Basic
-    @Column(name = "status", nullable = true, length = -1)
+    @Column(name = "status", length = -1)
     private String status;
-    @Basic
-    @Column(name = "user_id", nullable = true)
-    private Long userId;
 
-    public long getId() {
-        return id;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public User getUser() {
+        return user;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Date getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -45,12 +49,8 @@ public class Order {
         this.status = status;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
@@ -58,11 +58,11 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return Objects.equals(id, order.id) && Objects.equals(creationDate, order.creationDate) && Objects.equals(status, order.status) && Objects.equals(userId, order.userId);
+        return Objects.equals(id, order.id) && Objects.equals(creationDate, order.creationDate) && Objects.equals(status, order.status);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, creationDate, status, userId);
+        return Objects.hash(id, creationDate, status);
     }
 }

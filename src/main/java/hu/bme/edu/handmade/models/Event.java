@@ -14,14 +14,15 @@ public class Event {
     @Column(name = "id", nullable = false)
     private Long id;
     @Basic
-    @Column(name = "title", nullable = true, length = -1)
+    @Column(name = "title", length = -1)
     private String title;
     @Basic
-    @Column(name = "description", nullable = true, length = -1)
+    @Column(name = "description", length = -1)
     private String description;
     @Basic
-    @Column(name = "date", nullable = true)
-    @JsonFormat(pattern = "dd/MM/yyyy") private LocalDate date_created;
+    @Column(name = "date")
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate creationDate;
 
     public long getId() {
         return id;
@@ -47,12 +48,12 @@ public class Event {
         this.description = description;
     }
 
-    public LocalDate getDate_created() {
-        return date_created;
+    public LocalDate getCreationDate() {
+        return creationDate;
     }
 
-    public void setDate_created(LocalDate date) {
-        this.date_created = date;
+    public void setCreationDate(LocalDate date) {
+        this.creationDate = date;
     }
 
     @Override
@@ -60,11 +61,11 @@ public class Event {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Event event = (Event) o;
-        return Objects.equals(id, event.id) && Objects.equals(title, event.title) && Objects.equals(description, event.description) && Objects.equals(date_created, event.date_created);
+        return Objects.equals(id, event.id) && Objects.equals(title, event.title) && Objects.equals(description, event.description) && Objects.equals(creationDate, event.creationDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, date_created);
+        return Objects.hash(id, title, description, creationDate);
     }
 }

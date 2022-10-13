@@ -11,16 +11,17 @@ public class Newsletter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
-    private long id;
+    private Long id;
     @Basic
-    @Column(name = "title", nullable = true, length = -1)
+    @Column(name = "title", length = -1)
     private String title;
     @Basic
-    @Column(name = "content", nullable = true, length = -1)
+    @Column(name = "content", length = -1)
     private String content;
     @Basic
-    @Column(name = "creation_date", nullable = true)
-    @JsonFormat(pattern = "dd/MM/yyyy") private LocalDate date_created;
+    @Column(name = "creation_date")
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate creationDate;
 
     public long getId() {
         return id;
@@ -46,12 +47,12 @@ public class Newsletter {
         this.content = content;
     }
 
-    public LocalDate getDate_created() {
-        return date_created;
+    public LocalDate getCreationDate() {
+        return creationDate;
     }
 
-    public void setDate_created(LocalDate creationDate) {
-        this.date_created = creationDate;
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
     }
 
     @Override
@@ -59,11 +60,11 @@ public class Newsletter {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Newsletter that = (Newsletter) o;
-        return id == that.id && Objects.equals(title, that.title) && Objects.equals(content, that.content) && Objects.equals(date_created, that.date_created);
+        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(content, that.content) && Objects.equals(creationDate, that.creationDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, content, date_created);
+        return Objects.hash(id, title, content, creationDate);
     }
 }

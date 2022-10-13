@@ -1,7 +1,7 @@
 package hu.bme.edu.handmade.models;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -10,16 +10,16 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
-    private long id;
+    private Long id;
     @Basic
-    @Column(name = "title", nullable = true, length = -1)
+    @Column(name = "title", length = -1)
     private String title;
     @Basic
-    @Column(name = "content", nullable = true, length = -1)
+    @Column(name = "content", length = -1)
     private String content;
     @Basic
-    @Column(name = "creation_date", nullable = true)
-    private Date creationDate;
+    @Column(name = "creation_date")
+    private LocalDate creationDate;
 
     public long getId() {
         return id;
@@ -45,11 +45,11 @@ public class Post {
         this.content = content;
     }
 
-    public Date getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -58,7 +58,7 @@ public class Post {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return id == post.id && Objects.equals(title, post.title) && Objects.equals(content, post.content) && Objects.equals(creationDate, post.creationDate);
+        return Objects.equals(id, post.id) && Objects.equals(title, post.title) && Objects.equals(content, post.content) && Objects.equals(creationDate, post.creationDate);
     }
 
     @Override

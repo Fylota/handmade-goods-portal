@@ -7,15 +7,25 @@ import java.util.Objects;
 @Table(name = "messages", schema = "public", catalog = "postgres")
 public class Message {
     @Basic
-    @Column(name = "content", nullable = true, length = -1)
+    @Column(name = "content", length = -1)
     private String content;
-    @Basic
-    @Column(name = "user_id", nullable = true)
-    private Long userId;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public String getContent() {
         return content;
@@ -23,14 +33,6 @@ public class Message {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public long getId() {
@@ -46,11 +48,11 @@ public class Message {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Message message = (Message) o;
-        return Objects.equals(id, message.id) && Objects.equals(content, message.content) && Objects.equals(userId, message.userId);
+        return Objects.equals(id, message.id) && Objects.equals(content, message.content);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(content, userId, id);
+        return Objects.hash(content, id);
     }
 }

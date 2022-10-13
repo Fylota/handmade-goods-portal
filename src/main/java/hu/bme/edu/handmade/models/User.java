@@ -6,10 +6,10 @@ import java.util.Objects;
 @Entity
 @Table(name = "users", schema = "public", catalog = "postgres")
 public class User {
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private long id;
+    private Long id;
     @Basic
     @Column(name = "name", nullable = false, length = -1)
     private String name;
@@ -17,17 +17,18 @@ public class User {
     @Column(name = "email", nullable = false, length = -1)
     private String email;
     @Basic
-    @Column(name = "phone_number", nullable = true)
+    @Column(name = "phone_number")
     private Integer phoneNumber;
     @Basic
-    @Column(name = "address", nullable = true, length = -1)
+    @Column(name = "address", length = -1)
     private String address;
+    private String password;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -63,12 +64,20 @@ public class User {
         this.address = address;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && Objects.equals(name, user.name) && Objects.equals(email, user.email) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(address, user.address);
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(email, user.email) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(address, user.address);
     }
 
     @Override
