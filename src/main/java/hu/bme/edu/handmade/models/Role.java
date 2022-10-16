@@ -8,13 +8,13 @@ import java.util.Objects;
 @Entity
 @Table(name = "roles")
 public class Role {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
     @Basic
     @Column(name = "name")
-    private Integer name;
+    private String name;
 
     @ManyToMany(mappedBy = "roles")
     private Collection<User> users = new ArrayList<>();
@@ -24,6 +24,12 @@ public class Role {
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "privilege_id"))
     private Collection<Privilege> privileges = new ArrayList<>();
+
+    public Role(String name) {
+        this.name = name;
+    }
+
+    public Role() { }
 
     public Collection<Privilege> getPrivileges() {
         return privileges;
@@ -49,11 +55,11 @@ public class Role {
         this.id = id;
     }
 
-    public Integer getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(Integer name) {
+    public void setName(String name) {
         this.name = name;
     }
 

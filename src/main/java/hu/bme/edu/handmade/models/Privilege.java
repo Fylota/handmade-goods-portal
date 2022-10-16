@@ -8,19 +8,24 @@ import java.util.Objects;
 @Entity
 @Table(name = "privileges")
 public class Privilege {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
     @Basic
     @Column(name = "name")
-    private Integer name;
+    private String name;
     @Basic
     @Column(name = "role_id")
     private Integer roleId;
 
     @ManyToMany(mappedBy = "privileges")
     private Collection<Role> roles = new ArrayList<>();
+
+    public Privilege(String name) {
+        this.name = name;
+    }
+    public Privilege() { }
 
     public Collection<Role> getRoles() {
         return roles;
@@ -38,11 +43,11 @@ public class Privilege {
         this.id = id;
     }
 
-    public Integer getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(Integer name) {
+    public void setName(String name) {
         this.name = name;
     }
 
