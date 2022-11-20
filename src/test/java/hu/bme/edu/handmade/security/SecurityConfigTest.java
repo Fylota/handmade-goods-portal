@@ -49,24 +49,11 @@ class SecurityConfigTest {
                 .andExpect(status().isOk());
     }
 
-    @Test
-    @WithAnonymousUser
-    void whenAnonymousAccessRestrictedEndpoint_thenIsUnauthorized() throws Exception {
-        mockMvc.perform(get("/all"))
-                .andExpect(status().isUnauthorized());
-    }
 
     @Test
     @WithMockUser(username="user", password="userPass")
     void whenUserAccessUserSecuredEndpoint_thenOk() throws Exception {
         mockMvc.perform(get("/user"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @WithMockUser(username="user", password="userPass")
-    void whenUserAccessRestrictedEndpoint_thenOk() throws Exception {
-        mockMvc.perform(get("/all"))
                 .andExpect(status().isOk());
     }
 

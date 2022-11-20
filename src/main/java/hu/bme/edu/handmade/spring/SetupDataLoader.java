@@ -13,10 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Component
 @Transactional
@@ -49,10 +46,13 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         final List<Privilege> adminPrivileges = new ArrayList<>(Arrays.asList(readPrivilege, writePrivilege, passwordPrivilege));
         final List<Privilege> userPrivileges = new ArrayList<>(Arrays.asList(readPrivilege, passwordPrivilege));
         final Role adminRole = createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
-        createRoleIfNotFound("ROLE_USER", userPrivileges);
+        final Role userRole = createRoleIfNotFound("ROLE_USER", userPrivileges);
+
+        // == create initial admin user
+        createUserIfNotFound("adminTest@test.com", "Admin", "Test", "adminTest", new ArrayList<>(Collections.singletonList(adminRole)));
 
         // == create initial user
-        createUserIfNotFound("test@test.com", "Test", "Test", "test", new ArrayList<>(Arrays.asList(adminRole)));
+        createUserIfNotFound("userTest@test.com", "User", "Test", "userTest", new ArrayList<>(Collections.singletonList(userRole)));
 
         alreadySetup = true;
     }
@@ -75,7 +75,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         role = roleRepository.save(role);
         return role;
     }
-    User createUserIfNotFound(final String email, final String firstName, final String lastName, final String password, final Collection<Role> roles) {
+    void createUserIfNotFound(final String email, final String firstName, final String lastName, final String password, final Collection<Role> roles) {
         User user = userRepository.findByEmail(email);
         if (user == null) {
             user = new User();
@@ -86,7 +86,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
             user.setEnabled(true);
         }
         user.setRoles(roles);
-        user = userRepository.save(user);
-        return user;
+        userRepository.save(user);
     }
 }

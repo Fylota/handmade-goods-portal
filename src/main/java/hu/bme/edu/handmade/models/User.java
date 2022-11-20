@@ -1,11 +1,14 @@
 package hu.bme.edu.handmade.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
+@JsonIgnoreProperties(value= {"roles"})
 @Table(name = "users", schema = "public", catalog = "postgres")
 public class User {
     @Id

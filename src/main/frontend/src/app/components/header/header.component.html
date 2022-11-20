@@ -1,0 +1,16 @@
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div><a href="/" class="navbar-brand">MyBrand</a></div>
+
+        <ul class="navbar-nav">
+            <li><a *ngIf="loginService.isUserLoggedIn()" routerLink="/user" class="nav-link">View Users</a></li>
+            <li><a *ngIf="loginService.isUserLoggedIn()" routerLink="/adduser" class="nav-link">Add New User</a>
+            </li>
+            <li><a *ngIf="loginService.isUserLoggedIn()" routerLink="/user/me" class="nav-link">My profile</a></li>
+            <li><a *ngIf="!loginService.isUserLoggedIn()" routerLink="/login" class="nav-link">Login</a></li>
+            <li><a *ngIf="loginService.isUserLoggedIn()" routerLink="/logout" class="nav-link">LogOut</a></li>
+        </ul>
+
+    </nav>
+
+</header>

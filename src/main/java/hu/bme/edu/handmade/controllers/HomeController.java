@@ -1,16 +1,82 @@
 package hu.bme.edu.handmade.controllers;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import hu.bme.edu.handmade.repositories.UserRepository;
+import hu.bme.edu.handmade.security.JwtRequest;
+import hu.bme.edu.handmade.security.JwtResponse;
+import hu.bme.edu.handmade.security.JwtTokenUtil;
+import hu.bme.edu.handmade.services.MyUserDetailsService;
+import hu.bme.edu.handmade.services.UserService;
+import hu.bme.edu.handmade.web.dto.UserDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class HomeController {
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    private MyUserDetailsService userDetailsService;
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    UserService userService;
+
+    @RequestMapping("/hello")
+    public String firstPage() {
+        return "hello world,  JWT";
+    }
+
+    @PostMapping(value = "/authenticate")
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+
+        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+
+        final UserDetails userDetails = userDetailsService
+                .loadUserByUsername(authenticationRequest.getUsername());
+
+        final String token = jwtTokenUtil.generateToken(userDetails);
+
+        return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+    @PostMapping(value = "/register")
+    public ResponseEntity<?> saveUser(@RequestBody UserDto user) {
+        return ResponseEntity.ok(userService.registerNewUserAccount(user));
+    }
+
+    private void authenticate(String username, String password) throws Exception {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        } catch (DisabledException e) {
+            throw new Exception("USER_DISABLED", e);
+        } catch (BadCredentialsException e) {
+            throw new Exception("INVALID_CREDENTIALS", e);
+        }
+    }
+
     @RequestMapping("/")
-    public @ResponseBody String greeting() {
+    public String greeting() {
         return "Greetings from Spring Boot!";
     }
+
+    @GetMapping("/home")
+    public String homeEndpoint() {
+        return "Home!";
+    }
+
 
 }
 
