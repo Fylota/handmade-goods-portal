@@ -16,8 +16,9 @@
                 <td>{{user.lastName}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.password}}</td>
-                <td><button class="btn btn-danger" (click)="deleteUser(user)"> Delete User</button></td>
             </tr>
         </tbody>
     </table>
+    <button class="btn btn-danger" (click)="logOut()">Log out</button>
+    <button class="btn btn-danger" (click)="deleteUser(user)">Delete profile</button>
 </div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/service/authentication.service';
 import { HttpClientService, User } from 'src/app/service/http-client.service';
 
 @Component({
@@ -9,17 +11,26 @@ import { HttpClientService, User } from 'src/app/service/http-client.service';
 export class ProfileComponent implements OnInit {
   public user: User = new User("","","","","","","","");
 
-  constructor(private httpClientService: HttpClientService) { }
+  constructor(private httpClientService: HttpClientService, private router: Router, private loginService: AuthenticationService) { }
 
   ngOnInit(): void {
-    this.httpClientService.getUser().subscribe(
-      response => this.handleSuccessfulResponse(response),
-    );
+    if (!this.loginService.isUserLoggedIn()) {
+      this.router.navigate(['/login'])
+    }
+    else {
+      this.httpClientService.getUser().subscribe(
+        response => this.handleSuccessfulResponse(response),
+      );
+    }
   }
 
   deleteUser(user: User): void {
     this.httpClientService.deleteUser(user)
       .subscribe()
+  }
+
+  logOut() {
+    this.router.navigate(['logout']);
   }
 
   handleSuccessfulResponse(response: User) {

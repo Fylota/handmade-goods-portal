@@ -36,7 +36,6 @@ public class SecurityConfig {
                             @Override
                             public void configure(AuthenticationManagerBuilder auth) throws Exception {
                                 auth.userDetailsService(jwtUserDetailsService).passwordEncoder(encoder());
-                                //auth.inMemoryAuthentication().withUser("javainuse").password("{noop}password").roles("USER");
                             }
                         }
         );
@@ -49,7 +48,7 @@ public class SecurityConfig {
         // We don't need CSRF for this example
             http.csrf().disable()
                 // dont authenticate this particular request
-                .authorizeRequests().antMatchers("/authenticate").
+                .authorizeRequests().antMatchers("/authenticate", "/user").
                     permitAll().antMatchers(HttpMethod.OPTIONS, "/**")
                     .permitAll().
                 // all other requests need to be authenticated
@@ -61,39 +60,6 @@ public class SecurityConfig {
 
         // Add a filter to validate the tokens with every request
             http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
-        /*
-        http
-                .httpBasic()
-                .and()
-                .authorizeRequests()
-                .antMatchers("/index.html", "/", "/home", "/login").permitAll()
-                .anyRequest().authenticated()
-                .and().csrf()
-                .disable()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                //.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-        /*
-        http.csrf()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.DELETE)
-                .hasRole("ADMIN")
-                .antMatchers("/admin/**")
-                .hasAnyRole("ADMIN")
-                .antMatchers("/user/**")
-                .hasAnyRole("USER", "ADMIN")
-                .antMatchers("/login/**", "/register/**")
-                .anonymous()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .httpBasic()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-         */
-
         return http.build();
     }
 }

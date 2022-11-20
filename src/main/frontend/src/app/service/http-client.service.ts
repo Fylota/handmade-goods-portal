@@ -24,15 +24,15 @@ export class HttpClientService {
     return this.httpClient.get<User[]>('http://localhost:8080/user');
   }
 
-  public deleteUser(user: User) {
+  deleteUser(user: User) {
     return this.httpClient.delete<User>("http://localhost:8080/user" + "/" + user.id);
   }
 
-  public createUser(user: User) {
+  createUser(user: User) {
     return this.httpClient.post<User>("http://localhost:8080/user", user);
   }
 
-  public getUser() {
+  getUser() {
     return this.httpClient.get<User>('http://localhost:8080/user/me');
   }
 }

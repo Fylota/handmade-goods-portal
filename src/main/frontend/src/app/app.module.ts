@@ -2,6 +2,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserComponent } from './components/user/user.component';
@@ -12,6 +13,16 @@ import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { BasicAuthHtppInterceptorService } from './service/basic-auth-htpp-interceptor.service';
 import { ProfileComponent } from './components/profile/profile.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HomeComponent } from './components/home/home.component';
+import { CartComponent } from './components/cart/cart.component';
+import { WishlistComponent } from './components/wishlist/wishlist.component';
+import { MaterialModule } from './material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SidenavdrawerComponent } from './components/sidenavdrawer/sidenavdrawer.component';
+import { ProductsComponent } from './components/products/products.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { UploadProductComponent } from './components/upload-product/upload-product.component';
 
 @NgModule({
   declarations: [
@@ -22,13 +33,24 @@ import { ProfileComponent } from './components/profile/profile.component';
     FooterComponent,
     LoginComponent,
     LogoutComponent,
-    ProfileComponent
+    ProfileComponent,
+    HomeComponent,
+    CartComponent,
+    WishlistComponent,
+    SidenavdrawerComponent,
+    ProductsComponent,
+    ProductDetailsComponent,
+    UploadProductComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    FontAwesomeModule,
+    MaterialModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {  

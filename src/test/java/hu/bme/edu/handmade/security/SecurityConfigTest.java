@@ -1,6 +1,6 @@
 package hu.bme.edu.handmade.security;
 
-import hu.bme.edu.handmade.controllers.ResourceController;
+import hu.bme.edu.handmade.controllers.ProductController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(classes = {ResourceController.class, SecurityConfig.class})
+@SpringBootTest(classes = {ProductController.class, SecurityConfig.class})
 @AutoConfigureMockMvc
 class SecurityConfigTest {
 

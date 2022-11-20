@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping("")
-    void addUser(@RequestBody UserDto user) {
+    public void addUser(@RequestBody UserDto user) {
         userService.registerNewUserAccount(user);
     }
 
@@ -43,10 +43,6 @@ public class UserController {
     public User delete(@PathVariable("id") long id) {
         Optional<User> deletedUser = userService.getUserByID(id);
         deletedUser.ifPresent(u -> userService.deleteUser(u));
-        User deleted = new User();
-        if (deletedUser.isPresent()) {
-            deleted = deletedUser.get();
-        }
-        return deleted;
+        return deletedUser.orElseGet(User::new);
     }
 }
