@@ -16,4 +16,6 @@ public interface IProductService {
     Optional<Product> findProductById(Long productId);
 
     List<Product> findAllProducts();
+
+    List<Product> findProductsByCategory(Long categoryId);
 }

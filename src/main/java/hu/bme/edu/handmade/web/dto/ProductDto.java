@@ -8,6 +8,8 @@ public class ProductDto {
     private String description;
     private String price;
 
+    private String category;
+
     public String getDescription() {
         return description;
     }
@@ -38,6 +40,14 @@ public class ProductDto {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     @Override

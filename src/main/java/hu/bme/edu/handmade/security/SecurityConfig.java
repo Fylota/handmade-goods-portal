@@ -48,7 +48,7 @@ public class SecurityConfig {
         // We don't need CSRF for this example
             http.csrf().disable()
                 // dont authenticate this particular request
-                .authorizeRequests().antMatchers("/authenticate", "/user").
+                .authorizeRequests().antMatchers("/authenticate", "/product", "/home").
                     permitAll().antMatchers(HttpMethod.OPTIONS, "/**")
                     .permitAll().
                 // all other requests need to be authenticated

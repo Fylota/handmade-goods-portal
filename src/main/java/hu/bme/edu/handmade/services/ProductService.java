@@ -2,14 +2,14 @@ package hu.bme.edu.handmade.services;
 
 import hu.bme.edu.handmade.mappers.ProductMapper;
 import hu.bme.edu.handmade.models.Product;
+import hu.bme.edu.handmade.repositories.CategoryRepository;
 import hu.bme.edu.handmade.repositories.ProductRepository;
 import hu.bme.edu.handmade.web.dto.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -17,9 +17,13 @@ public class ProductService implements IProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private  CategoryRepository categoryRepository;
+
     @Override
     public Product uploadNewProduct(ProductDto productDto) {
         Product product = ProductMapper.INSTANCE.toProduct(productDto);
+        product.setCategory(categoryRepository.findById(Long.parseLong(productDto.getCategory())).orElse(null));
         return productRepository.save(product);
     }
 
@@ -42,5 +46,10 @@ public class ProductService implements IProductService {
     @Override
     public List<Product> findAllProducts() {
         return (List<Product>) productRepository.findAll();
+    }
+
+    @Override
+    public List<Product> findProductsByCategory(Long categoryId) {
+        return productRepository.findProductsByCategory_Id(categoryId);
     }
 }

@@ -2,7 +2,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserComponent } from './components/user/user.component';
@@ -23,6 +22,9 @@ import { SidenavdrawerComponent } from './components/sidenavdrawer/sidenavdrawer
 import { ProductsComponent } from './components/products/products.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { UploadProductComponent } from './components/upload-product/upload-product.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { CategoryComponent } from './components/category/category.component';
+import { ProductsListComponent } from './components/products-list/products-list.component';
 
 @NgModule({
   declarations: [
@@ -40,21 +42,23 @@ import { UploadProductComponent } from './components/upload-product/upload-produ
     SidenavdrawerComponent,
     ProductsComponent,
     ProductDetailsComponent,
-    UploadProductComponent
+    UploadProductComponent,
+    PageNotFoundComponent,
+    CategoryComponent,
+    ProductsListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,
     FontAwesomeModule,
     MaterialModule,
     BrowserAnimationsModule
   ],
   providers: [
-    {  
-      provide:HTTP_INTERCEPTORS, useClass:BasicAuthHtppInterceptorService, multi:true 
+    {
+      provide:HTTP_INTERCEPTORS, useClass:BasicAuthHtppInterceptorService, multi:true
     }
   ],
   bootstrap: [AppComponent]

@@ -1,6 +1,8 @@
 package hu.bme.edu.handmade.controllers;
 
+import hu.bme.edu.handmade.models.Category;
 import hu.bme.edu.handmade.models.Product;
+import hu.bme.edu.handmade.services.ICategoryService;
 import hu.bme.edu.handmade.services.IProductService;
 import hu.bme.edu.handmade.web.dto.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +18,14 @@ public class ProductController {
     @Autowired
     IProductService productService;
 
-    @GetMapping("")
+    @Autowired
+    private ICategoryService categoryService;
+
+    @GetMapping()
     public List<Product> getProducts() {
         return productService.findAllProducts();
     }
-    @PostMapping("")
+    @PostMapping()
     public void addProduct(@RequestBody ProductDto productDto) {
         productService.uploadNewProduct(productDto);
     }
@@ -34,5 +39,20 @@ public class ProductController {
         Optional<Product> deletedProduct = productService.findProductById(id);
         deletedProduct.ifPresent(p -> productService.deleteProduct(p));
         return deletedProduct.orElseGet(Product::new);
+    }
+
+    @GetMapping("/category")
+    public List<Category> getCategories() {
+        return categoryService.findAllCategories();
+    }
+
+    @GetMapping("/category/view/{category_name}")
+    public Category getCategoryByName(@PathVariable("category_name") String name) {
+        return categoryService.findCategoryByName(name);
+    }
+
+    @GetMapping("/category/{category_id}")
+    public List<Product> getProductsByCategory(@PathVariable("category_id") long id) {
+        return productService.findProductsByCategory(id);
     }
 }

@@ -3,9 +3,11 @@
     <mat-drawer #drawer mode="side" role="navigation" class="bg-light">
         <app-sidenavdrawer [drawer]=drawer></app-sidenavdrawer>
     </mat-drawer>
-    <mat-drawer-content >
-        <router-outlet></router-outlet>
+    <mat-drawer-content>
+        <div id="content">
+            <router-outlet></router-outlet>
+        </div>
     </mat-drawer-content>
 </mat-drawer-container>
 
-<app-footer></app-footer>
+<!--<app-footer></app-footer>-->

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpProductService, Product } from 'src/app/service/http-product.service';
+import { Category, HttpProductService, Product } from 'src/app/service/http-product.service';
 
 @Component({
   selector: 'app-upload-product',
@@ -8,17 +8,22 @@ import { HttpProductService, Product } from 'src/app/service/http-product.servic
 })
 export class UploadProductComponent implements OnInit {
 
-  product: Product = new Product("","",0,"");
+  categories: Category[] = [];
+  product: Product = new Product("","",0,"","");
 
   constructor(private productService: HttpProductService) { }
 
   ngOnInit(): void {
+    this.productService.getCategories().subscribe(
+      response => this.categories = response
+    );
   }
 
   createProduct() {
     this.productService.createProduct(this.product)
       .subscribe(data => {
-        alert("User created successfully.");
+        console.log(this.product);
+        alert("Product created successfully.");
       });
   }
 
