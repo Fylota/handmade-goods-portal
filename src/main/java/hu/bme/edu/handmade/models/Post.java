@@ -7,7 +7,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "posts", schema = "public", catalog = "postgres")
 public class Post {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
@@ -21,11 +21,11 @@ public class Post {
     @Column(name = "creation_date")
     private LocalDate creationDate;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

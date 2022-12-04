@@ -25,6 +25,8 @@ import { UploadProductComponent } from './components/upload-product/upload-produ
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { CategoryComponent } from './components/category/category.component';
 import { ProductsListComponent } from './components/products-list/products-list.component';
+import { UploadNewsComponent } from './components/upload-news/upload-news.component';
+import { PostsComponent } from './components/posts/posts.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { ProductsListComponent } from './components/products-list/products-list.
     UploadProductComponent,
     PageNotFoundComponent,
     CategoryComponent,
-    ProductsListComponent
+    ProductsListComponent,
+    UploadNewsComponent,
+    PostsComponent
   ],
   imports: [
     BrowserModule,
