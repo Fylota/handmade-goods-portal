@@ -12,7 +12,7 @@ export class ProductsListComponent implements OnInit {
   products: Product[] = [];
 
 
-  constructor(private httpProductService: HttpProductService) { }
+  constructor(private httpProductService: HttpProductService, private router: Router) { }
 
   ngOnInit(): void {
     if (this.category !== undefined) {
@@ -24,5 +24,9 @@ export class ProductsListComponent implements OnInit {
         response => this.products = response
       );
     }
+  }
+
+  navigateToProductDetails(product: Product) {
+    this.router.navigate(['products/view'], {queryParams: {id:product.id}})
   }
 }

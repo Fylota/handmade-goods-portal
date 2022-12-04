@@ -7,6 +7,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { ProductsComponent } from './components/products/products.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { UploadProductComponent } from './components/upload-product/upload-product.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: 'products', component: ProductsComponent},
   { path: 'products/category', component: CategoryComponent},
+  { path: 'products/view', component: ProductDetailsComponent},
   { path: 'user', component: UserComponent, canActivate:[AuthGuardService] },
   { path: 'register', component: AddUserComponent},
   { path: 'login', component: LoginComponent},

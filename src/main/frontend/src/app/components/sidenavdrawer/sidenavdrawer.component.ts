@@ -1,16 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-sidenavdrawer',
   templateUrl: './sidenavdrawer.component.html',
   styleUrls: ['./sidenavdrawer.component.scss']
 })
-export class SidenavdrawerComponent implements OnInit {
+export class SidenavdrawerComponent {
   @Input() drawer: any;
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
   closeDrawer(){
     this.drawer.close();
