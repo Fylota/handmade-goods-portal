@@ -1,15 +1,13 @@
 package hu.bme.edu.handmade.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
 @Table(name = "events", schema = "public", catalog = "postgres")
 public class Event {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
@@ -19,16 +17,23 @@ public class Event {
     @Basic
     @Column(name = "description", length = -1)
     private String description;
+
+    @Basic
+    @Column(name = "start_date")
+    private LocalDateTime startDateTime;
+
+    @Basic
+    @Column(name = "end_date")
+    private LocalDateTime endDateTime;
     @Basic
     @Column(name = "date")
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate creationDate;
+    private LocalDateTime creationDate;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -48,11 +53,27 @@ public class Event {
         this.description = description;
     }
 
-    public LocalDate getCreationDate() {
+    public LocalDateTime getStartDateTime() {
+        return startDateTime;
+    }
+
+    public void setStartDateTime(LocalDateTime startDateTime) {
+        this.startDateTime = startDateTime;
+    }
+
+    public LocalDateTime getEndDateTime() {
+        return endDateTime;
+    }
+
+    public void setEndDateTime(LocalDateTime endDateTime) {
+        this.endDateTime = endDateTime;
+    }
+
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDate date) {
+    public void setCreationDate(LocalDateTime date) {
         this.creationDate = date;
     }
 

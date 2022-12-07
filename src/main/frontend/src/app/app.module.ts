@@ -27,6 +27,8 @@ import { CategoryComponent } from './components/category/category.component';
 import { ProductsListComponent } from './components/products-list/products-list.component';
 import { UploadNewsComponent } from './components/upload-news/upload-news.component';
 import { PostsComponent } from './components/posts/posts.component';
+import { EventsComponent } from './components/events/events.component';
+import { UploadEventComponent } from './components/upload-event/upload-event.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { PostsComponent } from './components/posts/posts.component';
     CategoryComponent,
     ProductsListComponent,
     UploadNewsComponent,
-    PostsComponent
+    PostsComponent,
+    EventsComponent,
+    UploadEventComponent
   ],
   imports: [
     BrowserModule,

@@ -1,10 +1,12 @@
 package hu.bme.edu.handmade.web.dto;
 
+import java.time.LocalDateTime;
+
 public class PostDto {
     private String id;
     private String title;
     private String content;
-    private String dateCreated;
+    private LocalDateTime creationDate;
 
     public String getId() {
         return id;
@@ -30,11 +32,11 @@ public class PostDto {
         this.content = content;
     }
 
-    public String getDateCreated() {
-        return dateCreated;
+    public LocalDateTime getCreationDate() {
+        return creationDate;
     }
 
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 }

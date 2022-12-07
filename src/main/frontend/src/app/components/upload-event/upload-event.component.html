@@ -1,0 +1,28 @@
+<div class="col-md-6">
+    <h2 class="text-center">Upload Event</h2>
+    <form>
+        <div class="form-group">
+            <label for="title">Title: </label>
+            <input type="text" [(ngModel)]="event.title" name="title"
+                class="form-control" id="title">
+        </div>
+
+        <div class="form-group">
+            <label for="content">Content: </label>
+            <textarea [(ngModel)]="event.description" name="content" class="form-control"
+                id="content"></textarea>
+        </div>
+
+        <div class="for-group">
+            <label for="startDate">Start date: </label><br>
+            <input type="datetime-local" id="startDate" [(ngModel)]="event.startDateTime" name="startDate">
+        </div>
+
+        <div class="for-group">
+            <label for="endDate">End date: </label><br>
+            <input type="datetime-local" id="endDate" [(ngModel)]="event.endDateTime" name="startDate">
+        </div>
+
+        <button class="btn btn-success" (click)="createEvent()">Create</button>
+    </form>
+</div>
