@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface IUserService {
     User registerNewUserAccount(UserDto accountDto);
 
-    void saveRegisteredUser(User user);
+    User saveRegisteredUser(UserDto user, User foundUser);
 
     void deleteUser(User user);
 

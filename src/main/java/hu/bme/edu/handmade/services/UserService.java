@@ -41,8 +41,13 @@ public class UserService implements IUserService{
         return userRepository.save(user);
     }
     @Override
-    public void saveRegisteredUser(User user) {
-        userRepository.save(user);
+    public User saveRegisteredUser(UserDto newUser, User foundUser) {
+        foundUser.setPhoneNumber(newUser.getPhoneNumber());
+        foundUser.setEmail(newUser.getEmail());
+        foundUser.setAddress(newUser.getAddress());
+        foundUser.setFirstName(newUser.getFirstName());
+        foundUser.setLastName(newUser.getLastName());
+        return userRepository.save(foundUser);
     }
 
     @Override

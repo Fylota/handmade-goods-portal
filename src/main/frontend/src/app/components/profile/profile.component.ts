@@ -26,7 +26,10 @@ export class ProfileComponent implements OnInit {
 
   deleteUser(user: User): void {
     this.httpClientService.deleteUser(user)
-      .subscribe()
+      .subscribe();
+    
+    this.loginService.logOut();
+    this.router.navigate(['home']);
   }
 
   logOut() {
@@ -37,4 +40,11 @@ export class ProfileComponent implements OnInit {
     this.user = response;
   }
 
+  updateUser() {
+    this.httpClientService.updateUser(this.user)
+    .subscribe(_data => {
+      alert("User updated successfully.");
+      this.router.navigate(['home']);
+    });
+  }
 }

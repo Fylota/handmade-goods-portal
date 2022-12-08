@@ -26,7 +26,7 @@ public class User {
     private String email;
     @Basic
     @Column(name = "phone_number")
-    private Integer phoneNumber;
+    private String phoneNumber;
     @Basic
     @Column(name = "address", length = -1)
     private String address;
@@ -76,11 +76,11 @@ public class User {
         this.email = email;
     }
 
-    public Integer getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

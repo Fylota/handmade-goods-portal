@@ -1,7 +1,6 @@
 package hu.bme.edu.handmade.controllers;
 
 import hu.bme.edu.handmade.models.User;
-import hu.bme.edu.handmade.models.UserStatus;
 import hu.bme.edu.handmade.services.IUserService;
 import hu.bme.edu.handmade.web.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,20 +22,9 @@ public class UserController {
         return userService.findUserByEmail(name);
     }
 
-    @GetMapping("")
+    @GetMapping()
     public List<User> getUsers() {
         return userService.findAllUsers();
-    }
-
-    @PostMapping("")
-    public void addUser(@RequestBody UserDto user) {
-        userService.registerNewUserAccount(user);
-    }
-
-    @GetMapping(produces = "application/json")
-    @RequestMapping({ "/validateLogin" })
-    public UserStatus validateLogin() {
-        return new UserStatus("User successfully authenticated");
     }
 
     @DeleteMapping(path = { "/{id}" })
@@ -44,5 +32,12 @@ public class UserController {
         Optional<User> deletedUser = userService.getUserByID(id);
         deletedUser.ifPresent(u -> userService.deleteUser(u));
         return deletedUser.orElseGet(User::new);
+    }
+
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable("id") long id, @RequestBody UserDto user) {
+        return userService.getUserByID(id)
+                .map(foundUser -> userService.saveRegisteredUser(user, foundUser))
+                .orElseGet(() -> userService.registerNewUserAccount(user));
     }
 }

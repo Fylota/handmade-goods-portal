@@ -10,7 +10,7 @@ export class User {
     public matchingPassword: string,
     public email: string,
     public phoneNumber: string,
-    public adress: string,
+    public address: string,
   ) { }
 }
 
@@ -29,10 +29,14 @@ export class HttpClientService {
   }
 
   createUser(user: User) {
-    return this.httpClient.post<User>("http://localhost:8080/user", user);
+    return this.httpClient.post<User>("http://localhost:8080/register", user);
   }
 
   getUser() {
     return this.httpClient.get<User>('http://localhost:8080/user/me');
+  }
+
+  updateUser(user: User) {
+    return this.httpClient.put<User>("http://localhost:8080/user" + "/" + user.id, user);
   }
 }

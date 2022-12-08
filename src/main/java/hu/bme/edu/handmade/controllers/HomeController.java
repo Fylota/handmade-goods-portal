@@ -1,6 +1,5 @@
 package hu.bme.edu.handmade.controllers;
 
-import hu.bme.edu.handmade.repositories.UserRepository;
 import hu.bme.edu.handmade.security.JwtRequest;
 import hu.bme.edu.handmade.security.JwtResponse;
 import hu.bme.edu.handmade.security.JwtTokenUtil;
@@ -28,8 +27,6 @@ public class HomeController {
 
     @Autowired
     private MyUserDetailsService userDetailsService;
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     UserService userService;

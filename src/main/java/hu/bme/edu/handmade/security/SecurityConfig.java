@@ -47,12 +47,14 @@ public class SecurityConfig {
 
         // We don't need CSRF for this example
             http.csrf().disable()
-                // dont authenticate this particular request
-                .authorizeRequests().antMatchers("/authenticate", "/product", "/home", "/product/category/**", "/post", "/event").
-                    permitAll().antMatchers(HttpMethod.OPTIONS, "/**")
-                    .permitAll().
+                // dont authenticate these particular requests
+                .authorizeRequests()
+                    .antMatchers("/register","/authenticate", "/product", "/home", "/product/category/**", "/post", "/event")
+                    .permitAll()
+                    .antMatchers(HttpMethod.OPTIONS, "/**")
+                    .permitAll()
                 // all other requests need to be authenticated
-                        anyRequest().authenticated().and().
+                .anyRequest().authenticated().and().
                 // make sure we use stateless session; session won't be used to
                 // store user's state.
                         exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()

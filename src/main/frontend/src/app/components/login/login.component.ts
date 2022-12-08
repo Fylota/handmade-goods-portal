@@ -18,11 +18,11 @@ export class LoginComponent {
 
   checkLogin() {
     (this.loginservice.authenticate(this.username, this.password).subscribe({
-      next: (data) => {
-        this.router.navigate([''])
+      next: (_data) => {
+        this.router.navigate(['home'])
         this.invalidLogin = false
       },
-      error: (error) => {
+      error: (_error) => {
         this.invalidLogin = true
       }
     }));
