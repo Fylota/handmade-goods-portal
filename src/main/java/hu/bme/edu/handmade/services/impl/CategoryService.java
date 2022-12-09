@@ -1,7 +1,8 @@
-package hu.bme.edu.handmade.services;
+package hu.bme.edu.handmade.services.impl;
 
 import hu.bme.edu.handmade.models.Category;
 import hu.bme.edu.handmade.repositories.CategoryRepository;
+import hu.bme.edu.handmade.services.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,8 +1,9 @@
-package hu.bme.edu.handmade.services;
+package hu.bme.edu.handmade.services.impl;
 
 import hu.bme.edu.handmade.mappers.PostMapper;
 import hu.bme.edu.handmade.models.Post;
 import hu.bme.edu.handmade.repositories.PostRepository;
+import hu.bme.edu.handmade.services.IPostService;
 import hu.bme.edu.handmade.web.dto.PostDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

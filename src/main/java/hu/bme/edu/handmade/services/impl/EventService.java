@@ -1,8 +1,9 @@
-package hu.bme.edu.handmade.services;
+package hu.bme.edu.handmade.services.impl;
 
 import hu.bme.edu.handmade.mappers.EventMapper;
 import hu.bme.edu.handmade.models.Event;
 import hu.bme.edu.handmade.repositories.EventRepository;
+import hu.bme.edu.handmade.services.IEventService;
 import hu.bme.edu.handmade.web.dto.EventDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

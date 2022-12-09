@@ -1,8 +1,9 @@
-package hu.bme.edu.handmade.services;
+package hu.bme.edu.handmade.services.impl;
 
 import hu.bme.edu.handmade.models.User;
 import hu.bme.edu.handmade.repositories.RoleRepository;
 import hu.bme.edu.handmade.repositories.UserRepository;
+import hu.bme.edu.handmade.services.IUserService;
 import hu.bme.edu.handmade.web.dto.UserDto;
 import hu.bme.edu.handmade.web.dto.error.UserAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class UserService implements IUserService{
+public class UserService implements IUserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired

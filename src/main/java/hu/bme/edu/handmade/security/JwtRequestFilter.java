@@ -1,6 +1,6 @@
 package hu.bme.edu.handmade.security;
 
-import hu.bme.edu.handmade.services.MyUserDetailsService;
+import hu.bme.edu.handmade.services.impl.MyUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

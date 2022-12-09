@@ -1,4 +1,4 @@
-package hu.bme.edu.handmade.services;
+package hu.bme.edu.handmade.services.impl;
 
 import hu.bme.edu.handmade.models.Privilege;
 import hu.bme.edu.handmade.models.Role;
