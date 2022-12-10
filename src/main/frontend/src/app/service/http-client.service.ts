@@ -21,11 +21,11 @@ export class HttpClientService {
 
   constructor(private httpClient: HttpClient) { }
   getUsers() {
-    return this.httpClient.get<User[]>('http://localhost:8080/user');
+    return this.httpClient.get<User[]>('http://localhost:8080/users');
   }
 
   deleteUser(user: User) {
-    return this.httpClient.delete<User>("http://localhost:8080/user" + "/" + user.id);
+    return this.httpClient.delete<User>("http://localhost:8080/users" + "/" + user.id);
   }
 
   createUser(user: User) {
@@ -33,10 +33,10 @@ export class HttpClientService {
   }
 
   getUser() {
-    return this.httpClient.get<User>('http://localhost:8080/user/me');
+    return this.httpClient.get<User>('http://localhost:8080/users/me');
   }
 
   updateUser(user: User) {
-    return this.httpClient.put<User>("http://localhost:8080/user" + "/" + user.id, user);
+    return this.httpClient.put<User>("http://localhost:8080/users" + "/" + user.id, user);
   }
 }

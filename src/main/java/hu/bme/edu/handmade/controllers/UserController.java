@@ -1,9 +1,14 @@
 package hu.bme.edu.handmade.controllers;
 
 import hu.bme.edu.handmade.models.User;
+import hu.bme.edu.handmade.model_assemblers.UserModelAssembler;
 import hu.bme.edu.handmade.services.IUserService;
 import hu.bme.edu.handmade.web.dto.UserDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import hu.bme.edu.handmade.web.dto.error.UserNotFoundException;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
@@ -11,33 +16,54 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins="http://localhost:4200", maxAge=3600)
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
-    @Autowired
-    private IUserService userService;
+    private final IUserService userService;
+    private final UserModelAssembler assembler;
+
+    UserController(IUserService userService, UserModelAssembler assembler) {
+        this.userService = userService;
+        this.assembler = assembler;
+    }
 
     @GetMapping("/me")
-    public User user(Principal principal) {
+    public EntityModel<User> user(Principal principal) {
         String name = principal.getName();
-        return userService.findUserByEmail(name);
+        User user = userService.findUserByEmail(name);
+        return assembler.toModel(user);
+    }
+
+    @GetMapping("/{id}")
+    public EntityModel<User> one(@PathVariable Long id) {
+        User user = userService.getUserByID(id)
+                .orElseThrow(() -> new UserNotFoundException("User with id: ${id.toString()} is not found."));
+
+        return assembler.toModel(user);
     }
 
     @GetMapping()
-    public List<User> getUsers() {
-        return userService.findAllUsers();
+    public CollectionModel<EntityModel<User>> getUsers() {
+        List<User> users = userService.findAllUsers();
+        return assembler.toCollectionModel(users);
     }
 
     @DeleteMapping(path = { "/{id}" })
-    public User delete(@PathVariable("id") long id) {
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         Optional<User> deletedUser = userService.getUserByID(id);
-        deletedUser.ifPresent(u -> userService.deleteUser(u));
-        return deletedUser.orElseGet(User::new);
+        deletedUser.ifPresent(userService::deleteUser);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable("id") long id, @RequestBody UserDto user) {
-        return userService.getUserByID(id)
+    public ResponseEntity<?> updateUser(@PathVariable("id") Long id, @RequestBody UserDto user) {
+        User updatedUser = userService.getUserByID(id)
                 .map(foundUser -> userService.saveRegisteredUser(user, foundUser))
                 .orElseGet(() -> userService.registerNewUserAccount(user));
+
+        EntityModel<User> entityModel = assembler.toModel(updatedUser);
+
+        return ResponseEntity
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(entityModel);
     }
 }
