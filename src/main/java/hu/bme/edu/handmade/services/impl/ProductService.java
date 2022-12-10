@@ -6,7 +6,6 @@ import hu.bme.edu.handmade.repositories.CategoryRepository;
 import hu.bme.edu.handmade.repositories.ProductRepository;
 import hu.bme.edu.handmade.services.IProductService;
 import hu.bme.edu.handmade.web.dto.ProductDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,11 +14,14 @@ import java.util.*;
 @Service
 @Transactional
 public class ProductService implements IProductService {
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    @Autowired
-    private  CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
+
+    ProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
+        this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
+    }
 
     @Override
     public Product uploadNewProduct(ProductDto productDto) {
@@ -29,9 +31,10 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void updateProduct(ProductDto productDto) {
-        Optional<Product> foundProduct = productRepository.findById(Long.parseLong(productDto.getId()));
-        foundProduct.ifPresent(p -> productRepository.save(p));
+    public Product updateProduct(ProductDto productDto) {
+        Product product = ProductMapper.INSTANCE.toProduct(productDto);
+        product.setId(Long.parseLong(productDto.getId()));
+        return productRepository.save(product);
     }
 
     @Override

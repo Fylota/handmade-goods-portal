@@ -36,7 +36,7 @@ public class UserController {
     @GetMapping("/{id}")
     public EntityModel<User> one(@PathVariable Long id) {
         User user = userService.getUserByID(id)
-                .orElseThrow(() -> new UserNotFoundException("User with id: ${id.toString()} is not found."));
+                .orElseThrow(() -> new UserNotFoundException("User with id: " + id + " is not found."));
 
         return assembler.toModel(user);
     }

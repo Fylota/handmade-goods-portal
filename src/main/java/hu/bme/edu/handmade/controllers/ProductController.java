@@ -1,11 +1,14 @@
 package hu.bme.edu.handmade.controllers;
 
-import hu.bme.edu.handmade.models.Category;
+import hu.bme.edu.handmade.model_assemblers.ProductModelAssembler;
 import hu.bme.edu.handmade.models.Product;
-import hu.bme.edu.handmade.services.ICategoryService;
 import hu.bme.edu.handmade.services.IProductService;
 import hu.bme.edu.handmade.web.dto.ProductDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import hu.bme.edu.handmade.web.dto.error.ProductNotFoundException;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,46 +16,58 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins="http://localhost:4200", maxAge=3600)
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class ProductController {
-    @Autowired
-    IProductService productService;
+    private final IProductService productService;
+    private final ProductModelAssembler assembler;
+    ProductController(IProductService productService, ProductModelAssembler assembler) {
+        this.productService = productService;
+        this.assembler = assembler;
+    }
 
-    @Autowired
-    private ICategoryService categoryService;
+    @GetMapping("/{id}")
+    public EntityModel<Product> getProduct(@PathVariable("id") Long id) {
+        Product product = productService.findProductById(id)
+                .orElseThrow(() -> new ProductNotFoundException("Product with id:" + id + " is not found."));
+        return assembler.toModel(product);
+    }
 
     @GetMapping()
-    public List<Product> getProducts() {
-        return productService.findAllProducts();
+    public CollectionModel<EntityModel<Product>> getProducts() {
+        List<Product> products = productService.findAllProducts();
+        return assembler.toCollectionModel(products);
     }
+
+    @GetMapping("/category/{id}")
+    public CollectionModel<EntityModel<Product>> getProductsByCategory(@PathVariable("id") Long id) {
+        List<Product> products = productService.findProductsByCategory(id);
+        return assembler.toCollectionModel(products);
+    }
+
     @PostMapping()
-    public void addProduct(@RequestBody ProductDto productDto) {
-        productService.uploadNewProduct(productDto);
+    public ResponseEntity<?> addProduct(@RequestBody ProductDto productDto) {
+        EntityModel<Product> entityModel = assembler.toModel(productService.uploadNewProduct(productDto));
+        return ResponseEntity
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(entityModel);
     }
+
     @PutMapping("/{id}")
-    public String updateProduct(@RequestBody ProductDto productDto) {
-        productService.updateProduct(productDto);
-        return productDto.getId();
+    public ResponseEntity<?> updateProduct(@PathVariable("id") Long id, @RequestBody ProductDto productDto) {
+        Product updatedProduct = productService.findProductById(id)
+                        .map(product -> productService.updateProduct(productDto))
+                        .orElseGet(()->productService.uploadNewProduct(productDto));
+
+        EntityModel<Product> entityModel = assembler.toModel(updatedProduct);
+        return ResponseEntity
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(entityModel);
     }
+
     @DeleteMapping("/{id}")
-    public Product deleteProduct(@PathVariable("id") long id) {
+    public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id) {
         Optional<Product> deletedProduct = productService.findProductById(id);
-        deletedProduct.ifPresent(p -> productService.deleteProduct(p));
-        return deletedProduct.orElseGet(Product::new);
-    }
-
-    @GetMapping("/category")
-    public List<Category> getCategories() {
-        return categoryService.findAllCategories();
-    }
-
-    @GetMapping("/category/view/{category_name}")
-    public Category getCategoryByName(@PathVariable("category_name") String name) {
-        return categoryService.findCategoryByName(name);
-    }
-
-    @GetMapping("/category/{category_id}")
-    public List<Product> getProductsByCategory(@PathVariable("category_id") long id) {
-        return productService.findProductsByCategory(id);
+        deletedProduct.ifPresent(productService::deleteProduct);
+        return ResponseEntity.noContent().build();
     }
 }

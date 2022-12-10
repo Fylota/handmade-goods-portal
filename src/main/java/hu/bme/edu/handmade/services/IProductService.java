@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface IProductService {
     Product uploadNewProduct(ProductDto productDto);
 
-    void updateProduct(ProductDto productDto);
+    Product updateProduct(ProductDto productDto);
 
     void deleteProduct(Product product);
 
