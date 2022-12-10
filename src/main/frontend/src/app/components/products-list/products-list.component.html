@@ -1,13 +1,16 @@
-<div class="row row-cols-1 row-cols-md-4 g-4">
-    <div *ngFor="let product of products" class="col">
-        <div class="card h-20" style="width: 20rem;">
+<div class="container row">
+    <div class="col-md-4" *ngFor="let product of products">
+        <div class="card card-block">
             <img src="../../../assets/no-image-icon-23485.png" class="card-img-top" alt="...">
             <div class="card-body">
             <h5 class="card-title">{{product.name}}</h5>
             <p class="card-text">
                 {{product.description}}
             </p>
-            <button (click)="navigateToProductDetails(product)" class="btn btn-primary">Details</button>
+            <button class="btn btn-primary btn-sm" (click)="navigateToProductDetails(product)">Details</button>
+            <div>
+                <button class="btn btn-primary btn-sm" (click)="addToCart(product.id)">Add To Cart</button>
+            </div>
             </div>
         </div>
     </div> 

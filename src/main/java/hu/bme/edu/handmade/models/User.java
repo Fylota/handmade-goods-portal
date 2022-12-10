@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@JsonIgnoreProperties(value= {"roles"})
+@JsonIgnoreProperties(value= {"roles", "cartProducts"})
 @Table(name = "users", schema = "public", catalog = "postgres")
 public class User {
     @Id
