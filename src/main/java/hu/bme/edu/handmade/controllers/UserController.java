@@ -4,7 +4,7 @@ import hu.bme.edu.handmade.models.User;
 import hu.bme.edu.handmade.model_assemblers.UserModelAssembler;
 import hu.bme.edu.handmade.services.IUserService;
 import hu.bme.edu.handmade.web.dto.UserDto;
-import hu.bme.edu.handmade.web.dto.error.UserNotFoundException;
+import hu.bme.edu.handmade.web.dto.error.ResourceNotFoundException;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
@@ -36,7 +36,7 @@ public class UserController {
     @GetMapping("/{id}")
     public EntityModel<User> one(@PathVariable Long id) {
         User user = userService.getUserByID(id)
-                .orElseThrow(() -> new UserNotFoundException("User with id: " + id + " is not found."));
+                .orElseThrow(() -> new ResourceNotFoundException("User with id: " + id + " is not found."));
 
         return assembler.toModel(user);
     }

@@ -33,4 +33,17 @@ public class EventService implements IEventService {
         Event event = EventMapper.INSTANCE.toEvent(eventDto);
         return eventRepository.save(event);
     }
+
+    @Override
+    public Event updateEvent(EventDto eventDto) {
+        Event event = EventMapper.INSTANCE.toEvent(eventDto);
+        event.setId(Long.parseLong(eventDto.getId()));
+        return eventRepository.save(event);
+    }
+
+    @Override
+    public void deleteEvent(Event event) {
+        eventRepository.delete(event);
+    }
+
 }

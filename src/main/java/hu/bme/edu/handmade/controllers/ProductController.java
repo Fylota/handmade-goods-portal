@@ -4,7 +4,7 @@ import hu.bme.edu.handmade.model_assemblers.ProductModelAssembler;
 import hu.bme.edu.handmade.models.Product;
 import hu.bme.edu.handmade.services.IProductService;
 import hu.bme.edu.handmade.web.dto.ProductDto;
-import hu.bme.edu.handmade.web.dto.error.ProductNotFoundException;
+import hu.bme.edu.handmade.web.dto.error.ResourceNotFoundException;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
@@ -28,7 +28,7 @@ public class ProductController {
     @GetMapping("/{id}")
     public EntityModel<Product> getProduct(@PathVariable("id") Long id) {
         Product product = productService.findProductById(id)
-                .orElseThrow(() -> new ProductNotFoundException("Product with id:" + id + " is not found."));
+                .orElseThrow(() -> new ResourceNotFoundException("Product with id:" + id + " is not found."));
         return assembler.toModel(product);
     }
 
