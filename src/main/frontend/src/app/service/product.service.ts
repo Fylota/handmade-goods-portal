@@ -1,21 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Category } from './http-category.service';
-
-export class Product {
-  constructor(
-    public id: string,
-    public name: string,
-    public price: number,
-    public description: string,
-    public category: string,
-  ) { }
-}
+import { Product } from '../models/product.model';
+import { Category } from './category.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HttpProductService {
+export default class ProductService {
   constructor(private httpClient: HttpClient) { }
 
   createProduct(product: Product) {
@@ -23,7 +14,7 @@ export class HttpProductService {
   }
 
   getProducts() {
-    return this.httpClient.get<Product[]>('http://localhost:8080/products');
+    return this.httpClient.get('http://localhost:8080/products');
   }
 
   getProduct(productId: string) {
@@ -39,6 +30,7 @@ export class HttpProductService {
   }
 
   deleteProduct(product: Product) {
-    return this.httpClient.delete<Product>("http://localhost:8080/product" + "/" + product.id);
+    return this.httpClient.delete<Product>("http://localhost:8080/products" + "/" + product.id);
   }
 }
+export { Product };

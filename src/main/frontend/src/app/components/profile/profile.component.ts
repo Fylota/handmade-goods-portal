@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/service/authentication.service';
-import { HttpClientService, User } from 'src/app/service/http-client.service';
+import { UserService, User } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,7 +11,7 @@ import { HttpClientService, User } from 'src/app/service/http-client.service';
 export class ProfileComponent implements OnInit {
   public user: User = new User("","","","","","","","");
 
-  constructor(private httpClientService: HttpClientService, private router: Router, private loginService: AuthenticationService) { }
+  constructor(private httpClientService: UserService, private router: Router, private loginService: AuthenticationService) { }
 
   ngOnInit(): void {
     if (!this.loginService.isUserLoggedIn()) {

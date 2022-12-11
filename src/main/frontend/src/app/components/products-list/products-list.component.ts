@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CartProduct, CartService } from 'src/app/service/http-cart.service';
-import { HttpClientService, User } from 'src/app/service/http-client.service';
-import { Category, HttpProductService, Product } from 'src/app/service/http-product.service';
+import { CartProduct, CartService } from 'src/app/service/cart.service';
+import { UserService, User } from 'src/app/service/user.service';
+import ProductService, { Product } from 'src/app/service/product.service';
+import { Category } from 'src/app/models/category.model';
 
 @Component({
   selector: 'app-products-list',
@@ -15,20 +16,20 @@ export class ProductsListComponent implements OnInit {
   user?: User;
 
   constructor(
-    private httpProductService: HttpProductService,
+    private httpProductService: ProductService,
     private router: Router,
     private cartService: CartService,
-    private userService: HttpClientService
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
     if (this.category !== undefined) {
       this.httpProductService.getProductsByCategory(this.category).subscribe(
-        response => this.products = response
+        (response: any) => this.products = response._embedded.productList
       );
     } else {
       this.httpProductService.getProducts().subscribe(
-        response => this.products = response
+        (response: any) => this.products = response._embedded.productList
       );
     }
     this.userService.getUser().subscribe(

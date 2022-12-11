@@ -1,23 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { User } from '../models/user.model';
 
-export class User {
-  constructor(
-    public id: string,
-    public firstName: string,
-    public lastName: string,
-    public password: string,
-    public matchingPassword: string,
-    public email: string,
-    public phoneNumber: string,
-    public address: string,
-  ) { }
-}
 
 @Injectable({
   providedIn: 'root'
 })
-export class HttpClientService {
+export class UserService {
 
   constructor(private httpClient: HttpClient) { }
   getUsers() {
@@ -40,3 +29,5 @@ export class HttpClientService {
     return this.httpClient.put<User>("http://localhost:8080/users" + "/" + user.id, user);
   }
 }
+
+export { User };

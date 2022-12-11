@@ -1,14 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-export class CartProduct {
-  constructor(
-    public id: string,
-    public userId: string,
-    public productId: string,
-    public quantity: number
-  ) { }
-}
+import { CartProduct } from '../models/cart-product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,24 +18,20 @@ export class CartService {
 
   getItems(userId: string) {
     return this.httpClient.get<any>("http://localhost:8080/cart" + "/" + userId);
-    /*
-    this.httpClient.get<CartProduct[]>("http://localhost:8080/cart" + "/" + userId).subscribe(
-      response => this.items = response
-    );
-    return this.items;
-    */
   }
 
   removeItem(prod: CartProduct) {
     this.httpClient.delete<any>("http://localhost:8080/cart" + "/" + prod.id).subscribe(
-      response => this.items = this.items.filter(e => e.id !== prod.id)
+      () => this.items = this.items.filter(e => e.id !== prod.id)
     );
   }
 
   clearCart(userId: string) {
-    this.items.forEach(item =>{
+    this.items.forEach(item => {
       this.removeItem(item)
     });
+    // todo send to backend
     return this.items;
   }
 }
+export { CartProduct };

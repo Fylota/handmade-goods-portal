@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpEventService, Event } from 'src/app/service/http-event.service';
+import { EventService, Event } from 'src/app/service/event.service';
 
 @Component({
   selector: 'app-upload-event',
@@ -8,12 +8,12 @@ import { HttpEventService, Event } from 'src/app/service/http-event.service';
 })
 export class UploadEventComponent {
   event = new Event("", "", "", new Date(), new Date(), new Date())
-  constructor(private eventService: HttpEventService) { }
+  constructor(private eventService: EventService) { }
 
   createEvent() {
     this.event.creationDate = new Date();
     this.eventService.createEvent(this.event)
-    .subscribe(data => {
+    .subscribe(() => {
       console.log(this.event);
       alert("Event created successfully.");
     });

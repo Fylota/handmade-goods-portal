@@ -49,7 +49,7 @@ public class SecurityConfig {
             http.csrf().disable()
                 // dont authenticate these particular requests
                 .authorizeRequests()
-                    .antMatchers("/register","/authenticate", "/product", "/home", "/product/category/**", "/post", "/event")
+                    .antMatchers("/register","/authenticate", "/products", "/home", "/products/categories/**", "/posts", "/events")
                     .permitAll()
                     .antMatchers(HttpMethod.OPTIONS, "/**")
                     .permitAll()

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpPostService, Post } from 'src/app/service/http-post.service';
+import { PostService, Post } from 'src/app/service/post.service';
 
 @Component({
   selector: 'app-posts',
@@ -9,11 +9,11 @@ import { HttpPostService, Post } from 'src/app/service/http-post.service';
 export class PostsComponent implements OnInit {
 
   posts: Post[] = []
-  constructor(private postService: HttpPostService) { }
+  constructor(private postService: PostService) { }
 
   ngOnInit(): void {
     this.postService.getPosts().subscribe(
-      response => this.posts = response
+      (response: any) => this.posts = response._embedded.postList
     );
   }
 
