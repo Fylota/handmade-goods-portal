@@ -6,17 +6,17 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-@Table(name = "newsletters", schema = "public", catalog = "postgres")
+@Table(name = "newsletters")
 public class Newsletter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
     @Basic
-    @Column(name = "title", length = -1)
+    @Column(name = "title")
     private String title;
     @Basic
-    @Column(name = "content", length = -1)
+    @Column(name = "content")
     private String content;
     @Basic
     @Column(name = "creation_date")

@@ -4,14 +4,14 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "categories", schema = "public", catalog = "postgres")
+@Table(name = "categories")
 public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
     private long id;
     @Basic
-    @Column(name = "name", length = -1)
+    @Column(name = "name")
     private String name;
 
     public long getId() {

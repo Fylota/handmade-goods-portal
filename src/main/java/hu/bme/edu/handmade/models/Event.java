@@ -5,17 +5,17 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "events", schema = "public", catalog = "postgres")
+@Table(name = "events")
 public class Event {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
     @Basic
-    @Column(name = "title", length = -1)
+    @Column(name = "title")
     private String title;
     @Basic
-    @Column(name = "description", length = -1)
+    @Column(name = "description")
     private String description;
 
     @Basic

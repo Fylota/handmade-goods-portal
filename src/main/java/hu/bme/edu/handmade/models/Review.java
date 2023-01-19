@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "reviews", schema = "public", catalog = "postgres")
+@Table(name = "reviews")
 public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -19,7 +19,7 @@ public class Review {
     @JoinColumn(name = "user_id")
     private User user;
     @Basic
-    @Column(name = "content", length = -1)
+    @Column(name = "content")
     private String content;
     @Basic
     @Column(name = "rating")

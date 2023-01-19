@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-@Table(name = "orders", schema = "public", catalog = "postgres")
+@Table(name = "orders")
 public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -18,7 +18,7 @@ public class Order {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate creationDate;
     @Basic
-    @Column(name = "status", length = -1)
+    @Column(name = "status")
     private String status;
 
     @ManyToOne

@@ -4,17 +4,17 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "products", schema = "public", catalog = "postgres")
+@Table(name = "products")
 public class Product {
     @Basic
-    @Column(name = "name", nullable = false, length = -1)
+    @Column(name = "name", nullable = false)
     private String name;
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
     @Basic
-    @Column(name = "description", length = -1)
+    @Column(name = "description")
     private String description;
     @Basic
     @Column(name = "price")

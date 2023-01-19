@@ -7,26 +7,26 @@ import java.util.*;
 
 @Entity
 @JsonIgnoreProperties(value= {"roles", "cartProducts"})
-@Table(name = "users", schema = "public", catalog = "postgres")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
     @Basic
-    @Column(name = "first_name", nullable = false, length = -1)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
     @Basic
-    @Column(name = "last_name", nullable = false, length = -1)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
     @Basic
-    @Column(name = "email", nullable = false, length = -1)
+    @Column(name = "email", nullable = false)
     private String email;
     @Basic
     @Column(name = "phone_number")
     private String phoneNumber;
     @Basic
-    @Column(name = "address", length = -1)
+    @Column(name = "address")
     private String address;
     private String password;
     private boolean enabled;

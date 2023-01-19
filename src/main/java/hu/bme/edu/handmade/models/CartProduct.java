@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @JsonIgnoreProperties(value= {"user"})
-@Table(name = "cart_products", schema = "public", catalog = "postgres")
+@Table(name = "cart_products")
 public class CartProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

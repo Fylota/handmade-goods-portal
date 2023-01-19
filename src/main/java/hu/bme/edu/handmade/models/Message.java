@@ -4,10 +4,10 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "messages", schema = "public", catalog = "postgres")
+@Table(name = "messages")
 public class Message {
     @Basic
-    @Column(name = "content", length = -1)
+    @Column(name = "content")
     private String content;
 
     @ManyToOne

@@ -5,7 +5,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "wishlists", schema = "public", catalog = "postgres")
+@Table(name = "wishlists")
 public class Wishlist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
