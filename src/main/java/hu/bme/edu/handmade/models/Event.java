@@ -1,7 +1,11 @@
 package hu.bme.edu.handmade.models;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -11,23 +15,20 @@ public class Event {
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
-    @Basic
     @Column(name = "title")
     private String title;
-    @Basic
     @Column(name = "description")
     private String description;
-
-    @Basic
     @Column(name = "start_date")
     private LocalDateTime startDateTime;
-
-    @Basic
     @Column(name = "end_date")
     private LocalDateTime endDateTime;
-    @Basic
-    @Column(name = "date")
-    private LocalDateTime creationDate;
+    @CreatedDate
+    @Column(name = "created_date")
+    private Date createdDate;
+    @LastModifiedDate
+    @Column(name = "last_modified_date")
+    private Date lastModifiedDate;
 
     public Long getId() {
         return id;
@@ -69,12 +70,20 @@ public class Event {
         this.endDateTime = endDateTime;
     }
 
-    public LocalDateTime getCreationDate() {
-        return creationDate;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCreationDate(LocalDateTime date) {
-        this.creationDate = date;
+    public void setCreatedDate(Date date) {
+        this.createdDate = date;
+    }
+
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     @Override
@@ -82,11 +91,11 @@ public class Event {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Event event = (Event) o;
-        return Objects.equals(id, event.id) && Objects.equals(title, event.title) && Objects.equals(description, event.description) && Objects.equals(creationDate, event.creationDate);
+        return Objects.equals(id, event.id) && Objects.equals(title, event.title) && Objects.equals(description, event.description) && Objects.equals(createdDate, event.createdDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, creationDate);
+        return Objects.hash(id, title, description, createdDate);
     }
 }

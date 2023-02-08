@@ -35,9 +35,9 @@ public class EventService implements IEventService {
     }
 
     @Override
-    public Event updateEvent(EventDto eventDto) {
+    public Event updateEvent(EventDto eventDto, Long eventId) {
         Event event = EventMapper.INSTANCE.toEvent(eventDto);
-        event.setId(Long.parseLong(eventDto.getId()));
+        event.setId(eventId);
         return eventRepository.save(event);
     }
 

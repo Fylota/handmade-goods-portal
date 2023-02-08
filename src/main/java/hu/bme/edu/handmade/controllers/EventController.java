@@ -49,7 +49,7 @@ public class EventController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateEvent(@PathVariable("id") Long id, @RequestBody EventDto eventDto) {
         Event updatedEvent = eventService.findEventById(id)
-                .map(event -> eventService.updateEvent(eventDto))
+                .map(event -> eventService.updateEvent(eventDto, id))
                 .orElseGet(()->eventService.addEvent(eventDto));
 
         EntityModel<Event> entityModel = assembler.toModel(updatedEvent);
