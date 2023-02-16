@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
 import { Category } from './category.service';
 
@@ -13,8 +14,8 @@ export default class ProductService {
     return this.httpClient.post<Product>("http://localhost:8080/products", product);
   }
 
-  getProducts() {
-    return this.httpClient.get('http://localhost:8080/products');
+  getProducts(): Observable<Product[]> {
+    return this.httpClient.get<Product[]>('http://localhost:8080/products');
   }
 
   getProduct(productId: string) {

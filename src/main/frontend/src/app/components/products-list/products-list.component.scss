@@ -1,0 +1,23 @@
+.products--container {
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(200px, 1fr) );
+    gap: 7px;
+}
+
+.product--card {
+    width: max-content;
+}
+
+.product--card:hover {
+    box-shadow: 0 0 10px 3px rgb(209, 209, 209);
+}
+
+.product--card-img {
+    width: 200px;
+    object-fit: cover;
+}
+
+.product--card-button-container {
+    display: flex;
+    width: 100%;
+}

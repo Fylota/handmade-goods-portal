@@ -1,0 +1,24 @@
+aside, main {
+    padding: 25px;
+}
+
+.category--container {
+    display: flex;
+    overflow-x: auto;
+}
+
+.category--card {
+    position: relative;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.category--card:hover {
+    box-shadow: 0 0 10px 3px rgb(209, 209, 209);
+}
+
+.category--card-title {
+    position: absolute;
+    bottom: 1rem;
+    left: 2rem;
+}

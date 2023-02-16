@@ -29,6 +29,8 @@ import { UploadNewsComponent } from './components/upload-news/upload-news.compon
 import { PostsComponent } from './components/posts/posts.component';
 import { EventsComponent } from './components/events/events.component';
 import { UploadEventComponent } from './components/upload-event/upload-event.component';
+import { HomeHeroComponent } from './components/home-hero/home-hero.component';
+import { AdminPageComponent } from './components/admin-page/admin-page.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { UploadEventComponent } from './components/upload-event/upload-event.com
     UploadNewsComponent,
     PostsComponent,
     EventsComponent,
-    UploadEventComponent
+    UploadEventComponent,
+    HomeHeroComponent,
+    AdminPageComponent
   ],
   imports: [
     BrowserModule,

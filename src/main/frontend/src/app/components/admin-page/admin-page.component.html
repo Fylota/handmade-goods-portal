@@ -1,0 +1,40 @@
+<h1 class="admin--title">Admin Page</h1>
+<div class="admin--navigation">
+    <ul>
+        <li (click)="scrollToElement(manageProducts)">Products</li>
+        <li (click)="scrollToElement(manageOrders)">Orders</li>
+        <li (click)="scrollToElement(manageNews)">News</li>
+        <li (click)="scrollToElement(manageUsers)">Users</li>
+        <li (click)="scrollToElement(manageEvents)">Events</li>
+    </ul>
+</div>
+<section #manageProducts class="admin--section">
+    <h2 class="admin--section-title">Manage Products</h2>
+    <div class="admin--section-content">
+        <div class="admin--section-content-side">
+            <button (click)="handleAdd()">Add new product</button>
+            <button (click)="handleModify()">Modify / Delete product</button>
+            <button (click)="handleCreateCat()">Create new category</button>
+            <button (click)="handleModifyCat()">Modify category</button>
+        </div>
+        <div [ngSwitch]="activeTab">
+            <app-upload-product *ngSwitchCase="0"></app-upload-product>
+            <p *ngSwitchCase="1">TODO Modify / Delete product</p>
+            <p *ngSwitchCase="2">TODO Create new category</p>
+            <p *ngSwitchCase="3">TODO Modify category</p>
+        </div>
+    </div>
+</section>
+
+<section #manageOrders class="admin--section">
+    <h2 class="admin--section-title">Manage Orders</h2>
+</section>
+<section #manageNews class="admin--section">
+    <h2 class="admin--section-title">Manage News</h2>
+</section>
+<section #manageUsers class="admin--section">
+    <h2 class="admin--section-title">Manage Users</h2>
+</section>
+<section #manageEvents class="admin--section">
+    <h2 class="admin--section-title">Manage Events</h2>
+</section>

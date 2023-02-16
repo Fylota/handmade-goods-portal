@@ -1,14 +1,14 @@
 <header>
-    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark d-flex justify-content-between">
+    <nav class="navbar navbar-expand-lg d-flex justify-content-between">
         <div>
-            <button class="bg-dark" type="button" (click)="drawerRef.toggle()">
+            <button type="button" (click)="drawerRef.toggle()">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a href="/" class="navbar-brand">MyBrand</a>
+            <a href="/home" class="navbar-brand">MyBrand</a>
         </div>
         <div>
             <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
                 <button class="btn btn-outline-success" type="submit"><fa-icon [icon]="faSearch"></fa-icon></button>
             </form>
         </div>

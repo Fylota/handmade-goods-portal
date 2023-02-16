@@ -1,18 +1,11 @@
 <aside>
     <h2>Shop by Categories</h2>
-    <div class="card-group">
-        <div *ngFor="let category of categories" class="card h-20" style="width: 10rem;">
-            <img src="../../../assets/no-image-icon-23485.png" class="card-img-top" alt="...">
-            <div class="card-body">
-            <h5 class="card-title">{{category.name}}</h5>
-            <p class="card-text">
-                I am a category.
-            </p>
-            <button class="btn btn-primary" (click)="goToCategory(category)">Go to category</button>
-            </div>
+    <div class="category--container">
+        <div *ngFor="let category of categories" class="category--card" (click)="goToCategory(category)">
+            <img src="../../../assets/no-image-icon-23485.png" class="category--card-img" alt={{category.name}}>
+            <p class="category--card-title">{{category.name}}</p>
         </div>
     </div>
-    
 </aside>
 
 <main>
