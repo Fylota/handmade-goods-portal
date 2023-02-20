@@ -1,0 +1,37 @@
+main {
+    padding: 3em;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 2em;
+}
+
+main > div {
+    padding: 1em;
+    padding-bottom: 0;
+    border: 1px solid black;
+}
+
+.cart--title {
+    font-weight: 600;
+    margin-bottom: 1em;
+}
+
+.cart-item--container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    margin-bottom: 1em;
+    gap: 1em;
+}
+
+.item--image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.cart-empty--container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 4em;
+}

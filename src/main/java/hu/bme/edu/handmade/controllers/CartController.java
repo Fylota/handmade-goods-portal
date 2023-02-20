@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins="http://localhost:4200", maxAge=3600)
@@ -30,8 +31,9 @@ public class CartController {
         return cartService.updateCartProduct(cartProductDto);
     }
 
-    @DeleteMapping()
-    void removeCartProduct(@RequestBody CartProductDto cartProductDto) {
-        cartService.deleteCartProduct(cartProductDto);
+    @DeleteMapping("/{id}")
+    void removeCartProduct(@PathVariable("id") Long id) {
+        Optional<CartProduct> deletedCartProduct = cartService.findCartProductById(id);
+        deletedCartProduct.ifPresent(cartService::deleteCartProduct);
     }
 }

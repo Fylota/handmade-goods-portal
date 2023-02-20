@@ -1,37 +1,47 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
 import { CartProduct } from '../models/cart-product.model';
+import { HttpErrorHandler, HandleError } from '../service/http-error-handler.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  items: CartProduct[] = [];
+  private handleError: HandleError;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient,
+    httpErrorHandler: HttpErrorHandler) {
+      this.handleError = httpErrorHandler.createHandleError('CartService');
+    }
 
-  addToCart(prod: CartProduct) {
-    this.httpClient.post<CartProduct>("http://localhost:8080/cart" + "/" + prod.userId, prod).subscribe(
-      response => this.items.push(response)
+  addToCart(prod: CartProduct): Observable<CartProduct> {
+    return this.httpClient.post<CartProduct>("http://localhost:8080/cart", prod)
+    .pipe(
+      catchError(this.handleError('addToCart', prod))
     );
   }
 
-  getItems(userId: string) {
-    return this.httpClient.get<any>("http://localhost:8080/cart" + "/" + userId);
+  getItems(userId: string): Observable<CartProduct[]> {
+    return this.httpClient.get<CartProduct[]>("http://localhost:8080/cart" + "/" + userId)
+      .pipe(
+        catchError(this.handleError('getItems', []))
+      );
   }
 
-  removeItem(prod: CartProduct) {
-    this.httpClient.delete<any>("http://localhost:8080/cart" + "/" + prod.id).subscribe(
-      () => this.items = this.items.filter(e => e.id !== prod.id)
-    );
+  removeItem(prod: CartProduct): Observable<unknown> {
+    return this.httpClient.delete("http://localhost:8080/cart" + "/" + prod.id)
+      .pipe(
+        catchError(this.handleError('removeItem'))
+      );
   }
 
   clearCart(userId: string) {
-    this.items.forEach(item => {
-      this.removeItem(item)
-    });
-    // todo send to backend
-    return this.items;
+    //TODO
   }
+
 }
-export { CartProduct };

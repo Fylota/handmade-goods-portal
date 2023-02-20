@@ -1,6 +1,33 @@
-<h3>Cart</h3>
+<div *ngIf="products.length === 0; then thenBlock else elseBlock"></div>
 
-<div class="cart-item" *ngFor="let item of products">
-  <span>{{ item.product.name }}</span>
-  <span>{{ item.quantity }}</span>
-</div>
+<ng-template #thenBlock>
+  <div class="cart-empty--container">
+    <h1>Your cart is empty</h1>
+    <button (click)="navigateToHome()">Back to the main page</button>
+  </div>
+</ng-template>
+
+<ng-template #elseBlock>
+  <main>
+    <div class="cart--container">
+      <h2 class="cart--title">Shopping cart</h2>
+      <div class="cart-item--container" *ngFor="let item of products">
+        <img class="item--image" src="https://source.unsplash.com/random/300×300" alt="{{ item.product.name }}">
+        <div>
+          <h3>{{ item.product.name }}</h3>
+          <p>quantity: {{ item.quantity }}</p>
+          <button (click)="removeFromCart(item)">Delete</button>
+        </div>
+        <div>
+          <p>{{ item.product.price }} Ft</p>
+        </div>    
+      </div>
+    </div>
+
+    <div class="cart--summary">
+      <h2 class="cart--title">Subtotal</h2>
+      <p>{{ subTotal }} Ft</p>
+      <button>Proceed to checkout</button>
+    </div>
+  </main>
+</ng-template>

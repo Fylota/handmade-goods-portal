@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -45,10 +46,15 @@ public class CartProductService implements ICartProductService {
     }
 
     @Override
-    public void deleteCartProduct(CartProductDto cartProductDto) {
-        cartProductRepository.findById(Long.parseLong(cartProductDto.getId())).ifPresent(cp ->
+    public void deleteCartProduct(CartProduct cartProduct) {
+        cartProductRepository.findById(cartProduct.getId()).ifPresent(cp ->
             cartProductRepository.delete(cp)
         );
+    }
+
+    @Override
+    public Optional<CartProduct> findCartProductById(Long id) {
+        return cartProductRepository.findById(id);
     }
 
 }

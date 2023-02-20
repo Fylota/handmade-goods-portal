@@ -31,6 +31,8 @@ import { EventsComponent } from './components/events/events.component';
 import { UploadEventComponent } from './components/upload-event/upload-event.component';
 import { HomeHeroComponent } from './components/home-hero/home-hero.component';
 import { AdminPageComponent } from './components/admin-page/admin-page.component';
+import { MessageService } from './service/message.service';
+import { HttpErrorHandler } from './service/http-error-handler.service';
 
 @NgModule({
   declarations: [
@@ -69,6 +71,8 @@ import { AdminPageComponent } from './components/admin-page/admin-page.component
     BrowserAnimationsModule
   ],
   providers: [
+    HttpErrorHandler,
+    MessageService,
     {
       provide:HTTP_INTERCEPTORS, useClass:BasicAuthHtppInterceptorService, multi:true
     }

@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CartProduct, CartService } from 'src/app/service/cart.service';
+import { CartService } from 'src/app/service/cart.service';
 import { UserService, User } from 'src/app/service/user.service';
 import ProductService, { Product } from 'src/app/service/product.service';
 import { Category } from 'src/app/models/category.model';
+import { AuthenticationService } from 'src/app/service/authentication.service';
+import { CartProduct } from 'src/app/models/cart-product.model';
 
 @Component({
   selector: 'app-products-list',
@@ -19,6 +21,7 @@ export class ProductsListComponent implements OnInit {
     private httpProductService: ProductService,
     private router: Router,
     private cartService: CartService,
+    private authService: AuthenticationService,
     private userService: UserService
   ) { }
 
@@ -32,9 +35,12 @@ export class ProductsListComponent implements OnInit {
         (response: any) => this.products = response._embedded.productList
       );
     }
-    this.userService.getUser().subscribe(
-      response => this.user = response
-    );
+    if (this.authService.isUserLoggedIn()) {
+      this.userService.getUser().subscribe(
+        response => this.user = response
+      );
+    }
+    
   }
 
   navigateToProductDetails(product: Product) {
@@ -42,9 +48,14 @@ export class ProductsListComponent implements OnInit {
   }
 
   addToCart(productId: string) {
-    let userId = this.user !== null ? this.user!.id : "";
-    let cartProduct = new CartProduct("",userId, productId, 1);
-    this.cartService.addToCart(cartProduct);
-    window.alert('Your product has been added to the cart!');
+    if (!this.authService.isUserLoggedIn()) {
+      window.alert('You must log in first!');
+      // TODO temp cart
+    } else {
+      let userId = this.user !== null ? this.user!.id : "";
+      let cartProduct = new CartProduct("",userId, productId, 1);
+      this.cartService.addToCart(cartProduct).subscribe();
+      window.alert('Your product has been added to the cart!');
+    }
   }
 }
