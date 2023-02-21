@@ -41,8 +41,11 @@ public class CartProductService implements ICartProductService {
 
     @Override
     public CartProduct updateCartProduct(CartProductDto cartProductDto) {
-        CartProduct cartProduct = CartProductMapper.INSTANCE.toCartProduct(cartProductDto);
-        return cartProductRepository.save(cartProduct);
+        CartProduct prod = CartProductMapper.INSTANCE.toCartProduct(cartProductDto);
+        prod.setId(Long.parseLong(cartProductDto.getId()));
+        productService.findProductById(Long.parseLong(cartProductDto.getProductId())).ifPresent(prod::setProduct);
+        userService.getUserByID(Long.parseLong(cartProductDto.getUserId())).ifPresent(prod::setUser);
+        return cartProductRepository.save(prod);
     }
 
     @Override

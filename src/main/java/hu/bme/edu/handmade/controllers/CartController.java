@@ -28,7 +28,9 @@ public class CartController {
 
     @PutMapping()
     CartProduct updateCartProduct(@RequestBody CartProductDto cartProductDto) {
-        return cartService.updateCartProduct(cartProductDto);
+        return cartService.findCartProductById(Long.parseLong(cartProductDto.getId()))
+                .map(product -> cartService.updateCartProduct(cartProductDto))
+                .orElseGet(()->cartService.addCartProduct(cartProductDto));
     }
 
     @DeleteMapping("/{id}")

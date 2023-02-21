@@ -40,6 +40,13 @@ export class CartService {
       );
   }
 
+  updateItem(prod: CartProduct): Observable<CartProduct> {
+    return this.httpClient.put<CartProduct>("http://localhost:8080/cart", prod)
+      .pipe(
+        catchError(this.handleError('updateItem', prod))
+      );
+  }
+
   clearCart(userId: string) {
     //TODO
   }

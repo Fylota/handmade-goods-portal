@@ -4,6 +4,9 @@ import { CartProduct } from 'src/app/models/cart-product.model';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { CartService } from 'src/app/service/cart.service';
 import { UserService, User } from 'src/app/service/user.service';
+import { faX } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faMinus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-cart',
@@ -14,6 +17,10 @@ export class CartComponent implements OnInit {
   user: User | undefined;
   products: any[] = [];
   subTotal = 0;
+
+  faX = faX;
+  faPlus = faPlus;
+  faMinus = faMinus;
 
   constructor(
     private cartService: CartService,
@@ -56,6 +63,37 @@ export class CartComponent implements OnInit {
     this.cartService.removeItem(prod).subscribe();
   }
 
+  increaseQty(prod: any) {
+    if (this.user !== undefined) {
+      this.products = this.products.map(p => {
+        if (p === prod) {
+          return {...p, quantity: p.quantity + 1};
+        }
+        else {
+          return {...p};
+        }
+      } );
+      this.calcSubtotal();
+      this.cartService.updateItem({id: prod.id, userId: this.user.id, productId: prod.product.id, quantity: prod.quantity + 1}).subscribe();
+    } 
+  }
+
+  decreaseQty(prod: any) {
+    if (this.user !== undefined && prod.quantity > 1) {
+      this.products = this.products.map(p => {
+        if (p === prod) {
+          return {...p, quantity: p.quantity - 1};
+        }
+        else {
+          return {...p};
+        }
+      } );
+      this.calcSubtotal();
+      this.cartService.updateItem({id: prod.id, userId: this.user.id, productId: prod.product.id, quantity: prod.quantity - 1}).subscribe();
+    }
+  }
+
+
   calcSubtotal(): void {
     this.subTotal = this.products.reduce((subTot, prod) => 
       subTot + prod.quantity * prod.product.price,0
@@ -64,5 +102,9 @@ export class CartComponent implements OnInit {
 
   navigateToHome(): void {
     this.router.navigate(["home"]);
+  }
+
+  navigateToProducts() {
+    this.router.navigate(['products']);
   }
 }

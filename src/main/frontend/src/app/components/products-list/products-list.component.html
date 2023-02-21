@@ -1,6 +1,6 @@
 <div class="products--container">
     <div class="col-md-4" *ngFor="let product of products">
-        <div class="product--card">
+        <div class="product--card" (click)="navigateToProductDetails(product)">
             <img
                 src="../../../assets/no-image-icon-23485.png"
                 alt="..."
@@ -9,13 +9,8 @@
             />
             <h5 class="card--title">{{ product.name }}</h5>
             <div class="product--card-button-container">
-                <button
-                    class="card--button"
-                    (click)="navigateToProductDetails(product)">
-                    Details
-                </button>
-                <button class="card--button" (click)="addToCart(product.id)">
-                    Add To Cart
+                <button class="addToCart--button" (click)="addToCart(product.id)">
+                    <fa-icon [icon]="faCartPlus"></fa-icon>
                 </button>
             </div>
         </div>

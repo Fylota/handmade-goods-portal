@@ -6,6 +6,7 @@ import ProductService, { Product } from 'src/app/service/product.service';
 import { Category } from 'src/app/models/category.model';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { CartProduct } from 'src/app/models/cart-product.model';
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-products-list',
@@ -16,6 +17,7 @@ export class ProductsListComponent implements OnInit {
   @Input() category?: Category;
   products: Product[] = [];
   user?: User;
+  faCartPlus = faCartPlus;
 
   constructor(
     private httpProductService: ProductService,
