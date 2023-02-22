@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Category, CategoryService } from 'src/app/service/category.service';
 import ProductService, { Product } from 'src/app/service/product.service';
 
@@ -8,6 +8,8 @@ import ProductService, { Product } from 'src/app/service/product.service';
   styleUrls: ['./upload-product.component.scss']
 })
 export class UploadProductComponent implements OnInit {
+  @Input()
+  editProduct: Product | undefined;
 
   categories: Category[] = [];
   product: Product = new Product("","",0,"","");
@@ -18,6 +20,9 @@ export class UploadProductComponent implements OnInit {
     this.categoryService.getCategories().subscribe(
       response => this.categories = response
     );
+    if (this.editProduct) {
+      this.product = this.editProduct;
+    }
   }
 
   createProduct() {
@@ -26,6 +31,22 @@ export class UploadProductComponent implements OnInit {
         console.log(this.product);
         alert("Product created successfully.");
       });
+  }
+
+  updateProduct() {
+    this.productService.updateProduct(this.product)
+      .subscribe(() => {
+        console.log(this.product);
+        alert("Product created successfully.");
+      });
+  }
+
+  SaveProduct() {
+    this.editProduct ? this.updateProduct() : this.createProduct();
+  }
+
+  cancelEditing() {
+    this.editProduct = undefined;
   }
 
 }

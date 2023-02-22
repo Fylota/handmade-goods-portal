@@ -35,6 +35,7 @@ import { MessageService } from './service/message.service';
 import { HttpErrorHandler } from './service/http-error-handler.service';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { CartItemsTableComponent } from './components/cart-items-table/cart-items-table.component';
+import { AdminSectionListComponent } from './components/admin-section-list/admin-section-list.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { CartItemsTableComponent } from './components/cart-items-table/cart-item
     HomeHeroComponent,
     AdminPageComponent,
     CheckoutComponent,
-    CartItemsTableComponent
+    CartItemsTableComponent,
+    AdminSectionListComponent
   ],
   imports: [
     BrowserModule,

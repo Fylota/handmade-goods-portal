@@ -11,15 +11,22 @@
 <section #manageProducts class="admin--section">
     <h2 class="admin--section-title">Manage Products</h2>
     <div class="admin--section-content">
-        <div class="admin--section-content-side">
-            <button (click)="handleAdd()">Add new product</button>
-            <button (click)="handleModify()">Modify / Delete product</button>
-            <button (click)="handleCreateCat()">Create new category</button>
-            <button (click)="handleModifyCat()">Modify category</button>
+        <div class="admin--section-content-top">
+            <button (click)="handleProductsTab(0)">Add new product</button>
+            <button (click)="handleProductsTab(1)">Modify / Delete product</button>
+            <button (click)="handleProductsTab(2)">Create new category</button>
+            <button (click)="handleProductsTab(3)">Modify category</button>
         </div>
         <div [ngSwitch]="activeTab">
             <app-upload-product *ngSwitchCase="0"></app-upload-product>
-            <p *ngSwitchCase="1">TODO Modify / Delete product</p>
+            <app-admin-section-list *ngSwitchCase="1" 
+                [items]="allProducts" 
+                (deleteItem)="deleteItem($event)" 
+                (editItem)="editItem($event)">
+            </app-admin-section-list>
+            <app-upload-product *ngIf="editProduct" 
+                [editProduct]="editProduct">
+            </app-upload-product>
             <p *ngSwitchCase="2">TODO Create new category</p>
             <p *ngSwitchCase="3">TODO Modify category</p>
         </div>

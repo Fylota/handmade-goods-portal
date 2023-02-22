@@ -1,5 +1,4 @@
-<div class="col-md-6">
-    <h2 class="text-center">Upload product</h2>
+<div>
     <form>
         <div class="form-group">
             <label for="name">Name: </label>
@@ -9,13 +8,14 @@
 
         <div class="form-group">
             <label for="description">Description: </label>
-            <input type="text" [(ngModel)]="product.description" name="description" class="form-control"
+            <textarea [(ngModel)]="product.description" name="description" class="form-control"
                 id="description">
+            </textarea>
         </div>
 
         <div class="form-group">
             <label for="price">Price: </label>
-            <input type="number" [(ngModel)]="product.price" name="price" class="form-control" id="price">
+            <input type="text" [(ngModel)]="product.price" name="price" class="form-control" id="price">
         </div>
 
         <div class="form-group">
@@ -26,6 +26,7 @@
             </select>
         </div>
 
-        <button class="btn btn-success" (click)="createProduct()">Create</button>
+        <button class="btn btn-success" (click)="SaveProduct()">Save</button>
+        <button (click)="cancelEditing()">Cancel</button>
     </form>
 </div>

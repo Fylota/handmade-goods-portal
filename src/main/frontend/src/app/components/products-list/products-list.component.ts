@@ -42,7 +42,7 @@ export class ProductsListComponent implements OnInit {
         response => this.user = response
       );
     }
-    
+
   }
 
   navigateToProductDetails(product: Product) {

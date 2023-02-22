@@ -16,24 +16,20 @@
 }
 
 .admin--section{
-    background-color: mediumaquamarine;
+    background: #f9f9f9;
     min-height: 300px;
-    padding: 20px;
-    margin-top: 8px;
+    padding: 4em;
+    margin-top: 3rem;
 }
 
 .admin--section-title {
     text-align: center;
+    margin-bottom: 1rem;
 }
 
-.admin--section-content {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    justify-items: start;
-}
-
-.admin--section-content-side {
+.admin--section-content-top {
     display: flex;
-    flex-direction: column;
-    margin-inline: 10px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 2rem;
 }
