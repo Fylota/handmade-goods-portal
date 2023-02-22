@@ -30,8 +30,8 @@ export default class ProductService {
     return this.httpClient.put<Product>('http://localhost:8080/products' + "/" + product.id, product);
   }
 
-  deleteProduct(product: Product) {
-    return this.httpClient.delete<Product>("http://localhost:8080/products" + "/" + product.id);
+  deleteProduct(id: string) {
+    return this.httpClient.delete<Product>("http://localhost:8080/products" + "/" + id);
   }
 }
 export { Product };
