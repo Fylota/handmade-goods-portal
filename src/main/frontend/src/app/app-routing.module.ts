@@ -4,6 +4,7 @@ import { AddUserComponent } from './components/add-user/add-user.component';
 import { AdminPageComponent } from './components/admin-page/admin-page.component';
 import { CartComponent } from './components/cart/cart.component';
 import { CategoryComponent } from './components/category/category.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 import { EventsComponent } from './components/events/events.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent, canActivate:[AuthGuardService] },
   { path: 'wishlist', component: WishlistComponent, canActivate:[AuthGuardService] },
   { path: 'admin', component: AdminPageComponent, canActivate:[AuthGuardService]},
+  { path: 'checkout', component: CheckoutComponent, canActivate:[AuthGuardService]},
 
   { path: '**', component: PageNotFoundComponent },
 ];

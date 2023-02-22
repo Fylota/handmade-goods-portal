@@ -1,7 +1,7 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserComponent } from './components/user/user.component';
@@ -33,6 +33,8 @@ import { HomeHeroComponent } from './components/home-hero/home-hero.component';
 import { AdminPageComponent } from './components/admin-page/admin-page.component';
 import { MessageService } from './service/message.service';
 import { HttpErrorHandler } from './service/http-error-handler.service';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { CartItemsTableComponent } from './components/cart-items-table/cart-items-table.component';
 
 @NgModule({
   declarations: [
@@ -59,13 +61,16 @@ import { HttpErrorHandler } from './service/http-error-handler.service';
     EventsComponent,
     UploadEventComponent,
     HomeHeroComponent,
-    AdminPageComponent
+    AdminPageComponent,
+    CheckoutComponent,
+    CartItemsTableComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     FontAwesomeModule,
     MaterialModule,
     BrowserAnimationsModule

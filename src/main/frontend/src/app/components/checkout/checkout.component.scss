@@ -1,0 +1,55 @@
+main {
+    padding: 50px 50px 20px;
+}
+
+.checkout--header {
+    margin: 0 0 35px;
+    padding: 0 14px;
+    width: 100%;
+    text-align: center;
+}
+
+.title {
+    margin: 0 auto 20px;
+    font-weight: 700;
+}
+
+.description {
+    font-size: 1.5rem;
+}
+
+.shipping-form--wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    background: #f9f9f9;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    
+    input {
+        margin-bottom: 1em;
+    }
+}
+
+.options--wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    gap: 1em;
+
+    div {
+        display: flex;
+        padding: 20px;
+        background: #f9f9f9;
+        align-items: flex-start;
+    }
+}
+
+.section--header {
+    display: block;
+    margin: 0;
+    padding: 15px;
+    background: #eee;
+    font-weight: 600;
+    font-size: 20px;
+}
