@@ -4,9 +4,7 @@ import { CartProduct } from 'src/app/models/cart-product.model';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { CartService } from 'src/app/service/cart.service';
 import { UserService, User } from 'src/app/service/user.service';
-import { faX } from '@fortawesome/free-solid-svg-icons';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { faMinus } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-cart',
@@ -17,10 +15,6 @@ export class CartComponent implements OnInit {
   user: User | undefined;
   products: any[] = [];
   subTotal = 0;
-
-  faX = faX;
-  faPlus = faPlus;
-  faMinus = faMinus;
 
   constructor(
     private cartService: CartService,
@@ -106,5 +100,9 @@ export class CartComponent implements OnInit {
 
   navigateToProducts() {
     this.router.navigate(['products']);
+  }
+
+  navigateToCheckout() {
+    this.router.navigate(['checkout']);
   }
 }
