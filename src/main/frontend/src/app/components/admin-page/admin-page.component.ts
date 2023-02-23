@@ -44,4 +44,24 @@ export class AdminPageComponent {
     );
   }
 
+  closeEditing() {
+    this.editProduct = undefined;
+  }
+
+  updateItem(updatedProduct: Product) {
+    this.allProducts = this.allProducts.map(p => {
+      if (p.id === updatedProduct.id) {
+        return updatedProduct;
+      } else {
+        return p;
+      }
+    })
+    this.closeEditing();
+  }
+
+  saveItem(newItem: Product) {
+    this.allProducts = [...this.allProducts, newItem];
+    this.closeEditing();
+  }
+
 }

@@ -18,14 +18,18 @@
             <button (click)="handleProductsTab(3)">Modify category</button>
         </div>
         <div [ngSwitch]="activeTab">
-            <app-upload-product *ngSwitchCase="0"></app-upload-product>
+            <app-upload-product *ngSwitchCase="0"
+                (newProductSaved)="saveItem($event)">
+            </app-upload-product>
             <app-admin-section-list *ngSwitchCase="1" 
                 [items]="allProducts" 
                 (deleteItem)="deleteItem($event)" 
                 (editItem)="editItem($event)">
             </app-admin-section-list>
             <app-upload-product *ngIf="editProduct" 
-                [editProduct]="editProduct">
+                [editProduct]="editProduct"
+                (closeEditing)="closeEditing()"
+                (updatedProduct)="updateItem($event)">
             </app-upload-product>
             <p *ngSwitchCase="2">TODO Create new category</p>
             <p *ngSwitchCase="3">TODO Modify category</p>

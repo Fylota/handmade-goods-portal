@@ -20,13 +20,12 @@
 
         <div class="form-group">
             <label for="category">Category: </label><br>
-            <select class="form-select" aria-label="select category" [(ngModel)]="product.category" name="category" id="category">
-                <option selected>Open this select menu</option>
-                <option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.name}}</option>
+            <select class="form-select" aria-label="select-category" [(ngModel)]="product.category" name="category" id="category">
+                <option *ngFor="let cat of categories" [ngValue]="cat.id">{{ cat.name }}</option>
             </select>
         </div>
 
-        <button class="btn btn-success" (click)="SaveProduct()">Save</button>
+        <button class="btn btn-success" (click)="handleSaveButton()">Save</button>
         <button (click)="cancelEditing()">Cancel</button>
     </form>
 </div>

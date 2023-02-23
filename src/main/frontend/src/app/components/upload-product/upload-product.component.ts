@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Category, CategoryService } from 'src/app/service/category.service';
 import ProductService, { Product } from 'src/app/service/product.service';
 
@@ -14,6 +14,13 @@ export class UploadProductComponent implements OnInit {
   categories: Category[] = [];
   product: Product = new Product("","",0,"","");
 
+  @Output("closeEditing")
+  closeEditing: EventEmitter<any> = new EventEmitter();
+  @Output("newProductSaved")
+  newProductSaved: EventEmitter<any> = new EventEmitter();
+  @Output("updatedProduct")
+  updatedProduct: EventEmitter<any> = new EventEmitter();
+
   constructor(private productService: ProductService, private categoryService: CategoryService) { }
 
   ngOnInit(): void {
@@ -25,28 +32,31 @@ export class UploadProductComponent implements OnInit {
     }
   }
 
+  handleSaveButton() {
+    this.editProduct ? this.updateProduct() : this.createProduct();
+  }
+
   createProduct() {
     this.productService.createProduct(this.product)
-      .subscribe(() => {
+      .subscribe((newProd) => {
         console.log(this.product);
         alert("Product created successfully.");
+        this.newProductSaved.emit(newProd);
       });
   }
 
   updateProduct() {
     this.productService.updateProduct(this.product)
-      .subscribe(() => {
+      .subscribe((edited) => {
         console.log(this.product);
-        alert("Product created successfully.");
+        alert("Product updated successfully.");
+        this.updatedProduct.emit(edited);
       });
-  }
-
-  SaveProduct() {
-    this.editProduct ? this.updateProduct() : this.createProduct();
+    this.editProduct = undefined;
   }
 
   cancelEditing() {
-    this.editProduct = undefined;
+    this.closeEditing.emit();
   }
 
 }
