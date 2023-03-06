@@ -1,1 +1,12 @@
-<p>product-details works!</p>
+
+<div class="product--wrapper" *ngIf="product">
+    <img src="https://source.unsplash.com/random/200x200" />
+    <div class="info--container">
+        <h2>{{product.name}}</h2>
+        <p>{{product.description}}</p>
+        <p>{{product.price}}</p>
+        <button (click)="addToCart()">Add to cart</button>
+    </div>
+</div>
+<a routerLink="/products" routerLinkActive="active">Back to all products</a>
+
