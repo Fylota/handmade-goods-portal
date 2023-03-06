@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { OrderCreate } from 'src/app/models/order-create';
+import { OrderProduct } from 'src/app/models/order-product';
 import { CartService } from 'src/app/service/cart.service';
+import { OrderService } from 'src/app/service/order.service';
 import { User, UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -33,7 +36,8 @@ export class CheckoutComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private userService: UserService
+    private userService: UserService,
+    private orderService: OrderService
   ) { }
 
   ngOnInit(): void {
@@ -109,7 +113,18 @@ export class CheckoutComponent implements OnInit {
   }
 
   onSubmit() {
-    console.warn(this.checkoutForm.value);
+    console.log(this.checkoutForm.value);
+    console.log(this.user);
+    console.log(this.cartItems);
+
+    let items = this.cartItems.map(item => {
+      return new OrderProduct(item.id, item.quantity)
+    })
+    let order = new OrderCreate(this.user!.id, items, this.checkoutForm.value.paymentForm!.paymentMethod!, this.checkoutForm.value.shipmentForm!.shipment!);
+    this.orderService.addOrder(order).subscribe(res => {
+      console.log(res);
+    });
+    
   }
 
 }

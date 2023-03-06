@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -36,8 +37,8 @@ public class OrderService implements IOrderService {
 
         List<OrderProductDto> items = order.getItems();
         items.forEach(item -> {
-            Product product = productService.findProductById(item.getProductId()).get();
-            newOrder.addProduct(product, item.getQuantity());
+            Optional<Product> product = productService.findProductById(item.getProductId());
+            product.ifPresent( p -> newOrder.addProduct(p, item.getQuantity()));
         });
 
         return orderRepository.save(newOrder);

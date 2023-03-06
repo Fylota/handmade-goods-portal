@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Product } from 'src/app/models/product.model';
+import { OrderService } from 'src/app/service/order.service';
 import ProductService from 'src/app/service/product.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class AdminPageComponent {
 
   constructor(
     private productService: ProductService,
+    private orderService: OrderService,
   ) { }
 
   ngOnInit(): void {
@@ -62,6 +64,10 @@ export class AdminPageComponent {
   saveItem(newItem: Product) {
     this.allProducts = [...this.allProducts, newItem];
     this.closeEditing();
+  }
+
+  getOrders() {
+    console.log(this.orderService.getOrders().subscribe());
   }
 
 }
