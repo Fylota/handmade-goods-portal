@@ -1,16 +1,20 @@
 package hu.bme.edu.handmade.services.impl;
 
+import hu.bme.edu.handmade.mappers.OrderItemMapper;
 import hu.bme.edu.handmade.models.Order;
 import hu.bme.edu.handmade.models.Product;
+import hu.bme.edu.handmade.models.User;
 import hu.bme.edu.handmade.repositories.OrderRepository;
 import hu.bme.edu.handmade.services.IOrderService;
 import hu.bme.edu.handmade.web.dto.OrderCreateDto;
+import hu.bme.edu.handmade.web.dto.OrderItemDto;
 import hu.bme.edu.handmade.web.dto.OrderProductDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -45,8 +49,15 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public List<Order> findAllOrders() {
-        return (List<Order>) orderRepository.findAll();
+    public List<OrderItemDto> findAllOrders() {
+        List<Order> orders = (List<Order>) orderRepository.findAll();
+        return orders.stream().map(OrderItemMapper.INSTANCE::orderToOrderItemDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Order> getOrdersByUser(Long userId) {
+        User user = userService.getUserByID(userId).orElse(null);
+        return orderRepository.findAllByUser(user);
     }
 
     @Override

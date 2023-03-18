@@ -1,11 +1,15 @@
 package hu.bme.edu.handmade.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.*;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "orders")
 public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -13,6 +17,7 @@ public class Order {
     @Column(name = "id", nullable = false)
     private Long id;
     @Column(name = "creation_date")
+    @CreatedDate
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate creationDate;
     @Column(name = "status")
@@ -27,10 +32,9 @@ public class Order {
     private User user;
 
     @OneToMany(
-            fetch = FetchType.EAGER,
-            mappedBy = "order"
-            //cascade = CascadeType.ALL,
-            //orphanRemoval = true
+            mappedBy = "order",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
     private List<OrderProduct> products = new ArrayList<>();
 
@@ -52,6 +56,14 @@ public class Order {
                 orderProduct.setProduct(null);
             }
         }
+    }
+
+    public List<OrderProduct> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<OrderProduct> products) {
+        this.products = products;
     }
 
     public User getUser() {
@@ -107,11 +119,11 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return id.equals(order.id) && Objects.equals(creationDate, order.creationDate) && paymentMethod.equals(order.paymentMethod) && shippingMethod.equals(order.shippingMethod) && user.equals(order.user) && products.equals(order.products);
+        return id.equals(order.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, paymentMethod, shippingMethod, user, products);
+        return getClass().hashCode();
     }
 }

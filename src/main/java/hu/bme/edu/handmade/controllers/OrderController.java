@@ -3,6 +3,7 @@ package hu.bme.edu.handmade.controllers;
 import hu.bme.edu.handmade.models.Order;
 import hu.bme.edu.handmade.services.IOrderService;
 import hu.bme.edu.handmade.web.dto.OrderCreateDto;
+import hu.bme.edu.handmade.web.dto.OrderItemDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,13 +19,17 @@ public class OrderController {
     }
 
     @GetMapping()
-    public List<Order> getOrders() {
+    public List<OrderItemDto> getOrders() {
         return orderService.findAllOrders();
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<Order> getOrdersByUserId(@PathVariable("userId") Long userId) {
+        return orderService.getOrdersByUser(userId);
     }
 
     @PostMapping()
     public Order addOrder(@RequestBody OrderCreateDto order) {
         return orderService.createNewOrder(order);
     }
-
 }
