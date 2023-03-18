@@ -3,6 +3,7 @@ package hu.bme.edu.handmade.security;
 import hu.bme.edu.handmade.services.impl.MyUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
+@EnableJpaAuditing
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig {
@@ -49,7 +51,8 @@ public class SecurityConfig {
             http.csrf().disable()
                 // dont authenticate these particular requests
                 .authorizeRequests()
-                    .antMatchers("/register","/authenticate", "/products/**", "/home", "/categories/**", "/posts", "/events", "/cart", "/orders")
+                    .antMatchers("/register","/authenticate", "/products/**", "/home", "/categories/**",
+                            "/posts", "/events", "/cart", "/orders", "/**")
                     .permitAll()
                     .antMatchers(HttpMethod.OPTIONS, "/**")
                     .permitAll()
