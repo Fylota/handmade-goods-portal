@@ -1,15 +1,18 @@
 package hu.bme.edu.handmade.controllers;
 
+import hu.bme.edu.handmade.mappers.AddressMapper;
+import hu.bme.edu.handmade.mappers.UserMapper;
 import hu.bme.edu.handmade.models.User;
-import hu.bme.edu.handmade.model_assemblers.UserModelAssembler;
 import hu.bme.edu.handmade.services.IUserService;
-import hu.bme.edu.handmade.web.dto.UserDto;
+import hu.bme.edu.handmade.web.dto.user.AddressDto;
+import hu.bme.edu.handmade.web.dto.user.UserDto;
 import hu.bme.edu.handmade.web.dto.error.ResourceNotFoundException;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -19,51 +22,62 @@ import java.util.Optional;
 @RequestMapping("/users")
 public class UserController {
     private final IUserService userService;
-    private final UserModelAssembler assembler;
 
-    UserController(IUserService userService, UserModelAssembler assembler) {
+    UserController(IUserService userService) {
         this.userService = userService;
-        this.assembler = assembler;
     }
 
     @GetMapping("/me")
-    public EntityModel<User> user(Principal principal) {
+    public UserDto user(Principal principal) {
         String name = principal.getName();
-        User user = userService.findUserByEmail(name);
-        return assembler.toModel(user);
+        return UserMapper.INSTANCE.userToUserDto(userService.findUserByEmail(name));
     }
 
     @GetMapping("/{id}")
-    public EntityModel<User> one(@PathVariable Long id) {
-        User user = userService.getUserByID(id)
+    public UserDto one(@PathVariable Long id) {
+        User u = userService.getUserByID(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User with id: " + id + " is not found."));
-
-        return assembler.toModel(user);
+        return UserMapper.INSTANCE.userToUserDto(u);
     }
 
     @GetMapping()
-    public CollectionModel<EntityModel<User>> getUsers() {
-        List<User> users = userService.findAllUsers();
-        return assembler.toCollectionModel(users);
+    public List<UserDto> getUsers() {
+        return UserMapper.INSTANCE.usersToUserDtos(userService.findAllUsers());
     }
 
     @DeleteMapping(path = { "/{id}" })
-    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
-        Optional<User> deletedUser = userService.getUserByID(id);
-        deletedUser.ifPresent(userService::deleteUser);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> deleteUser(@PathVariable("id") Long id) {
+        try {
+            userService.deleteUser(id);
+            return ResponseEntity.noContent().build();
+        }
+        catch (EmptyResultDataAccessException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable("id") Long id, @RequestBody UserDto user) {
-        User updatedUser = userService.getUserByID(id)
-                .map(foundUser -> userService.saveRegisteredUser(user, foundUser))
-                .orElseGet(() -> userService.registerNewUserAccount(user));
+    public ResponseEntity<User> updateUser(@PathVariable("id") Long id, @RequestBody UserDto userToUpdate) {
+        Optional<User> updatedUser = userService.updateUser(id, userToUpdate);
 
-        EntityModel<User> entityModel = assembler.toModel(updatedUser);
+        return updatedUser
+                .map(value -> ResponseEntity.ok().body(value))
+                .orElseGet(() -> {
+                    User createdUser = userService.registerNewUserAccount(UserMapper.INSTANCE.userDtoToRegistrationDto(userToUpdate));
+                    URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                            .path("/{id}")
+                            .buildAndExpand(createdUser.getId())
+                            .toUri();
+                    return ResponseEntity.created(location).body(createdUser);
+                });
+    }
+    @PostMapping("/{id}/addresses")
+    public AddressDto addUserAddress(@PathVariable("id") Long userId, @RequestBody AddressDto address) {
+        return AddressMapper.INSTANCE.toAddressDto(userService.addAddress(userId, address));
+    }
 
-        return ResponseEntity
-                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
-                .body(entityModel);
+    @PutMapping("/{id}/addresses/{addressId}")
+    public AddressDto updateUserAddress(@PathVariable("id") Long userId, @PathVariable("addressId") Long addressId,@RequestBody AddressDto address) {
+        return AddressMapper.INSTANCE.toAddressDto(userService.updateAddress(userId, address));
     }
 }

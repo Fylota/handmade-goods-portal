@@ -1,59 +1,64 @@
 package hu.bme.edu.handmade.services.impl;
 
+import hu.bme.edu.handmade.mappers.AddressMapper;
+import hu.bme.edu.handmade.mappers.UserMapper;
+import hu.bme.edu.handmade.models.Address;
 import hu.bme.edu.handmade.models.User;
+import hu.bme.edu.handmade.repositories.AddressRepository;
 import hu.bme.edu.handmade.repositories.RoleRepository;
 import hu.bme.edu.handmade.repositories.UserRepository;
 import hu.bme.edu.handmade.services.IUserService;
-import hu.bme.edu.handmade.web.dto.UserDto;
+import hu.bme.edu.handmade.web.dto.user.AddressDto;
+import hu.bme.edu.handmade.web.dto.user.UserDto;
 import hu.bme.edu.handmade.web.dto.error.UserAlreadyExistException;
-import org.springframework.beans.factory.annotation.Autowired;
+import hu.bme.edu.handmade.web.dto.user.UserRegistrationDto;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
 public class UserService implements IUserService {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
+    private final AddressRepository addressRepository;
 
-    @Autowired
-    private RoleRepository roleRepository;
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository, AddressRepository addressRepository) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.roleRepository = roleRepository;
+        this.addressRepository = addressRepository;
+    }
 
     @Override
-    public User registerNewUserAccount(UserDto accountDto) {
-        if (emailExists(accountDto.getEmail())) {
-            throw new UserAlreadyExistException("There is an account with that email address: " + accountDto.getEmail());
+    public User registerNewUserAccount(UserRegistrationDto dto) {
+        if (emailExists(dto.getEmail())) {
+            throw new UserAlreadyExistException("There is an account with that email address: " + dto.getEmail());
         }
-        final User user = new User();
-
-        user.setFirstName(accountDto.getFirstName());
-        user.setLastName(accountDto.getLastName());
-        user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
-        user.setEmail(accountDto.getEmail());
-        user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
+        final User user = UserMapper.INSTANCE.toUserFromUserRegistrationDto(dto);
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setRoles(Collections.singletonList(roleRepository.findByName("ROLE_USER")));
         user.setEnabled(true);
         return userRepository.save(user);
     }
     @Override
-    public User saveRegisteredUser(UserDto newUser, User foundUser) {
-        foundUser.setPhoneNumber(newUser.getPhoneNumber());
-        foundUser.setEmail(newUser.getEmail());
-        foundUser.setAddress(newUser.getAddress());
-        foundUser.setFirstName(newUser.getFirstName());
-        foundUser.setLastName(newUser.getLastName());
-        return userRepository.save(foundUser);
+    public Optional<User> updateUser(Long id, UserDto userToUpdate) {
+        Optional<User> foundUser = userRepository.findById(id);
+        foundUser.ifPresent(u -> {
+            UserMapper.INSTANCE.updateUserFromDto(userToUpdate,u);
+            userRepository.save(u);
+        });
+        return foundUser;
     }
 
     @Override
-    public void deleteUser(User user) {
-        userRepository.delete(user);
+    public void deleteUser(Long userId) {
+        userRepository.deleteById(userId);
     }
 
     @Override
@@ -69,6 +74,20 @@ public class UserService implements IUserService {
     @Override
     public Optional<User> getUserByID(long id) {
         return userRepository.findById(id);
+    }
+
+    @Override
+    public Address addAddress(Long userId, AddressDto dto) {
+        User foundUser = userRepository.findById(userId).orElseThrow();
+        Address addr = addressRepository.save(AddressMapper.INSTANCE.toAddress(dto));
+        addr.setUser(foundUser);
+        foundUser.addAddress(addr);
+        return addr;
+    }
+
+    @Override
+    public Address updateAddress(Long userId, AddressDto dto) {
+        return null;
     }
 
     @Override

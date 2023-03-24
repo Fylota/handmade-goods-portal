@@ -1,12 +1,15 @@
 package hu.bme.edu.handmade.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@JsonIgnoreProperties(value= {"roles", "cartProducts"})
+@JsonIgnoreProperties(value= {"roles"})
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "users")
 public class User {
     @Id
@@ -25,10 +28,13 @@ public class User {
     @Basic
     @Column(name = "phone_number")
     private String phoneNumber;
-    @Basic
-    @Column(name = "address")
-    private String address;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true)
+    private List<Address> addresses = new ArrayList<>();
     private String password;
+
+    @CreatedDate
+    @Column(name = "registered_at_date")
+    private Date registeredAt;
     private boolean enabled;
 
     @ManyToMany
@@ -37,8 +43,20 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true)
     private Set<CartProduct> cartProducts = new LinkedHashSet<>();
+
+    public void addAddress(Address addr) {
+        this.addresses.add(addr);
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
 
     public Set<CartProduct> getCartProducts() {
         return cartProducts;
@@ -93,14 +111,6 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -122,11 +132,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(address, user.address) && Objects.equals(password, user.password) && Objects.equals(roles, user.roles);
+        return id.equals(user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && email.equals(user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, phoneNumber, address, password, roles);
+        return Objects.hash(id, firstName, lastName, email);
     }
 }

@@ -1,15 +1,12 @@
 package hu.bme.edu.handmade.controllers;
 
-import hu.bme.edu.handmade.model_assemblers.UserModelAssembler;
 import hu.bme.edu.handmade.models.User;
 import hu.bme.edu.handmade.security.JwtRequest;
 import hu.bme.edu.handmade.security.JwtResponse;
 import hu.bme.edu.handmade.security.JwtTokenUtil;
 import hu.bme.edu.handmade.services.impl.MyUserDetailsService;
 import hu.bme.edu.handmade.services.impl.UserService;
-import hu.bme.edu.handmade.web.dto.UserDto;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.IanaLinkRelations;
+import hu.bme.edu.handmade.web.dto.user.UserRegistrationDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -27,15 +24,13 @@ public class HomeController {
     private final JwtTokenUtil jwtTokenUtil;
     private final MyUserDetailsService userDetailsService;
     private final UserService userService;
-    private final UserModelAssembler assembler;
 
     HomeController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil,
-                   MyUserDetailsService userDetailsService, UserService userService, UserModelAssembler assembler) {
+                   MyUserDetailsService userDetailsService, UserService userService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
         this.userService = userService;
         this.userDetailsService = userDetailsService;
-        this.assembler = assembler;
     }
 
     @PostMapping(value = "/authenticate")
@@ -52,11 +47,8 @@ public class HomeController {
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity<?> saveUser(@RequestBody UserDto user) {
-        EntityModel<User> entityModel = assembler.toModel(userService.registerNewUserAccount(user));
-        return ResponseEntity
-                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
-                .body(entityModel);
+    public User saveUser(@RequestBody UserRegistrationDto user) {
+        return userService.registerNewUserAccount(user);
     }
 
     private void authenticate(String username, String password) throws AuthenticationException {
