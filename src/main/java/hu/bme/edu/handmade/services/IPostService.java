@@ -10,6 +10,6 @@ public interface IPostService {
     List<Post> findAllPosts();
     Optional<Post> findPostById(long id);
     Post uploadPost(PostDto postDto);
-    Post updatePost(PostDto postDto);
-    void deletePost(Post post);
+    Post updatePost(PostDto postDto, Long id);
+    void deletePost(Long id);
 }

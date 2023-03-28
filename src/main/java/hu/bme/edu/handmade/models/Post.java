@@ -1,11 +1,15 @@
 package hu.bme.edu.handmade.models;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
 @Table(name = "posts")
+@EntityListeners(AuditingEntityListener.class)
 public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
@@ -17,7 +21,7 @@ public class Post {
     @Basic
     @Column(name = "content")
     private String content;
-    @Basic
+    @CreatedDate
     @Column(name = "creation_date")
     private LocalDateTime creationDate;
 

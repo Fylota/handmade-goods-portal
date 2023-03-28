@@ -34,14 +34,14 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public Post updatePost(PostDto postDto) {
-        Post post = PostMapper.INSTANCE.toProduct(postDto);
-        post.setId(Long.parseLong(postDto.getId()));
-        return postRepository.save(post);
+    public Post updatePost(PostDto postDto, Long postId) {
+        Post foundPost = postRepository.findById(postId).orElseThrow();
+        PostMapper.INSTANCE.updatePostFromDto(postDto, foundPost);
+        return postRepository.save(foundPost);
     }
 
     @Override
-    public void deletePost(Post post) {
-        postRepository.delete(post);
+    public void deletePost(Long id) {
+        postRepository.deleteById(id);
     }
 }
