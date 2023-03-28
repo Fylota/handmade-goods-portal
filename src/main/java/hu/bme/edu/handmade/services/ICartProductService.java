@@ -8,13 +8,13 @@ import java.util.Optional;
 
 public interface ICartProductService {
 
-    CartProduct addCartProduct(CartProductDto cartProductDto);
+    CartProduct addCartProduct(CartProductDto cartProductDto, long userId);
 
     List<CartProduct> getCartProductsByUser(long userId);
 
-    CartProduct updateCartProduct(CartProductDto cartProductDto);
+    CartProduct updateCartProduct(CartProductDto cartProductDto, long cartProdId);
 
-    void deleteCartProduct(CartProduct cartProduct);
+    void deleteCartProduct(long id);
 
     Optional<CartProduct> findCartProductById(Long id);
 }
