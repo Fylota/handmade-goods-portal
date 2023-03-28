@@ -20,7 +20,7 @@ public class User {
     @Column(name = "first_name", nullable = false)
     private String firstName;
     @Basic
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name")
     private String lastName;
     @Basic
     @Column(name = "email", nullable = false)
@@ -30,6 +30,7 @@ public class User {
     private String phoneNumber;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true)
     private List<Address> addresses = new ArrayList<>();
+    @Column(name = "password")
     private String password;
 
     @CreatedDate
