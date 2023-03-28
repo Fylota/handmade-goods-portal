@@ -11,5 +11,5 @@ public interface IEventService {
     Optional<Event> findEventById(Long id);
     Event addEvent(EventDto eventDto);
     Event updateEvent(EventDto eventDto, Long id);
-    void deleteEvent(Event event);
+    void deleteEvent(Long eventId);
 }

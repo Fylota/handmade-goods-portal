@@ -1,7 +1,7 @@
 package hu.bme.edu.handmade.models;
 
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "events")
+@EntityListeners(AuditingEntityListener.class)
 public class Event {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
@@ -26,9 +27,6 @@ public class Event {
     @CreatedDate
     @Column(name = "created_date")
     private Date createdDate;
-    @LastModifiedDate
-    @Column(name = "last_modified_date")
-    private Date lastModifiedDate;
 
     public Long getId() {
         return id;
@@ -78,24 +76,16 @@ public class Event {
         this.createdDate = date;
     }
 
-    public Date getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(Date lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Event event = (Event) o;
-        return Objects.equals(id, event.id) && Objects.equals(title, event.title) && Objects.equals(description, event.description) && Objects.equals(createdDate, event.createdDate);
+        return Objects.equals(id, event.id) && Objects.equals(title, event.title) && Objects.equals(description, event.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, createdDate);
+        return Objects.hash(id, title, description);
     }
 }

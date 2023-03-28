@@ -122,7 +122,7 @@ class EventServiceTest {
         willDoNothing().given(eventRepository).delete(event);
 
         // when
-        eventService.deleteEvent(event);
+        eventService.deleteEvent(event.getId());
 
         // then
         verify(eventRepository, times(1)).delete(event);
