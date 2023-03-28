@@ -3,12 +3,13 @@ package hu.bme.edu.handmade.web.dto;
 import java.util.Objects;
 
 public class ProductDto {
-    private String id;
     private String name;
     private String description;
-    private String price;
+    private double price;
 
-    private String category;
+    private Long categoryId;
+
+    private String imageURL;
 
     public String getDescription() {
         return description;
@@ -16,14 +17,6 @@ public class ProductDto {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -34,20 +27,28 @@ public class ProductDto {
         this.name = name;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public String getCategory() {
-        return category;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     @Override
@@ -55,11 +56,11 @@ public class ProductDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductDto that = (ProductDto) o;
-        return id.equals(that.id) && name.equals(that.name) && Objects.equals(description, that.description) && Objects.equals(price, that.price);
+        return name.equals(that.name) && Objects.equals(description, that.description) && Objects.equals(price, that.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price);
+        return Objects.hash(name, price);
     }
 }

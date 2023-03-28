@@ -26,20 +26,21 @@ public class ProductService implements IProductService {
     @Override
     public Product uploadNewProduct(ProductDto productDto) {
         Product product = ProductMapper.INSTANCE.toProduct(productDto);
-        product.setCategory(categoryRepository.findById(Long.parseLong(productDto.getCategory())).orElse(null));
+        product.setCategory(categoryRepository.findById(productDto.getCategoryId()).orElseThrow());
         return productRepository.save(product);
     }
 
     @Override
-    public Product updateProduct(ProductDto productDto) {
-        Product product = ProductMapper.INSTANCE.toProduct(productDto);
-        product.setId(Long.parseLong(productDto.getId()));
-        return productRepository.save(product);
+    public Product updateProduct(ProductDto productDto, Long productId) {
+        Product foundProduct = productRepository.findById(productId).orElseThrow();
+        ProductMapper.INSTANCE.updateProductFromDto(productDto, foundProduct);
+        foundProduct.setCategory(categoryRepository.findById(productDto.getCategoryId()).orElseThrow());
+        return productRepository.save(foundProduct);
     }
 
     @Override
-    public void deleteProduct(Product product) {
-        productRepository.delete(product);
+    public void deleteProduct(Long productId) {
+        productRepository.deleteById(productId);
     }
 
     @Override

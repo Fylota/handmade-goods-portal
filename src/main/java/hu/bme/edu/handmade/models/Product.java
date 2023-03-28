@@ -1,10 +1,15 @@
 package hu.bme.edu.handmade.models;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "products")
+@SQLDelete(sql = "UPDATE products SET deleted = true WHERE id=?")
+@Where(clause = "deleted=false")
 public class Product {
     @Basic
     @Column(name = "name", nullable = false)
@@ -19,6 +24,11 @@ public class Product {
     @Basic
     @Column(name = "price")
     private Double price;
+    @Basic
+    @Column(name = "product_image")
+    private String imageURL;
+
+    private boolean deleted = Boolean.FALSE;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
@@ -61,6 +71,22 @@ public class Product {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     @Override

@@ -9,9 +9,9 @@ import java.util.Optional;
 public interface IProductService {
     Product uploadNewProduct(ProductDto productDto);
 
-    Product updateProduct(ProductDto productDto);
+    Product updateProduct(ProductDto productDto, Long productId);
 
-    void deleteProduct(Product product);
+    void deleteProduct(Long productId);
 
     Optional<Product> findProductById(Long productId);
 
