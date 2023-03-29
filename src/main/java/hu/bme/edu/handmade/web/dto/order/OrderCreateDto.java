@@ -1,4 +1,4 @@
-package hu.bme.edu.handmade.web.dto;
+package hu.bme.edu.handmade.web.dto.order;
 
 import java.util.List;
 

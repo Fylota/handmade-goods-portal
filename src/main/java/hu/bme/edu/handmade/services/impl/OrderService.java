@@ -6,9 +6,9 @@ import hu.bme.edu.handmade.models.Product;
 import hu.bme.edu.handmade.models.User;
 import hu.bme.edu.handmade.repositories.OrderRepository;
 import hu.bme.edu.handmade.services.IOrderService;
-import hu.bme.edu.handmade.web.dto.OrderCreateDto;
-import hu.bme.edu.handmade.web.dto.OrderItemDto;
-import hu.bme.edu.handmade.web.dto.OrderProductDto;
+import hu.bme.edu.handmade.web.dto.order.OrderCreateDto;
+import hu.bme.edu.handmade.web.dto.order.OrderItemDto;
+import hu.bme.edu.handmade.web.dto.order.OrderProductDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,10 +32,10 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public Order createNewOrder(OrderCreateDto order) {
+    public OrderItemDto createNewOrder(OrderCreateDto order) {
         Order newOrder = new Order();
         newOrder.setStatus("CREATED");
-        newOrder.setUser(userService.getUserByID(Long.parseLong(order.getUserId())).get());
+        newOrder.setUser(userService.getUserByID(Long.parseLong(order.getUserId())).orElseThrow());
         newOrder.setPaymentMethod(order.getPaymentMethod());
         newOrder.setShippingMethod(order.getShippingMethod());
 
@@ -45,7 +45,7 @@ public class OrderService implements IOrderService {
             product.ifPresent( p -> newOrder.addProduct(p, item.getQuantity()));
         });
 
-        return orderRepository.save(newOrder);
+        return OrderItemMapper.INSTANCE.orderToOrderItemDto(orderRepository.save(newOrder));
     }
 
     @Override
@@ -55,13 +55,19 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public List<Order> getOrdersByUser(Long userId) {
+    public List<OrderItemDto> getOrdersByUser(Long userId) {
         User user = userService.getUserByID(userId).orElse(null);
-        return orderRepository.findAllByUser(user);
+        List<Order> orders = orderRepository.findAllByUser(user);
+        return orders.stream().map(OrderItemMapper.INSTANCE::orderToOrderItemDto).collect(Collectors.toList());
     }
 
     @Override
     public Order updateOrder(Order order) {
         return null;
+    }
+
+    @Override
+    public OrderItemDto getOrderById(Long orderId) {
+        return OrderItemMapper.INSTANCE.orderToOrderItemDto(orderRepository.findById(orderId).orElseThrow());
     }
 }

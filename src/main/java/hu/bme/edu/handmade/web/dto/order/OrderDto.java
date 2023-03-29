@@ -1,14 +1,14 @@
-package hu.bme.edu.handmade.web.dto;
+package hu.bme.edu.handmade.web.dto.order;
 
 import java.util.List;
 
-public class OrderItemDto {
+public class OrderDto {
     private Long id;
-    private Long userId;
     private String status;
-    private List<OrderProductDto> items;
     private String paymentMethod;
     private String shippingMethod;
+    private Long userId;
+    private List<OrderProductDto> products;
 
     public Long getId() {
         return id;
@@ -18,28 +18,12 @@ public class OrderItemDto {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public List<OrderProductDto> getItems() {
-        return items;
-    }
-
-    public void setItems(List<OrderProductDto> items) {
-        this.items = items;
     }
 
     public String getPaymentMethod() {
@@ -56,5 +40,21 @@ public class OrderItemDto {
 
     public void setShippingMethod(String shippingMethod) {
         this.shippingMethod = shippingMethod;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public List<OrderProductDto> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<OrderProductDto> products) {
+        this.products = products;
     }
 }

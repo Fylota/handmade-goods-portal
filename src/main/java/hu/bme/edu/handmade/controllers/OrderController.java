@@ -1,9 +1,8 @@
 package hu.bme.edu.handmade.controllers;
 
-import hu.bme.edu.handmade.models.Order;
 import hu.bme.edu.handmade.services.IOrderService;
-import hu.bme.edu.handmade.web.dto.OrderCreateDto;
-import hu.bme.edu.handmade.web.dto.OrderItemDto;
+import hu.bme.edu.handmade.web.dto.order.OrderCreateDto;
+import hu.bme.edu.handmade.web.dto.order.OrderItemDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,13 +22,19 @@ public class OrderController {
         return orderService.findAllOrders();
     }
 
-    @GetMapping("/user/{userId}")
-    public List<Order> getOrdersByUserId(@PathVariable("userId") Long userId) {
-        return orderService.getOrdersByUser(userId);
+    @GetMapping("/user")
+    public List<OrderItemDto> getOrdersByUserId(@RequestParam Long id) {
+        return orderService.getOrdersByUser(id);
     }
 
     @PostMapping()
-    public Order addOrder(@RequestBody OrderCreateDto order) {
+    public OrderItemDto addOrder(@RequestBody OrderCreateDto order) {
         return orderService.createNewOrder(order);
     }
+
+    @GetMapping("/{id}")
+    public OrderItemDto getOrderById(@PathVariable("id") Long orderId) {
+        return orderService.getOrderById(orderId);
+    }
+
 }

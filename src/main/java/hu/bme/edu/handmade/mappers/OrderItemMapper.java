@@ -2,8 +2,8 @@ package hu.bme.edu.handmade.mappers;
 
 import hu.bme.edu.handmade.models.Order;
 import hu.bme.edu.handmade.models.OrderProduct;
-import hu.bme.edu.handmade.web.dto.OrderItemDto;
-import hu.bme.edu.handmade.web.dto.OrderProductDto;
+import hu.bme.edu.handmade.web.dto.order.OrderItemDto;
+import hu.bme.edu.handmade.web.dto.order.OrderProductDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -19,5 +19,4 @@ public interface OrderItemMapper {
 
     @Mapping(target = "productId", source = "product.id")
     OrderProductDto orderProductToDto(OrderProduct op);
-
 }
