@@ -1,12 +1,17 @@
 package hu.bme.edu.handmade.models;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "reviews")
+@EntityListeners(AuditingEntityListener.class)
 public class Review {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
@@ -24,7 +29,7 @@ public class Review {
     @Basic
     @Column(name = "rating")
     private Integer rating;
-    @Basic
+    @CreatedDate
     @Column(name = "creation_date")
     private LocalDate creationDate;
 
@@ -44,11 +49,11 @@ public class Review {
         this.user = user;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -74,5 +79,18 @@ public class Review {
 
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Review review = (Review) o;
+        return id.equals(review.id) && product.equals(review.product) && user.equals(review.user) && Objects.equals(content, review.content);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, product, user, content);
     }
 }

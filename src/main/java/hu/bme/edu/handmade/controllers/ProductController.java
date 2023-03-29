@@ -2,7 +2,9 @@ package hu.bme.edu.handmade.controllers;
 
 import hu.bme.edu.handmade.models.Product;
 import hu.bme.edu.handmade.services.IProductService;
+import hu.bme.edu.handmade.services.IReviewService;
 import hu.bme.edu.handmade.web.dto.ProductDto;
+import hu.bme.edu.handmade.web.dto.ReviewDto;
 import hu.bme.edu.handmade.web.dto.error.ResourceNotFoundException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +17,10 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
     private final IProductService productService;
-    ProductController(IProductService productService) {
+    private final IReviewService reviewService;
+    ProductController(IProductService productService, IReviewService reviewService) {
         this.productService = productService;
+        this.reviewService = reviewService;
     }
 
     @GetMapping("/{id}")
@@ -56,5 +60,17 @@ public class ProductController {
         catch (EmptyResultDataAccessException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    /** Product reviews */
+
+    @GetMapping("/{productId}/comments")
+    public List<ReviewDto> getReviews(@PathVariable("productId") Long productId) {
+        return reviewService.getReviews(productId);
+    }
+
+    @PostMapping("/{productId}/comments")
+    public ReviewDto addReview(@PathVariable("productId") Long productId, @RequestBody ReviewDto review) {
+        return reviewService.addReview(productId, review);
     }
 }
