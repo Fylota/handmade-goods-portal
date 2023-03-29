@@ -1,6 +1,5 @@
 package hu.bme.edu.handmade.services;
 
-import hu.bme.edu.handmade.models.Order;
 import hu.bme.edu.handmade.web.dto.order.OrderCreateDto;
 import hu.bme.edu.handmade.web.dto.order.OrderItemDto;
 
@@ -14,5 +13,5 @@ public interface IOrderService {
     List<OrderItemDto> getOrdersByUser(Long userId);
 
     OrderItemDto getOrderById(Long orderId);
-    Order updateOrder(Order order);
+    OrderItemDto updateOrderStatus(Long orderId, String newStatus);
 }

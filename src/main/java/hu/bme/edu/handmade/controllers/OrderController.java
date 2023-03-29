@@ -3,11 +3,13 @@ package hu.bme.edu.handmade.controllers;
 import hu.bme.edu.handmade.services.IOrderService;
 import hu.bme.edu.handmade.web.dto.order.OrderCreateDto;
 import hu.bme.edu.handmade.web.dto.order.OrderItemDto;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@SecurityRequirement(name = "Bearer Authentication")
 @CrossOrigin(origins="http://localhost:4200", maxAge=3600)
 @RequestMapping("/orders")
 public class OrderController {
@@ -35,6 +37,11 @@ public class OrderController {
     @GetMapping("/{id}")
     public OrderItemDto getOrderById(@PathVariable("id") Long orderId) {
         return orderService.getOrderById(orderId);
+    }
+
+    @PutMapping("/{id}")
+    public OrderItemDto updateOrderStatus(@PathVariable("id") Long orderId, @RequestParam String status) {
+        return orderService.updateOrderStatus(orderId, status);
     }
 
 }

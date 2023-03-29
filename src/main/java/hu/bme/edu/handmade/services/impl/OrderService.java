@@ -62,8 +62,10 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public Order updateOrder(Order order) {
-        return null;
+    public OrderItemDto updateOrderStatus(Long id, String newStatus) {
+        Order foundOrder = orderRepository.findById(id).orElseThrow();
+        foundOrder.setStatus(newStatus);
+        return OrderItemMapper.INSTANCE.orderToOrderItemDto(foundOrder);
     }
 
     @Override
