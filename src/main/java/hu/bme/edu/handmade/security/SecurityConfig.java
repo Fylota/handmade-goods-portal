@@ -46,16 +46,18 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,JwtRequestFilter jwtRequestFilter) throws Exception {
-
-        // We don't need CSRF for this example
             http.csrf().disable()
-                // dont authenticate these particular requests
                 .authorizeRequests()
-                    .antMatchers("/register","/authenticate", "/products/**", "/home", "/categories/**",
-                            "/posts", "/events", "/cart", "/orders", "/**")
-                    .permitAll()
-                    .antMatchers(HttpMethod.OPTIONS, "/**")
-                    .permitAll()
+                .antMatchers(HttpMethod.DELETE)
+                .hasRole("ADMIN")
+                .antMatchers(
+                        "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html",
+                        "/register","/authenticate",
+                        "/products/**", "/home", "/categories/**",
+                        "/posts", "/events")
+                .permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/**")
+                .permitAll()
                 // all other requests need to be authenticated
                 .anyRequest().authenticated().and().
                 // make sure we use stateless session; session won't be used to

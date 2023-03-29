@@ -10,6 +10,8 @@ import hu.bme.edu.handmade.web.dto.CartProductDto;
 import hu.bme.edu.handmade.web.dto.user.AddressDto;
 import hu.bme.edu.handmade.web.dto.user.UserDto;
 import hu.bme.edu.handmade.web.dto.error.ResourceNotFoundException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,11 +47,14 @@ public class UserController {
         return UserMapper.INSTANCE.userToUserDto(u);
     }
 
+    @SecurityRequirement(name = "Bearer Authentication")
     @GetMapping()
     public List<UserDto> getUsers() {
         return UserMapper.INSTANCE.usersToUserDtos(userService.findAllUsers());
     }
 
+    @Operation(summary = "Delete user", description = "Delete user")
+    @SecurityRequirement(name = "Bearer Authentication")
     @DeleteMapping(path = { "/{id}" })
     public ResponseEntity<?> deleteUser(@PathVariable("id") Long id) {
         try {
