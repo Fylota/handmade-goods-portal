@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.3</version>
+		<version>2.7.9</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>hu.bme.edu</groupId>
@@ -103,7 +103,7 @@
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-security</artifactId>
-			<version>1.6.13</version>
+			<version>1.6.15</version>
 		</dependency>
 	</dependencies>
 
@@ -116,7 +116,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
 				<configuration>
 					<annotationProcessorPaths>
 						<path>
@@ -128,97 +127,7 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
-			<!--<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>2.3.4.RELEASE</version>
-				<configuration>
-					<jvmArguments>-Dspring.application.admin.enabled=true</jvmArguments>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>start</goal>
-							<goal>stop</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.springdoc</groupId>
-				<artifactId>springdoc-openapi-maven-plugin</artifactId>
-				<version>1.4</version>
-				<executions>
-					<execution>
-						<id>integration-test</id>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>-->
 		</plugins>
 	</build>
 
-	<!-- Client code generation
-	<profiles>
-		<profile>
-			<id>angular</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.springframework.boot</groupId>
-						<artifactId>spring-boot-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>pre-integration-test</id>
-								<goals>
-									<goal>start</goal>
-								</goals>
-							</execution>
-							<execution>
-								<id>post-integration-test</id>
-								<goals>
-									<goal>stop</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.openapitools</groupId>
-						<artifactId>openapi-generator-maven-plugin</artifactId>
-						<version>4.2.2</version>
-						<executions>
-							<execution>
-								<id>angular-client-code-generation</id>
-								<phase>integration-test</phase>
-								<goals>
-									<goal>generate</goal>
-								</goals>
-								<configuration>
-									<inputSpec>http://localhost:8080/v3/api-docs</inputSpec>
-									<output>${project.build.directory}/generated-sources/angular</output>
-
-									<generatorName>typescript-angular</generatorName>
-
-                                        Use this option to dump the configuration help for the specified generator
-                                        instead of generating sources:
-                                        <configHelp>true</configHelp>
-
-
-									<configOptions>
-
-                                            Put generator-specific parameters here, e.g. for typescript-angular:
-                                            <apiModulePrefix>Backend</apiModulePrefix>
-
-									</configOptions>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
--->
 </project>
