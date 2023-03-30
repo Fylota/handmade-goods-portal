@@ -118,8 +118,6 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
 				<configuration>
-					<source>10</source> <!-- depending on your project -->
-					<target>10</target> <!-- depending on your project -->
 					<annotationProcessorPaths>
 						<path>
 							<groupId>org.mapstruct</groupId>
@@ -130,7 +128,7 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
-			<plugin>
+			<!--<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>2.3.4.RELEASE</version>
@@ -158,11 +156,11 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin>-->
 		</plugins>
 	</build>
 
-	<!-- Client code generation -->
+	<!-- Client code generation
 	<profiles>
 		<profile>
 			<id>angular</id>
@@ -202,17 +200,17 @@
 									<output>${project.build.directory}/generated-sources/angular</output>
 
 									<generatorName>typescript-angular</generatorName>
-									<!--
+
                                         Use this option to dump the configuration help for the specified generator
                                         instead of generating sources:
                                         <configHelp>true</configHelp>
-                                    -->
+
 
 									<configOptions>
-										<!--
+
                                             Put generator-specific parameters here, e.g. for typescript-angular:
                                             <apiModulePrefix>Backend</apiModulePrefix>
-                                         -->
+
 									</configOptions>
 								</configuration>
 							</execution>
@@ -222,5 +220,5 @@
 			</build>
 		</profile>
 	</profiles>
-
+-->
 </project>
