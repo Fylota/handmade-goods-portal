@@ -6,6 +6,7 @@ import hu.bme.edu.handmade.web.dto.EventDto;
 import hu.bme.edu.handmade.web.dto.error.ResourceNotFoundException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,11 +31,13 @@ public class EventController {
                 .orElseThrow(() -> new ResourceNotFoundException("Event with id:" + id + " is not found."));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping()
     public Event addEvent(@RequestBody EventDto dto) {
         return eventService.addEvent(dto);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public Event updateEvent(@PathVariable("id") Long id, @RequestBody EventDto eventDto) {
         return eventService.findEventById(id)
@@ -42,6 +45,7 @@ public class EventController {
                 .orElseGet(()->eventService.addEvent(eventDto));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteEvent(@PathVariable("id") Long id) {
         try {

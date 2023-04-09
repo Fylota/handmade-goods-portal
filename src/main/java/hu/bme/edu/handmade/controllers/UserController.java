@@ -10,10 +10,10 @@ import hu.bme.edu.handmade.web.dto.CartProductDto;
 import hu.bme.edu.handmade.web.dto.user.AddressDto;
 import hu.bme.edu.handmade.web.dto.user.UserDto;
 import hu.bme.edu.handmade.web.dto.error.ResourceNotFoundException;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -34,12 +34,14 @@ public class UserController {
         this.cartService = cartService;
     }
 
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/me")
     public UserDto user(Principal principal) {
         String name = principal.getName();
         return UserMapper.INSTANCE.userToUserDto(userService.findUserByEmail(name));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public UserDto one(@PathVariable Long id) {
         User u = userService.getUserByID(id)
@@ -48,13 +50,14 @@ public class UserController {
     }
 
     @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping()
     public List<UserDto> getUsers() {
         return UserMapper.INSTANCE.usersToUserDtos(userService.findAllUsers());
     }
 
-    @Operation(summary = "Delete user", description = "Delete user")
     @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping(path = { "/{id}" })
     public ResponseEntity<?> deleteUser(@PathVariable("id") Long id) {
         try {
@@ -66,6 +69,7 @@ public class UserController {
         }
     }
 
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") Long id, @RequestBody UserDto userToUpdate) {
         Optional<User> updatedUser = userService.updateUser(id, userToUpdate);
@@ -81,26 +85,31 @@ public class UserController {
                     return ResponseEntity.created(location).body(createdUser);
                 });
     }
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @PostMapping("/{id}/addresses")
     public AddressDto addUserAddress(@PathVariable("id") Long userId, @RequestBody AddressDto address) {
         return AddressMapper.INSTANCE.toAddressDto(userService.addAddress(userId, address));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @PutMapping("/{id}/addresses/{addressId}")
     public AddressDto updateUserAddress(@PathVariable("id") Long userId, @PathVariable("addressId") Long addressId,@RequestBody AddressDto address) {
         return AddressMapper.INSTANCE.toAddressDto(userService.updateAddress(userId, address));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/{id}/cart")
     List<CartProduct> getCartProducts(@PathVariable("id") long userId) {
         return cartService.getCartProductsByUser(userId);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @PostMapping("/{id}/cart")
     CartProduct addCartProduct(@PathVariable("id") long userId, @RequestBody CartProductDto cartProductDto) {
         return cartService.addCartProduct(cartProductDto, userId);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @PutMapping("/{userId}/cart/{cartId}")
     CartProduct updateCartProduct(@PathVariable("userId") long userId, @PathVariable("cartId") long cartId, @RequestBody CartProductDto cartProductDto) {
         return cartService.findCartProductById(cartId)
@@ -108,6 +117,7 @@ public class UserController {
                 .orElseGet(()->cartService.addCartProduct(cartProductDto, userId));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @DeleteMapping("/{userId}/cart/{cartId}")
     ResponseEntity<?> removeCartProduct(@PathVariable("userId") Long userId, @PathVariable("cartId") Long cartId) {
         try {

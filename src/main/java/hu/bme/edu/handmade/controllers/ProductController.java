@@ -8,6 +8,7 @@ import hu.bme.edu.handmade.web.dto.ReviewDto;
 import hu.bme.edu.handmade.web.dto.error.ResourceNotFoundException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,11 +40,13 @@ public class ProductController {
         return  productService.findProductsByCategory(id);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping()
     public Product addProduct(@RequestBody ProductDto productDto) {
         return productService.uploadNewProduct(productDto);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public Product updateProduct(@PathVariable("id") Long id, @RequestBody ProductDto productDto) {
         return productService.findProductById(id)
@@ -51,6 +54,7 @@ public class ProductController {
                         .orElseGet(()->productService.uploadNewProduct(productDto));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id) {
         try {

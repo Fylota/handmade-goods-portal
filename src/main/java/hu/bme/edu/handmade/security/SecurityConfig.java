@@ -48,13 +48,11 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,JwtRequestFilter jwtRequestFilter) throws Exception {
             http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.DELETE)
-                .hasRole("ADMIN")
                 .antMatchers(
                         "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html",
                         "/register","/authenticate",
                         "/products/**", "/home", "/categories/**",
-                        "/posts", "/events")
+                        "/posts/**", "/events/**")
                 .permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**")
                 .permitAll()

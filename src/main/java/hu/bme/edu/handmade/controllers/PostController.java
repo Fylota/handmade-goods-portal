@@ -6,6 +6,7 @@ import hu.bme.edu.handmade.web.dto.PostDto;
 import hu.bme.edu.handmade.web.dto.error.ResourceNotFoundException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,11 +32,13 @@ public class PostController {
                 .orElseThrow(() -> new ResourceNotFoundException("Post with id:" + id + " is not found."));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping()
     public Post addPost(@RequestBody PostDto postDto) {
         return postService.uploadPost(postDto);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public Post updatePost(@PathVariable("id") Long id, @RequestBody PostDto postDto) {
         return postService.findPostById(id)
@@ -43,6 +46,7 @@ public class PostController {
                 .orElseGet(()->postService.uploadPost(postDto));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletePost(@PathVariable("id") Long id) {
         try {
