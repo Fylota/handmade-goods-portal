@@ -5,8 +5,10 @@ import hu.bme.edu.handmade.mappers.UserMapper;
 import hu.bme.edu.handmade.models.CartProduct;
 import hu.bme.edu.handmade.models.User;
 import hu.bme.edu.handmade.services.IUserService;
+import hu.bme.edu.handmade.services.IWishListService;
 import hu.bme.edu.handmade.services.impl.CartProductService;
 import hu.bme.edu.handmade.web.dto.CartProductDto;
+import hu.bme.edu.handmade.web.dto.ProductDto;
 import hu.bme.edu.handmade.web.dto.user.AddressDto;
 import hu.bme.edu.handmade.web.dto.user.UserDto;
 import hu.bme.edu.handmade.web.dto.error.ResourceNotFoundException;
@@ -28,10 +30,12 @@ import java.util.Optional;
 public class UserController {
     private final IUserService userService;
     private final CartProductService cartService;
+    private final IWishListService wishListService;
 
-    UserController(IUserService userService, CartProductService cartService) {
+    UserController(IUserService userService, CartProductService cartService, IWishListService wishListService) {
         this.userService = userService;
         this.cartService = cartService;
+        this.wishListService = wishListService;
     }
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
@@ -102,6 +106,7 @@ public class UserController {
         return AddressMapper.INSTANCE.toAddressDto(userService.updateAddress(userId, address));
     }
 
+    /** Cart */
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @SecurityRequirement(name = "Bearer Authentication")
     @GetMapping("/{id}/cart")
@@ -136,5 +141,27 @@ public class UserController {
         catch (EmptyResultDataAccessException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    /** Wishlist */
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @SecurityRequirement(name = "Bearer Authentication")
+    @GetMapping("/{user_id}/wishlist")
+    List<ProductDto> getWishList(@PathVariable("user_id") Long id) {
+        return wishListService.getWishListItemsByUserId(id);
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PostMapping("/{user_id}/wishlist")
+    ProductDto addToWishList(@PathVariable("user_id") Long userId, @RequestParam("product_id") Long productId) {
+        return wishListService.addToWishlist(userId, productId);
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @SecurityRequirement(name = "Bearer Authentication")
+    @DeleteMapping("/{user_id}/wishlist")
+    void removeFromWishList(@PathVariable("user_id") Long userId, @RequestParam("product_id") Long productId) {
+        wishListService.removeFromWishList(userId, productId);
     }
 }

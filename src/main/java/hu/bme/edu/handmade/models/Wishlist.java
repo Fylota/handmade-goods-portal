@@ -1,13 +1,12 @@
 package hu.bme.edu.handmade.models;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "wishlists")
 public class Wishlist {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
@@ -20,13 +19,18 @@ public class Wishlist {
     @JoinTable(name = "wishlists_products",
             joinColumns = @JoinColumn(name = "wishlist_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private Set<Product> products = new LinkedHashSet<>();
+    private List<Product> products = new ArrayList<>();
 
-    public Set<Product> getProducts() {
+    public Wishlist(){}
+    public Wishlist(User user) {
+        this.user = user;
+    }
+
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(Set<Product> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 
@@ -38,11 +42,31 @@ public class Wishlist {
         this.user = user;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public void addProduct(Product prod) {
+        this.products.add(prod);
+    }
+    public void removeProduct(Product product) {
+        this.products.remove(product);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Wishlist wishlist = (Wishlist) o;
+        return id.equals(wishlist.id) && user.equals(wishlist.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user);
     }
 }
