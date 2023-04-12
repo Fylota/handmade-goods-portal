@@ -6,19 +6,19 @@ import java.util.Objects;
 @Entity
 @Table(name = "categories")
 public class Category {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id", nullable = false)
-    private long id;
+    private Long id;
     @Basic
     @Column(name = "name")
     private String name;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -37,7 +37,7 @@ public class Category {
 
         Category category = (Category) o;
 
-        if (id != category.id) return false;
+        if (!Objects.equals(id, category.id)) return false;
         return Objects.equals(name, category.name);
     }
 
