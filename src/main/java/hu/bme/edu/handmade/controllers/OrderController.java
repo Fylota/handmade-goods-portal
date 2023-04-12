@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@SecurityRequirement(name = "Bearer Authentication")
+@SecurityRequirement(name = "Bearer_Authentication")
 @CrossOrigin(origins="http://localhost:4200", maxAge=3600)
 @RequestMapping("/orders")
 public class OrderController {
@@ -21,14 +21,14 @@ public class OrderController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @GetMapping()
     public List<OrderItemDto> getOrders() {
         return orderService.findAllOrders();
     }
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @GetMapping("/user")
     public List<OrderItemDto> getOrdersByUserId(@RequestParam Long id) {
         return orderService.getOrdersByUser(id);
@@ -36,7 +36,7 @@ public class OrderController {
 
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @PostMapping()
     public OrderItemDto addOrder(@RequestBody OrderCreateDto order) {
         return orderService.createNewOrder(order);
@@ -48,7 +48,7 @@ public class OrderController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @PutMapping("/{id}")
     public OrderItemDto updateOrderStatus(@PathVariable("id") Long orderId, @RequestParam String status) {
         return orderService.updateOrderStatus(orderId, status);

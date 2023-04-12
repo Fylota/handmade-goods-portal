@@ -1,0 +1,1473 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+paths:
+  /users/{userId}/cart/{cartId}:
+    put:
+      tags:
+      - user-controller
+      operationId: updateCartProduct
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: cartId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartProductDto'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CartProduct'
+      security:
+      - Bearer_Authentication: []
+    delete:
+      tags:
+      - user-controller
+      operationId: removeCartProduct
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: cartId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+      security:
+      - Bearer_Authentication: []
+  /users/{id}:
+    get:
+      tags:
+      - user-controller
+      operationId: one
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserDto'
+      security:
+      - Bearer_Authentication: []
+    put:
+      tags:
+      - user-controller
+      operationId: updateUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDto'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/User'
+      security:
+      - Bearer_Authentication: []
+    delete:
+      tags:
+      - user-controller
+      operationId: deleteUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+      security:
+      - Bearer_Authentication: []
+  /users/{id}/addresses/{addressId}:
+    put:
+      tags:
+      - user-controller
+      operationId: updateUserAddress
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: addressId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddressDto'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AddressDto'
+      security:
+      - Bearer_Authentication: []
+  /products/{id}:
+    get:
+      tags:
+      - product-controller
+      operationId: getProduct
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Product'
+    put:
+      tags:
+      - product-controller
+      operationId: updateProduct
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductDto'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Product'
+      security:
+      - Bearer_Authentication: []
+    delete:
+      tags:
+      - product-controller
+      operationId: deleteProduct
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+      security:
+      - Bearer_Authentication: []
+  /posts/{id}:
+    get:
+      tags:
+      - post-controller
+      operationId: getPostById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Post'
+    put:
+      tags:
+      - post-controller
+      operationId: updatePost
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostDto'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Post'
+      security:
+      - Bearer_Authentication: []
+    delete:
+      tags:
+      - post-controller
+      operationId: deletePost
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+      security:
+      - Bearer_Authentication: []
+  /orders/{id}:
+    get:
+      tags:
+      - order-controller
+      operationId: getOrderById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderItemDto'
+      security:
+      - Bearer_Authentication: []
+    put:
+      tags:
+      - order-controller
+      operationId: updateOrderStatus
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: status
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderItemDto'
+      security:
+      - Bearer_Authentication: []
+  /events/{id}:
+    get:
+      tags:
+      - event-controller
+      operationId: getEventById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Event'
+    put:
+      tags:
+      - event-controller
+      operationId: updateEvent
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventDto'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Event'
+      security:
+      - Bearer_Authentication: []
+    delete:
+      tags:
+      - event-controller
+      operationId: deleteEvent
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+      security:
+      - Bearer_Authentication: []
+  /categories/{category_id}:
+    put:
+      tags:
+      - category-controller
+      operationId: updateCategory
+      parameters:
+      - name: category_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Category'
+      security:
+      - Bearer_Authentication: []
+    delete:
+      tags:
+      - category-controller
+      operationId: deleteCategory
+      parameters:
+      - name: category_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+      security:
+      - Bearer_Authentication: []
+  /users/{user_id}/wishlist:
+    get:
+      tags:
+      - user-controller
+      operationId: getWishList
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductDto'
+      security:
+      - Bearer_Authentication: []
+    post:
+      tags:
+      - user-controller
+      operationId: addToWishList
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: product_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProductDto'
+      security:
+      - Bearer_Authentication: []
+    delete:
+      tags:
+      - user-controller
+      operationId: removeFromWishList
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: product_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+      security:
+      - Bearer_Authentication: []
+  /users/{id}/cart:
+    get:
+      tags:
+      - user-controller
+      operationId: getCartProducts
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CartProduct'
+      security:
+      - Bearer_Authentication: []
+    post:
+      tags:
+      - user-controller
+      operationId: addCartProduct
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartProductDto'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CartProduct'
+      security:
+      - Bearer_Authentication: []
+  /users/{id}/addresses:
+    post:
+      tags:
+      - user-controller
+      operationId: addUserAddress
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddressDto'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AddressDto'
+      security:
+      - Bearer_Authentication: []
+  /register:
+    post:
+      tags:
+      - home-controller
+      operationId: saveUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegistrationDto'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/User'
+  /products:
+    get:
+      tags:
+      - product-controller
+      operationId: getProducts
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+    post:
+      tags:
+      - product-controller
+      operationId: addProduct
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductDto'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Product'
+      security:
+      - Bearer_Authentication: []
+  /products/{productId}/comments:
+    get:
+      tags:
+      - product-controller
+      operationId: getReviews
+      parameters:
+      - name: productId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReviewDto'
+    post:
+      tags:
+      - product-controller
+      operationId: addReview
+      parameters:
+      - name: productId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewDto'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ReviewDto'
+      security:
+      - Bearer_Authentication: []
+  /posts:
+    get:
+      tags:
+      - post-controller
+      operationId: getPosts
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+    post:
+      tags:
+      - post-controller
+      operationId: addPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostDto'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Post'
+      security:
+      - Bearer_Authentication: []
+  /orders:
+    get:
+      tags:
+      - order-controller
+      operationId: getOrders
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderItemDto'
+      security:
+      - Bearer_Authentication: []
+    post:
+      tags:
+      - order-controller
+      operationId: addOrder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderCreateDto'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderItemDto'
+      security:
+      - Bearer_Authentication: []
+  /events:
+    get:
+      tags:
+      - event-controller
+      operationId: getEvents
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+    post:
+      tags:
+      - event-controller
+      operationId: addEvent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventDto'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Event'
+      security:
+      - Bearer_Authentication: []
+  /categories:
+    get:
+      tags:
+      - category-controller
+      operationId: getCategories
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+    post:
+      tags:
+      - category-controller
+      operationId: addNewCategory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Category'
+      security:
+      - Bearer_Authentication: []
+  /authenticate:
+    post:
+      tags:
+      - home-controller
+      operationId: createAuthenticationToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JwtRequest'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /users:
+    get:
+      tags:
+      - user-controller
+      operationId: getUsers
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDto'
+      security:
+      - Bearer_Authentication: []
+  /users/me:
+    get:
+      tags:
+      - user-controller
+      operationId: user
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserDto'
+      security:
+      - Bearer_Authentication: []
+  /products/categories:
+    get:
+      tags:
+      - product-controller
+      operationId: getProductsByCategory
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+  /orders/user:
+    get:
+      tags:
+      - order-controller
+      operationId: getOrdersByUserId
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderItemDto'
+      security:
+      - Bearer_Authentication: []
+  /categories/{category_name}:
+    get:
+      tags:
+      - category-controller
+      operationId: getCategoryByName
+      parameters:
+      - name: category_name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Category'
+components:
+  schemas:
+    CartProductDto:
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int64
+        quantity:
+          type: integer
+          format: int32
+    CartProduct:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        quantity:
+          type: integer
+          format: int32
+        product:
+          $ref: '#/components/schemas/Product'
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+    Product:
+      type: object
+      properties:
+        name:
+          type: string
+        id:
+          type: integer
+          format: int64
+        description:
+          type: string
+        price:
+          type: number
+          format: double
+        imageURL:
+          type: string
+        deleted:
+          type: boolean
+        category:
+          $ref: '#/components/schemas/Category'
+    AddressDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        city:
+          type: string
+        country:
+          type: string
+        zip:
+          type: string
+        addressLine:
+          type: string
+    UserDto:
+      required:
+      - email
+      - firstName
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressDto'
+    Address:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        city:
+          type: string
+        country:
+          type: string
+        zip:
+          type: string
+        addressLine:
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+        password:
+          type: string
+        enabled:
+          type: boolean
+        cartProducts:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/CartProduct'
+    ProductDto:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+          format: double
+        categoryId:
+          type: integer
+          format: int64
+        imageURL:
+          type: string
+    PostDto:
+      type: object
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+    Post:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        content:
+          type: string
+        creationDate:
+          type: string
+          format: date-time
+    OrderItemDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+        status:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderProductDto'
+        paymentMethod:
+          type: string
+        shippingMethod:
+          type: string
+    OrderProductDto:
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int64
+        quantity:
+          type: integer
+          format: int32
+    EventDto:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        startDateTime:
+          type: string
+          format: date-time
+        endDateTime:
+          type: string
+          format: date-time
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        description:
+          type: string
+        startDateTime:
+          type: string
+          format: date-time
+        endDateTime:
+          type: string
+          format: date-time
+        createdDate:
+          type: string
+          format: date-time
+    UserRegistrationDto:
+      type: object
+      properties:
+        email:
+          type: string
+        firstName:
+          type: string
+        password:
+          type: string
+    ReviewDto:
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+        content:
+          type: string
+        creationDate:
+          type: string
+          format: date-time
+    OrderCreateDto:
+      type: object
+      properties:
+        userId:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderProductDto'
+        paymentMethod:
+          type: string
+        shippingMethod:
+          type: string
+    JwtRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+  securitySchemes:
+    Bearer_Authentication:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

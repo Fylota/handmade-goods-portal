@@ -29,21 +29,21 @@ public class CategoryController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @PostMapping("")
     public Category addNewCategory(@RequestBody String catName) {
         return categoryService.createCategory(catName);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @PutMapping("/{category_id}")
     public Category updateCategory(@PathVariable("category_id") Long id, @RequestBody String newCatName) {
         return categoryService.updateCategory(id, newCatName);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @DeleteMapping("/{category_id}")
     public void deleteCategory(@PathVariable("category_id") Long id) {
         categoryService.deleteCategory(id);

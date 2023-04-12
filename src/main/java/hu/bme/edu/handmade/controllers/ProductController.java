@@ -42,14 +42,14 @@ public class ProductController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @PostMapping()
     public Product addProduct(@RequestBody ProductDto productDto) {
         return productService.uploadNewProduct(productDto);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @PutMapping("/{id}")
     public Product updateProduct(@PathVariable("id") Long id, @RequestBody ProductDto productDto) {
         return productService.findProductById(id)
@@ -58,7 +58,7 @@ public class ProductController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id) {
         try {
@@ -78,7 +78,7 @@ public class ProductController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @PostMapping("/{productId}/comments")
     public ReviewDto addReview(@PathVariable("productId") Long productId, @RequestBody ReviewDto review) {
         return reviewService.addReview(productId, review);

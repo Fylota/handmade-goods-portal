@@ -49,7 +49,7 @@ public class SecurityConfig {
             http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers(
-                        "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html",
+                        "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs.yaml",
                         "/register","/authenticate",
                         "/products/**", "/categories/**",
                         "/posts/**", "/events/**")

@@ -34,14 +34,14 @@ public class PostController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @PostMapping()
     public Post addPost(@RequestBody PostDto postDto) {
         return postService.uploadPost(postDto);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @PutMapping("/{id}")
     public Post updatePost(@PathVariable("id") Long id, @RequestBody PostDto postDto) {
         return postService.findPostById(id)
@@ -50,7 +50,7 @@ public class PostController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletePost(@PathVariable("id") Long id) {
         try {

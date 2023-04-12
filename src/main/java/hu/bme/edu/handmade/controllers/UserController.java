@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @GetMapping("/me")
     public UserDto user(Principal principal) {
         String name = principal.getName();
@@ -47,7 +47,7 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @GetMapping("/{id}")
     public UserDto one(@PathVariable Long id) {
         User u = userService.getUserByID(id)
@@ -55,14 +55,14 @@ public class UserController {
         return UserMapper.INSTANCE.userToUserDto(u);
     }
 
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping()
     public List<UserDto> getUsers() {
         return UserMapper.INSTANCE.usersToUserDtos(userService.findAllUsers());
     }
 
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping(path = { "/{id}" })
     public ResponseEntity<?> deleteUser(@PathVariable("id") Long id) {
@@ -76,7 +76,7 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") Long id, @RequestBody UserDto userToUpdate) {
         Optional<User> updatedUser = userService.updateUser(id, userToUpdate);
@@ -93,14 +93,14 @@ public class UserController {
                 });
     }
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @PostMapping("/{id}/addresses")
     public AddressDto addUserAddress(@PathVariable("id") Long userId, @RequestBody AddressDto address) {
         return AddressMapper.INSTANCE.toAddressDto(userService.addAddress(userId, address));
     }
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @PutMapping("/{id}/addresses/{addressId}")
     public AddressDto updateUserAddress(@PathVariable("id") Long userId, @PathVariable("addressId") Long addressId,@RequestBody AddressDto address) {
         return AddressMapper.INSTANCE.toAddressDto(userService.updateAddress(userId, address));
@@ -108,21 +108,21 @@ public class UserController {
 
     /** Cart */
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @GetMapping("/{id}/cart")
     List<CartProduct> getCartProducts(@PathVariable("id") long userId) {
         return cartService.getCartProductsByUser(userId);
     }
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @PostMapping("/{id}/cart")
     CartProduct addCartProduct(@PathVariable("id") long userId, @RequestBody CartProductDto cartProductDto) {
         return cartService.addCartProduct(cartProductDto, userId);
     }
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @PutMapping("/{userId}/cart/{cartId}")
     CartProduct updateCartProduct(@PathVariable("userId") long userId, @PathVariable("cartId") long cartId, @RequestBody CartProductDto cartProductDto) {
         return cartService.findCartProductById(cartId)
@@ -131,7 +131,7 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @DeleteMapping("/{userId}/cart/{cartId}")
     ResponseEntity<?> removeCartProduct(@PathVariable("userId") Long userId, @PathVariable("cartId") Long cartId) {
         try {
@@ -145,21 +145,21 @@ public class UserController {
 
     /** Wishlist */
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @GetMapping("/{user_id}/wishlist")
     List<ProductDto> getWishList(@PathVariable("user_id") Long id) {
         return wishListService.getWishListItemsByUserId(id);
     }
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @PostMapping("/{user_id}/wishlist")
     ProductDto addToWishList(@PathVariable("user_id") Long userId, @RequestParam("product_id") Long productId) {
         return wishListService.addToWishlist(userId, productId);
     }
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @DeleteMapping("/{user_id}/wishlist")
     void removeFromWishList(@PathVariable("user_id") Long userId, @RequestParam("product_id") Long productId) {
         wishListService.removeFromWishList(userId, productId);

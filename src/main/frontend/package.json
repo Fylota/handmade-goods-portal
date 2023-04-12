@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "postinstall": "ngcc",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "generate:api": "openapi-generator-cli generate -i ./api-docs.yaml -g typescript-angular -o src/app/core/api/v1"
   },
   "private": true,
   "dependencies": {

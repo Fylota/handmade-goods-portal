@@ -33,14 +33,14 @@ public class EventController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @PostMapping()
     public Event addEvent(@RequestBody EventDto dto) {
         return eventService.addEvent(dto);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @PutMapping("/{id}")
     public Event updateEvent(@PathVariable("id") Long id, @RequestBody EventDto eventDto) {
         return eventService.findEventById(id)
@@ -49,7 +49,7 @@ public class EventController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteEvent(@PathVariable("id") Long id) {
         try {
