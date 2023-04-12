@@ -4,6 +4,7 @@ import hu.bme.edu.handmade.models.Event;
 import hu.bme.edu.handmade.services.IEventService;
 import hu.bme.edu.handmade.web.dto.EventDto;
 import hu.bme.edu.handmade.web.dto.error.ResourceNotFoundException;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -32,12 +33,14 @@ public class EventController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PostMapping()
     public Event addEvent(@RequestBody EventDto dto) {
         return eventService.addEvent(dto);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PutMapping("/{id}")
     public Event updateEvent(@PathVariable("id") Long id, @RequestBody EventDto eventDto) {
         return eventService.findEventById(id)
@@ -46,6 +49,7 @@ public class EventController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteEvent(@PathVariable("id") Long id) {
         try {

@@ -4,6 +4,7 @@ import hu.bme.edu.handmade.models.Post;
 import hu.bme.edu.handmade.services.IPostService;
 import hu.bme.edu.handmade.web.dto.PostDto;
 import hu.bme.edu.handmade.web.dto.error.ResourceNotFoundException;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,12 +34,14 @@ public class PostController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PostMapping()
     public Post addPost(@RequestBody PostDto postDto) {
         return postService.uploadPost(postDto);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PutMapping("/{id}")
     public Post updatePost(@PathVariable("id") Long id, @RequestBody PostDto postDto) {
         return postService.findPostById(id)
@@ -47,6 +50,7 @@ public class PostController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletePost(@PathVariable("id") Long id) {
         try {

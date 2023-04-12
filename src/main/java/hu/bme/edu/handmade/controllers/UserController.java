@@ -35,6 +35,7 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @GetMapping("/me")
     public UserDto user(Principal principal) {
         String name = principal.getName();
@@ -42,6 +43,7 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @GetMapping("/{id}")
     public UserDto one(@PathVariable Long id) {
         User u = userService.getUserByID(id)
@@ -70,6 +72,7 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") Long id, @RequestBody UserDto userToUpdate) {
         Optional<User> updatedUser = userService.updateUser(id, userToUpdate);
@@ -86,30 +89,35 @@ public class UserController {
                 });
     }
     @PreAuthorize("hasAuthority('ROLE_USER')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PostMapping("/{id}/addresses")
     public AddressDto addUserAddress(@PathVariable("id") Long userId, @RequestBody AddressDto address) {
         return AddressMapper.INSTANCE.toAddressDto(userService.addAddress(userId, address));
     }
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PutMapping("/{id}/addresses/{addressId}")
     public AddressDto updateUserAddress(@PathVariable("id") Long userId, @PathVariable("addressId") Long addressId,@RequestBody AddressDto address) {
         return AddressMapper.INSTANCE.toAddressDto(userService.updateAddress(userId, address));
     }
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @GetMapping("/{id}/cart")
     List<CartProduct> getCartProducts(@PathVariable("id") long userId) {
         return cartService.getCartProductsByUser(userId);
     }
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PostMapping("/{id}/cart")
     CartProduct addCartProduct(@PathVariable("id") long userId, @RequestBody CartProductDto cartProductDto) {
         return cartService.addCartProduct(cartProductDto, userId);
     }
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PutMapping("/{userId}/cart/{cartId}")
     CartProduct updateCartProduct(@PathVariable("userId") long userId, @PathVariable("cartId") long cartId, @RequestBody CartProductDto cartProductDto) {
         return cartService.findCartProductById(cartId)
@@ -118,6 +126,7 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @DeleteMapping("/{userId}/cart/{cartId}")
     ResponseEntity<?> removeCartProduct(@PathVariable("userId") Long userId, @PathVariable("cartId") Long cartId) {
         try {

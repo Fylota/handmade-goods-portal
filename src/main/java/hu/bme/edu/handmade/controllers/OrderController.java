@@ -21,12 +21,14 @@ public class OrderController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @GetMapping()
     public List<OrderItemDto> getOrders() {
         return orderService.findAllOrders();
     }
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @GetMapping("/user")
     public List<OrderItemDto> getOrdersByUserId(@RequestParam Long id) {
         return orderService.getOrdersByUser(id);
@@ -34,6 +36,7 @@ public class OrderController {
 
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PostMapping()
     public OrderItemDto addOrder(@RequestBody OrderCreateDto order) {
         return orderService.createNewOrder(order);
@@ -45,6 +48,7 @@ public class OrderController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PutMapping("/{id}")
     public OrderItemDto updateOrderStatus(@PathVariable("id") Long orderId, @RequestParam String status) {
         return orderService.updateOrderStatus(orderId, status);

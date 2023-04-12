@@ -6,6 +6,7 @@ import hu.bme.edu.handmade.services.IReviewService;
 import hu.bme.edu.handmade.web.dto.ProductDto;
 import hu.bme.edu.handmade.web.dto.ReviewDto;
 import hu.bme.edu.handmade.web.dto.error.ResourceNotFoundException;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -41,12 +42,14 @@ public class ProductController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PostMapping()
     public Product addProduct(@RequestBody ProductDto productDto) {
         return productService.uploadNewProduct(productDto);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PutMapping("/{id}")
     public Product updateProduct(@PathVariable("id") Long id, @RequestBody ProductDto productDto) {
         return productService.findProductById(id)
@@ -55,6 +58,7 @@ public class ProductController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id) {
         try {
@@ -73,6 +77,8 @@ public class ProductController {
         return reviewService.getReviews(productId);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PostMapping("/{productId}/comments")
     public ReviewDto addReview(@PathVariable("productId") Long productId, @RequestBody ReviewDto review) {
         return reviewService.addReview(productId, review);
