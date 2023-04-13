@@ -1,12 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Product } from 'src/app/models/product.model';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Product } from 'src/app/core/api/v1';
 
 @Component({
   selector: 'app-admin-section-list',
   templateUrl: './admin-section-list.component.html',
   styleUrls: ['./admin-section-list.component.scss']
 })
-export class AdminSectionListComponent implements OnInit {
+export class AdminSectionListComponent {
 
   @Input()
   items: Product[] | undefined;
@@ -18,16 +18,11 @@ export class AdminSectionListComponent implements OnInit {
   @Output("editItem")
   editItem: EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  emitDelete(id: string) {
+  emitDelete(id: number) {
     this.deleteItem.emit(id);
   }
 
-  emitEdit(id: string) {
+  emitEdit(id: number) {
     console.log("edititem in admin-section");
     this.editItem.emit(id);
   }

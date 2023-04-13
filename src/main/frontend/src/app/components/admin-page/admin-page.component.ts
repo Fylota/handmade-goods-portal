@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { Product } from 'src/app/models/product.model';
-import { OrderService } from 'src/app/service/order.service';
-import ProductService from 'src/app/service/product.service';
+import { OrderControllerService, Product, ProductControllerService } from 'src/app/core/api/v1';
 
 @Component({
   selector: 'app-admin-page',
@@ -15,13 +13,13 @@ export class AdminPageComponent {
   editProduct: Product | undefined;
 
   constructor(
-    private productService: ProductService,
-    private orderService: OrderService,
+    private productService: ProductControllerService,
+    private orderService: OrderControllerService,
   ) { }
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe(
-      (response: any) => this.allProducts = response._embedded.productList
+      (response: any) => this.allProducts = response
     );
   }
 
@@ -34,12 +32,12 @@ export class AdminPageComponent {
     this.activeTab = tabNumber;
   }
 
-  deleteItem(id: string) {
+  deleteItem(id: number) {
     this.allProducts = this.allProducts.filter(p => p.id !== id);
     this.productService.deleteProduct(id).subscribe();
   }
 
-  editItem(id: string) {
+  editItem(id: number) {
     console.log("edititem in admin-page");
     this.productService.getProduct(id).subscribe(
       p => this.editProduct = p

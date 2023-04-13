@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService, User } from 'src/app/service/user.service';
+import { HomeControllerService, UserRegistrationDto } from 'src/app/core/api/v1';
 
 @Component({
   selector: 'app-add-user',
@@ -9,12 +9,12 @@ import { UserService, User } from 'src/app/service/user.service';
 })
 export class AddUserComponent {
 
-  user: User = new User("", "", "", "", "", "", "", "");
+  user: UserRegistrationDto = {};
 
-  constructor(private httpClientService: UserService, private router: Router) { }
+  constructor(private homeService: HomeControllerService, private router: Router) { }
 
   createUser(): void {
-    this.httpClientService.createUser(this.user)
+    this.homeService.saveUser(this.user)
       .subscribe(_data => {
         alert("User created successfully.");
         this.router.navigate(['home']);

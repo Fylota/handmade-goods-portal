@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Category } from 'src/app/models/category.model';
-import { CategoryService } from 'src/app/service/category.service';
+import { CategoryControllerService } from 'src/app/core/api/v1';
+import { Category } from 'src/app/core/api/v1/model/category';
 
 @Component({
   selector: 'app-category',
@@ -9,11 +9,10 @@ import { CategoryService } from 'src/app/service/category.service';
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
-
-  category: Category = new Category("","");
+  category?: Category;
   categoryName: string = "";
 
-  constructor(private route: ActivatedRoute, private categoryService: CategoryService) { }
+  constructor(private route: ActivatedRoute, private categoryService: CategoryControllerService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {

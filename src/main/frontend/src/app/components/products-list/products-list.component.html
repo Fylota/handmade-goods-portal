@@ -1,5 +1,5 @@
 <div class="products--container">
-    <div class="col-md-4" *ngFor="let product of products">
+    <div class="col-md-4" *ngFor="let product of products$ | async as list">
         <div class="product--card">
             <img
                 src="https://source.unsplash.com/random/200x200"
@@ -9,7 +9,7 @@
             />
             <h5 class="card--title">{{ product.name }}</h5>
             <div class="product--card-button-container">
-                <button class="addToCart--button" (click)="addToCart(product.id)">
+                <button class="addToCart--button" (click)="addToCart(product.id!)">
                     <fa-icon [icon]="faCartPlus"></fa-icon>
                 </button>
             </div>

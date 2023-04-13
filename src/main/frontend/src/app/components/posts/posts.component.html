@@ -1,4 +1,4 @@
-<div *ngFor="let post of posts">
+<div *ngFor="let post of posts$ | async">
     <div class="card h-20 w-90">
         <div class="card-body">
         <h5 class="card-title">{{post.title}}</h5>

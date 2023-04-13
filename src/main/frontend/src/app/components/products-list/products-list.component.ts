@@ -1,63 +1,62 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CartService } from 'src/app/service/cart.service';
-import { UserService, User } from 'src/app/service/user.service';
-import ProductService, { Product } from 'src/app/service/product.service';
-import { Category } from 'src/app/models/category.model';
 import { AuthenticationService } from 'src/app/service/authentication.service';
-import { CartProduct } from 'src/app/models/cart-product.model';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
+import {
+  CartProductDto,
+  Category,
+  Product,
+  ProductControllerService,
+  UserControllerService,
+} from 'src/app/core/api/v1';
 
 @Component({
   selector: 'app-products-list',
   templateUrl: './products-list.component.html',
-  styleUrls: ['./products-list.component.scss']
+  styleUrls: ['./products-list.component.scss'],
 })
 export class ProductsListComponent implements OnInit {
   @Input() category?: Category;
-  products: Product[] = [];
-  user?: User;
+  products$ = this.productService.getProducts();
+  user$ = this.userService.user();
+  userId = 0;
   faCartPlus = faCartPlus;
 
   constructor(
-    private httpProductService: ProductService,
+    private productService: ProductControllerService,
     private router: Router,
-    private cartService: CartService,
     private authService: AuthenticationService,
-    private userService: UserService
-  ) { }
+    private userService: UserControllerService
+  ) {}
 
   ngOnInit(): void {
     if (this.category !== undefined) {
-      this.httpProductService.getProductsByCategory(this.category).subscribe(
-        (response: any) => this.products = response._embedded.productList
-      );
-    } else {
-      this.httpProductService.getProducts().subscribe(
-        (response: any) => this.products = response._embedded.productList
+      this.products$ = this.productService.getProductsByCategory(
+        this.category.id!
       );
     }
-    if (this.authService.isUserLoggedIn()) {
-      this.userService.getUser().subscribe(
-        response => this.user = response
-      );
-    }
-
   }
 
   navigateToProductDetails(product: Product) {
-    this.router.navigate(['products/view'], {queryParams: {id:product.id}})
+    this.router.navigate(['products/view'], {
+      queryParams: { id: product.id },
+    });
   }
 
-  addToCart(productId: string) {
+  addToCart(productId: number) {
     if (!this.authService.isUserLoggedIn()) {
       window.alert('You must log in first!');
       // TODO temp cart
     } else {
-      let userId = this.user !== null ? this.user!.id : "";
-      let cartProduct = new CartProduct("",userId, productId, 1);
-      this.cartService.addToCart(cartProduct).subscribe();
-      window.alert('Your product has been added to the cart!');
+      this.user$.subscribe((user) => {
+        this.userId = Number(user.id!);
+        const cartProductDto: CartProductDto = {
+          productId: productId,
+          quantity: 1,
+        };
+        this.userService.addCartProduct(this.userId, cartProductDto).subscribe();
+        window.alert('Your product has been added to the cart!');
+      });
     }
   }
 }
