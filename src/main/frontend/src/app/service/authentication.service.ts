@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
+import jwt_decode from 'jwt-decode';
 
 export class UserStatus {
   constructor(public status: string) { }
@@ -19,6 +20,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthenticationService {
+  roleAs = '';
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
@@ -26,9 +28,14 @@ export class AuthenticationService {
     return this.httpClient.post<any>('http://localhost:8080/authenticate',{username,password}).pipe(
      map(
        userData => {
+        console.log(userData);
         sessionStorage.setItem('username',username);
         let tokenStr= 'Bearer '+userData.token;
         sessionStorage.setItem('token', tokenStr);
+        const tokenInfo = this.getDecodedAccessToken(userData.token);
+        console.log(tokenInfo)
+        const roles = tokenInfo.authorities;
+        sessionStorage.setItem('roles', roles);
         return userData;
        }
      )
@@ -38,13 +45,27 @@ export class AuthenticationService {
 
   isUserLoggedIn() {
     let user = sessionStorage.getItem('username')
-    console.log(user !== null)
     return user !== null
   }
 
   logOut(): Observable<any> {
     sessionStorage.removeItem('username');
+    sessionStorage.setItem('roles', '');
     this.router.navigate(['logout']);
     return this.httpClient.post('http://localhost:8080/logout', { }, httpOptions);
+  }
+
+  getRole() {
+    this.roleAs = sessionStorage.getItem('roles') != null ? sessionStorage.getItem('roles')! : '';
+    console.log(this.roleAs);
+    return this.roleAs;
+  }
+
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    } catch(Error) {
+      return null;
+    }
   }
 }
