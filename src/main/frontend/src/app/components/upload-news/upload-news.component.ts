@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PostService, Post } from 'src/app/service/post.service';
+import { PostControllerService, PostDto } from 'src/app/core/api/v1';
 
 @Component({
   selector: 'app-upload-news',
@@ -8,12 +8,11 @@ import { PostService, Post } from 'src/app/service/post.service';
 })
 export class UploadNewsComponent {
 
-  post: Post = new Post("", "", "", new Date())
-  constructor(private postService: PostService) { }
+  post: PostDto = {title: "", content: ""};
+  constructor(private postService: PostControllerService) { }
 
   createPost() {
-    this.post.creationDate = new Date();
-    this.postService.createPost(this.post)
+    this.postService.addPost(this.post)
     .subscribe(() => {
       console.log(this.post);
       alert("Post created successfully.");

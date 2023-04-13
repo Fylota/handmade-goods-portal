@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { OrderCreate } from 'src/app/models/order-create';
-import { OrderProduct } from 'src/app/models/order-product';
-import { CartService } from 'src/app/service/cart.service';
-import { OrderService } from 'src/app/service/order.service';
-import { User, UserService } from 'src/app/service/user.service';
+import { CartProduct, CartProductDto, OrderControllerService, OrderCreateDto, UserControllerService, UserDto } from 'src/app/core/api/v1';
 
 @Component({
   selector: 'app-checkout',
@@ -12,8 +8,8 @@ import { User, UserService } from 'src/app/service/user.service';
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
-  user: User | undefined;
-  cartItems: any[] = [];
+  user: UserDto | undefined;
+  cartItems: CartProductDto[] = [];
   subTotal = 0;
   shippingPrice = 0;
   orderTotal = 0;
@@ -35,25 +31,24 @@ export class CheckoutComponent implements OnInit {
   });
 
   constructor(
-    private cartService: CartService,
-    private userService: UserService,
-    private orderService: OrderService
+    private userService: UserControllerService,
+    private orderService: OrderControllerService
   ) { }
 
   ngOnInit(): void {
-    this.userService.getUser().subscribe(
+    this.userService.user().subscribe(
       (user) => {
         this.user = user;
         this.checkoutForm.patchValue({
           addressForm: {
             firstName: user.firstName,
             lastName: user.lastName,
-            city: user.address,
-            postalCode: 'todo update User',
+            city: user.addresses ? user.addresses[0].city : '',
+            postalCode: user.addresses ? user.addresses[0].zip : '',
             phoneNumber: user.phoneNumber,
           }
         });
-        this.cartService.getItems(user.id).subscribe(items => {
+        this.userService.getCartProducts(Number(user.id)).subscribe(items => {
           this.cartItems = items;
           this.calcSummary();
         });
@@ -69,24 +64,24 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  removeFromCart(prod: any) {
+  removeFromCart(prod: CartProduct) {
     this.cartItems = this.cartItems.filter(p => p !== prod);
     this.calcSummary();
-    this.cartService.removeItem(prod).subscribe();
+    this.userService.removeCartProduct(Number(this.user!.id), prod.id!).subscribe();
   }
 
-  increaseQty(prod: any) {
+  increaseQty(prod: CartProduct) {
     if (this.user !== undefined) {
       this.cartItems = this.cartItems.map(p => {
         if (p === prod) {
-          return {...p, quantity: p.quantity + 1};
+          return {...p, quantity: p.quantity! + 1};
         }
         else {
           return {...p};
         }
       } );
       this.calcSummary();
-      this.cartService.updateItem({id: prod.id, userId: this.user.id, productId: prod.product.id, quantity: prod.quantity + 1}).subscribe();
+      this.userService.updateCartProduct(Number(this.user.id), prod.id!, {...prod, quantity: prod.quantity! + 1}).subscribe();
     }
   }
 
@@ -94,14 +89,14 @@ export class CheckoutComponent implements OnInit {
     if (this.user !== undefined && prod.quantity > 1) {
       this.cartItems = this.cartItems.map(p => {
         if (p === prod) {
-          return {...p, quantity: p.quantity - 1};
+          return {...p, quantity: p.quantity! - 1};
         }
         else {
           return {...p};
         }
       } );
       this.calcSummary();
-      this.cartService.updateItem({id: prod.id, userId: this.user.id, productId: prod.product.id, quantity: prod.quantity - 1}).subscribe();
+      this.userService.updateCartProduct(Number(this.user.id), prod.id!, {...prod, quantity: prod.quantity! - 1}).subscribe();
     }
   }
 
@@ -117,14 +112,16 @@ export class CheckoutComponent implements OnInit {
     console.log(this.user);
     console.log(this.cartItems);
 
-    let items = this.cartItems.map(item => {
-      return new OrderProduct(item.id, item.quantity)
-    })
-    let order = new OrderCreate(this.user!.id, items, this.checkoutForm.value.paymentForm!.paymentMethod!, this.checkoutForm.value.shipmentForm!.shipment!);
-    this.orderService.addOrder(order).subscribe(res => {
+    const newOrder: OrderCreateDto = {
+      userId: this.user?.id,
+      items: this.cartItems,
+      paymentMethod: this.checkoutForm.value.paymentForm!.paymentMethod!,
+      shippingMethod: this.checkoutForm.value.shipmentForm!.shipment!
+    }
+    this.orderService.addOrder(newOrder).subscribe(res => {
       console.log(res);
     });
-    
+
   }
 
 }

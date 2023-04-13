@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CartProduct } from 'src/app/models/cart-product.model';
-import { Product } from 'src/app/models/product.model';
+import { CartProductDto, Product, ProductControllerService, UserControllerService, UserDto } from 'src/app/core/api/v1';
 import { AuthenticationService } from 'src/app/service/authentication.service';
-import { CartService } from 'src/app/service/cart.service';
-import ProductService from 'src/app/service/product.service';
-import { User, UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-product-details',
@@ -16,23 +12,22 @@ export class ProductDetailsComponent {
 
   param = "";
   product: Product | undefined;
-  user: User | undefined;
+  user: UserDto | undefined;
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService,
-    private cartService: CartService,
+    private productService: ProductControllerService,
     private authService: AuthenticationService,
-    private userService: UserService) {
+    private userService: UserControllerService) {
     this.route.queryParams.subscribe(params => {
       this.param = params['id'];
-      productService.getProduct(this.param).subscribe(res => {
+      productService.getProduct(Number(this.param)).subscribe(res => {
         this.product = res;
         console.log(this.product);
       });
     });
     if (this.authService.isUserLoggedIn()) {
-      this.userService.getUser().subscribe(
+      this.userService.user().subscribe(
         response => this.user = response
       );
     }
@@ -43,9 +38,13 @@ export class ProductDetailsComponent {
       window.alert('You must log in first!');
       // TODO temp cart
     } else {
-      let userId = this.user !== null ? this.user!.id : "";
-      let cartProduct = new CartProduct("",userId, this.product!.id, 1);
-      this.cartService.addToCart(cartProduct).subscribe();
+      let userId = Number(this.user!.id);
+      let cartProduct: CartProductDto = {
+        productId: this.product!.id!,
+        quantity: 1
+      };
+      //"",userId, this.product!.id, 1);
+      this.userService.addCartProduct(userId, cartProduct).subscribe();
       window.alert('Your product has been added to the cart!');
     }
   }
