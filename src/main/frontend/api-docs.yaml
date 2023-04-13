@@ -34,13 +34,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/CartProduct'
       security:
@@ -66,13 +66,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: object
       security:
@@ -93,13 +93,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/UserDto'
       security:
@@ -125,13 +125,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/User'
       security:
@@ -151,13 +151,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: object
       security:
@@ -190,13 +190,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/AddressDto'
       security:
@@ -217,13 +217,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Product'
     put:
@@ -247,13 +247,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Product'
       security:
@@ -273,13 +273,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: object
       security:
@@ -300,13 +300,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Post'
     put:
@@ -330,13 +330,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Post'
       security:
@@ -356,13 +356,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: object
       security:
@@ -383,13 +383,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/OrderItemDto'
       security:
@@ -414,13 +414,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/OrderItemDto'
       security:
@@ -441,13 +441,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Event'
     put:
@@ -471,13 +471,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Event'
       security:
@@ -497,13 +497,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: object
       security:
@@ -530,13 +530,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Category'
       security:
@@ -556,7 +556,7 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
@@ -579,13 +579,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: array
                 items:
@@ -613,13 +613,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/ProductDto'
       security:
@@ -645,7 +645,7 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
@@ -668,13 +668,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: array
                 items:
@@ -702,13 +702,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/CartProduct'
       security:
@@ -735,13 +735,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/AddressDto'
       security:
@@ -761,13 +761,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/User'
   /products:
@@ -779,13 +779,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: array
                 items:
@@ -804,13 +804,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Product'
       security:
@@ -831,13 +831,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: array
                 items:
@@ -863,13 +863,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/ReviewDto'
       security:
@@ -883,13 +883,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: array
                 items:
@@ -908,13 +908,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Post'
       security:
@@ -928,13 +928,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: array
                 items:
@@ -955,13 +955,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/OrderItemDto'
       security:
@@ -975,13 +975,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: array
                 items:
@@ -1000,13 +1000,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Event'
       security:
@@ -1020,13 +1020,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: array
                 items:
@@ -1045,13 +1045,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Category'
       security:
@@ -1071,13 +1071,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: object
   /users:
@@ -1089,13 +1089,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: array
                 items:
@@ -1111,13 +1111,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/UserDto'
       security:
@@ -1138,13 +1138,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: array
                 items:
@@ -1165,13 +1165,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: array
                 items:
@@ -1193,13 +1193,13 @@ paths:
         "404":
           description: Not Found
           content:
-            '*/*':
+            application/json:
               schema:
                 type: string
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Category'
 components:
