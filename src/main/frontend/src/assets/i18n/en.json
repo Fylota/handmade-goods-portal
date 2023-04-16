@@ -1,0 +1,16 @@
+{
+  "HOME": {
+    "SELECT": "Change language",
+    "HERO": "Unique products Handmade for You"
+  },
+  "NAV": {
+    "PROFILE": "Profile",
+    "WISHLIST": "Wishlist",
+    "CART": "Cart",
+    "SEARCH": "Search...",
+    "PRODUCTS": "All Products",
+    "EVENTS": "Events",
+    "NEWS": "News",
+    "ADMIN": "Admin Page"
+  }
+}

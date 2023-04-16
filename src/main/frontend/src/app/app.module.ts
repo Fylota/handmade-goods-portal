@@ -1,8 +1,11 @@
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
 import { AppComponent } from './app.component';
 import { UserComponent } from './components/user/user.component';
 import { AddUserComponent } from './components/add-user/add-user.component';
@@ -36,6 +39,11 @@ import { HttpErrorHandler } from './service/http-error-handler.service';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { CartItemsTableComponent } from './components/cart-items-table/cart-items-table.component';
 import { AdminSectionListComponent } from './components/admin-section-list/admin-section-list.component';
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -75,7 +83,15 @@ import { AdminSectionListComponent } from './components/admin-section-list/admin
     ReactiveFormsModule,
     FontAwesomeModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      },
+      defaultLanguage: 'en'
+    })
   ],
   providers: [
     HttpErrorHandler,
