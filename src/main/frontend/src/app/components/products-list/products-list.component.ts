@@ -11,6 +11,11 @@ import {
 } from 'src/app/core/api/v1';
 import { PageEvent } from '@angular/material/paginator';
 
+interface SortValue {
+  value: string[];
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-products-list',
   templateUrl: './products-list.component.html',
@@ -23,7 +28,12 @@ export class ProductsListComponent implements OnInit {
   pageSize = 10;
   pageSizeOptions = [5, 10, 25];
   pageIndex = 0;
+  sort = ["name", "asc"];
   pageEvent: PageEvent | undefined;
+  sortValues: SortValue[] = [
+    {value: ["name", "asc"], viewValue: 'Name ascending'},
+    {value: ["name", "desc"], viewValue: 'Name descending'},
+  ]
 
   user$ = this.userService.user();
   userId = 0;
@@ -42,7 +52,7 @@ export class ProductsListComponent implements OnInit {
         this.products = res;
       })
     } else {
-      this.productService.getProducts(this.pageIndex, this.pageSize).subscribe((res: any) => {
+      this.productService.getProducts(this.pageIndex, this.pageSize, this.sort).subscribe((res: any) => {
         this.products = res["products"];
         this.length = res["totalItems"];
       })
@@ -54,7 +64,14 @@ export class ProductsListComponent implements OnInit {
     this.length = e.length;
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
-    this.productService.getProducts(this.pageIndex, this.pageSize).subscribe((res: any) => {
+    this.productService.getProducts(this.pageIndex, this.pageSize, this.sort).subscribe((res: any) => {
+      this.products = res["products"];
+      this.length = res["totalItems"];
+    })
+  }
+
+  handleSelectEvent() {
+    this.productService.getProducts(this.pageIndex, this.pageSize, this.sort).subscribe((res: any) => {
       this.products = res["products"];
       this.length = res["totalItems"];
     })

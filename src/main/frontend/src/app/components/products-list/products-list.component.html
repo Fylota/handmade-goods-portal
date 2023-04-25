@@ -1,3 +1,15 @@
+<div class="products--header">
+    <mat-form-field appearance="fill">
+        <mat-label>Sort</mat-label>
+        <mat-select 
+            [(value)]="sort"
+            (selectionChange)="handleSelectEvent()">
+          <mat-option *ngFor="let sortValue of sortValues" [value]="sortValue.value">
+            {{sortValue.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+</div>
 <div class="products--container">
     <div class="col-md-4" *ngFor="let product of products">
         <div class="product--card">

@@ -790,6 +790,16 @@ paths:
           type: integer
           format: int32
           default: 3
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+          default:
+          - id
+          - desc
       responses:
         "404":
           description: Not Found
