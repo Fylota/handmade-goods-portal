@@ -1,5 +1,7 @@
 package hu.bme.edu.handmade.controllers;
 
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
 import hu.bme.edu.handmade.models.User;
 import hu.bme.edu.handmade.security.JwtRequest;
 import hu.bme.edu.handmade.security.JwtResponse;
@@ -15,6 +17,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.util.Collections;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -44,6 +53,38 @@ public class HomeController {
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+    @PostMapping("/auth/google")
+    public ResponseEntity<?> loginWithGoogle(@RequestBody String idTokenString) throws GeneralSecurityException, IOException {
+        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
+                .setAudience(Collections.singletonList("820575053600-723ifuvc2elm5rv5rr35br63gvoh5o73.apps.googleusercontent.com"))
+                .build();
+
+        GoogleIdToken idToken = verifier.verify(idTokenString.substring(1,idTokenString.length()-1));
+        if (idToken != null) {
+            Payload payload = idToken.getPayload();
+
+            // Get profile information from payload
+            String email = payload.getEmail();
+            /*
+            boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
+            String name = (String) payload.get("name");
+            String pictureUrl = (String) payload.get("picture");
+            String locale = (String) payload.get("locale");
+            String familyName = (String) payload.get("family_name");
+            String givenName = (String) payload.get("given_name");
+            */
+
+            final UserDetails userDetails = userDetailsService
+                    .loadUserByUsername(email);
+            final String token = jwtTokenUtil.generateToken(userDetails);
+
+            return ResponseEntity.ok(new JwtResponse(token));
+
+        } else {
+            return (ResponseEntity<?>) ResponseEntity.badRequest();
+        }
     }
 
     @PostMapping(value = "/register")

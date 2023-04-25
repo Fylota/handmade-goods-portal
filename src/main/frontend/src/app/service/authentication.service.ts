@@ -29,7 +29,7 @@ export class AuthenticationService {
      map(
        userData => {
         console.log(userData);
-        sessionStorage.setItem('username',username);
+        //sessionStorage.setItem('username',username);
         let tokenStr= 'Bearer '+userData.token;
         sessionStorage.setItem('token', tokenStr);
         const tokenInfo = this.getDecodedAccessToken(userData.token);
@@ -43,13 +43,17 @@ export class AuthenticationService {
     );
   }
 
+  LoginWithGoogle(credentials: string): Observable<any> {
+    return this.httpClient.post('http://localhost:8080/auth/google', JSON.stringify(credentials), httpOptions);
+  }
+
   isUserLoggedIn() {
-    let user = sessionStorage.getItem('username')
+    let user = sessionStorage.getItem('token')
     return user !== null
   }
 
   logOut(): Observable<any> {
-    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('token');
     sessionStorage.setItem('roles', '');
     this.router.navigate(['logout']);
     return this.httpClient.post('http://localhost:8080/logout', { }, httpOptions);

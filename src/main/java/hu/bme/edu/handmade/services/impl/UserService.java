@@ -101,6 +101,20 @@ public class UserService implements IUserService {
         return passwordEncoder.matches(oldPassword, user.getPassword());
     }
 
+    public void processOAuthPostLogin(String email) {
+        User existUser = userRepository.findByEmail(email);
+        if (existUser == null) {
+            User newUser = new User();
+            newUser.setEmail(email);
+            newUser.setRoles(Collections.singletonList(roleRepository.findByName("ROLE_USER")));
+            newUser.setEnabled(true);
+
+            userRepository.save(newUser);
+        }
+    }
+
+
+
     private boolean emailExists(final String email) {
         return userRepository.findByEmail(email) != null;
     }

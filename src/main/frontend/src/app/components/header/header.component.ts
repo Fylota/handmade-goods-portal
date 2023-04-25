@@ -13,5 +13,9 @@ export class HeaderComponent {
   @Input() drawerRef: any;
   constructor(public loginService:AuthenticationService, public translate: TranslateService) { }
 
+  logout() {
+    sessionStorage.clear();
+  }
+
 
 }
