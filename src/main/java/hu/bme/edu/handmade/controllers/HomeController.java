@@ -65,23 +65,23 @@ public class HomeController {
         if (idToken != null) {
             Payload payload = idToken.getPayload();
 
-            // Get profile information from payload
             String email = payload.getEmail();
-            /*
-            boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
-            String name = (String) payload.get("name");
-            String pictureUrl = (String) payload.get("picture");
-            String locale = (String) payload.get("locale");
             String familyName = (String) payload.get("family_name");
             String givenName = (String) payload.get("given_name");
-            */
 
-            final UserDetails userDetails = userDetailsService
-                    .loadUserByUsername(email);
-            final String token = jwtTokenUtil.generateToken(userDetails);
-
-            return ResponseEntity.ok(new JwtResponse(token));
-
+            if (userService.findUserByEmail(email) == null) {
+                User newUser = userService.processOAuthPostLogin(email, familyName, givenName);
+                final UserDetails userDetails = userDetailsService
+                        .loadUserByUsername(newUser.getEmail());
+                final String token = jwtTokenUtil.generateToken(userDetails);
+                return ResponseEntity.ok(new JwtResponse(token));
+            }
+            else {
+                final UserDetails userDetails = userDetailsService
+                        .loadUserByUsername(email);
+                final String token = jwtTokenUtil.generateToken(userDetails);
+                return ResponseEntity.ok(new JwtResponse(token));
+            }
         } else {
             return (ResponseEntity<?>) ResponseEntity.badRequest();
         }

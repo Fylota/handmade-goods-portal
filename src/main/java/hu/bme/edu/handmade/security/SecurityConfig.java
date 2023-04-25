@@ -1,8 +1,5 @@
 package hu.bme.edu.handmade.security;
 
-import hu.bme.edu.handmade.security.oauth.CustomOAuth2User;
-import hu.bme.edu.handmade.security.oauth.CustomOAuth2UserService;
-import hu.bme.edu.handmade.services.IUserService;
 import hu.bme.edu.handmade.services.impl.MyUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,8 +46,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
-                                           JwtRequestFilter jwtRequestFilter, IUserService userService,
-                                           CustomOAuth2UserService oauthUserService) throws Exception {
+                                           JwtRequestFilter jwtRequestFilter) throws Exception {
             http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers(
@@ -64,14 +60,6 @@ public class SecurityConfig {
                 .permitAll()
                 // all other requests need to be authenticated
                 .anyRequest().authenticated().and()
-                .oauth2Login()
-                    .userInfoEndpoint()
-                    .userService(oauthUserService).and()
-                    .successHandler((request, response, authentication) -> {
-                        CustomOAuth2User oauthUser = (CustomOAuth2User) authentication.getPrincipal();
-                        userService.processOAuthPostLogin(oauthUser.getEmail());
-                        response.sendRedirect(request.getHeader("referer") + "/home");
-                    }).and()
                     //.loginPage("/authenticate").and()
                 .exceptionHandling()
                     .authenticationEntryPoint(jwtAuthenticationEntryPoint)

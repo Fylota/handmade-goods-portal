@@ -12,6 +12,10 @@ import hu.bme.edu.handmade.web.dto.user.AddressDto;
 import hu.bme.edu.handmade.web.dto.user.UserDto;
 import hu.bme.edu.handmade.web.dto.error.UserAlreadyExistException;
 import hu.bme.edu.handmade.web.dto.user.UserRegistrationDto;
+import org.passay.CharacterData;
+import org.passay.CharacterRule;
+import org.passay.EnglishCharacterData;
+import org.passay.PasswordGenerator;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -101,21 +105,51 @@ public class UserService implements IUserService {
         return passwordEncoder.matches(oldPassword, user.getPassword());
     }
 
-    public void processOAuthPostLogin(String email) {
-        User existUser = userRepository.findByEmail(email);
-        if (existUser == null) {
-            User newUser = new User();
-            newUser.setEmail(email);
-            newUser.setRoles(Collections.singletonList(roleRepository.findByName("ROLE_USER")));
-            newUser.setEnabled(true);
-
-            userRepository.save(newUser);
+    public User processOAuthPostLogin(String email, String lastName, String firstName) {
+        if (emailExists(email)) {
+            throw new UserAlreadyExistException("There is an account with that email address: " + email);
         }
+        User newUser = new User();
+        newUser.setEmail(email);
+        newUser.setRoles(Collections.singletonList(roleRepository.findByName("ROLE_USER")));
+        newUser.setEnabled(true);
+        newUser.setFirstName(firstName);
+        newUser.setLastName(lastName);
+        newUser.setPassword(generatePassayPassword());
+
+        return userRepository.save(newUser);
     }
-
-
 
     private boolean emailExists(final String email) {
         return userRepository.findByEmail(email) != null;
+    }
+
+    public String generatePassayPassword() {
+        PasswordGenerator gen = new PasswordGenerator();
+        CharacterData lowerCaseChars = EnglishCharacterData.LowerCase;
+        CharacterRule lowerCaseRule = new CharacterRule(lowerCaseChars);
+        lowerCaseRule.setNumberOfCharacters(2);
+
+        CharacterData upperCaseChars = EnglishCharacterData.UpperCase;
+        CharacterRule upperCaseRule = new CharacterRule(upperCaseChars);
+        upperCaseRule.setNumberOfCharacters(2);
+
+        CharacterData digitChars = EnglishCharacterData.Digit;
+        CharacterRule digitRule = new CharacterRule(digitChars);
+        digitRule.setNumberOfCharacters(2);
+
+        CharacterData specialChars = new CharacterData() {
+            public String getErrorCode() {
+                return "ERRONEOUS_SPECIAL_CHARS";
+            }
+            public String getCharacters() {
+                return "!@#$%^&*()_+";
+            }
+        };
+        CharacterRule splCharRule = new CharacterRule(specialChars);
+        splCharRule.setNumberOfCharacters(2);
+
+        return gen.generatePassword(10, splCharRule, lowerCaseRule,
+                upperCaseRule, digitRule);
     }
 }
