@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService, User } from 'src/app/service/user.service';
+import { UserControllerService, UserDto } from 'src/app/core/api/v1';
 
 @Component({
   selector: 'app-user',
@@ -7,9 +7,9 @@ import { UserService, User } from 'src/app/service/user.service';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-  users: User[] = [];
+  users: UserDto[] = [];
 
-  constructor(private httpClientService: UserService) { }
+  constructor(private httpClientService: UserControllerService) { }
 
   ngOnInit(): void {
     this.httpClientService.getUsers().subscribe(
@@ -17,14 +17,14 @@ export class UserComponent implements OnInit {
     );
   }
 
-  deleteUser(user: User): void {
-    this.httpClientService.deleteUser(user)
+  deleteUser(user: UserDto): void {
+    this.httpClientService.deleteUser(Number(user.id!))
       .subscribe( () => {
         this.users = this.users.filter(u => u !== user);
       })
   }
 
-  handleSuccessfulResponse(response: User[]) {
+  handleSuccessfulResponse(response: UserDto[]) {
     this.users = response;
   }
 

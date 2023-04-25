@@ -45,22 +45,25 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,JwtRequestFilter jwtRequestFilter) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
+                                           JwtRequestFilter jwtRequestFilter) throws Exception {
             http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers(
                         "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs.yaml",
-                        "/register","/authenticate",
+                        "/oauth2/**", "/login/**",
+                        "/register","/authenticate", "/auth/google",
                         "/products/**", "/categories/**",
                         "/posts/**", "/events/**")
                 .permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**")
                 .permitAll()
                 // all other requests need to be authenticated
-                .anyRequest().authenticated().and().
-                // make sure we use stateless session; session won't be used to
-                // store user's state.
-                        exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+                .anyRequest().authenticated().and()
+                    //.loginPage("/authenticate").and()
+                .exceptionHandling()
+                    .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // Add a filter to validate the tokens with every request

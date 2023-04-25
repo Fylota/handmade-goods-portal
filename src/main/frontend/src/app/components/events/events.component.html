@@ -1,4 +1,4 @@
-<div *ngFor="let event of events">
+<div *ngFor="let event of events$ | async">
     <div class="card h-20 w-90">
         <div class="card-body">
         <h5 class="card-title">{{event.title}}</h5>

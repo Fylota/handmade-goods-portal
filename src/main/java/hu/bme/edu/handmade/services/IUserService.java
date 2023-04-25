@@ -20,4 +20,5 @@ public interface IUserService {
     Address updateAddress(Long userId, AddressDto dto);
     void changeUserPassword(User user, String password);
     boolean checkIfValidOldPassword(User user, String password);
+    User processOAuthPostLogin(String email, String lastName, String firstName);
 }

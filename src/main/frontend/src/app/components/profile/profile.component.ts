@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserControllerService, UserDto } from 'src/app/core/api/v1';
 import { AuthenticationService } from 'src/app/service/authentication.service';
-import { UserService, User } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,23 +9,26 @@ import { UserService, User } from 'src/app/service/user.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  public user: User = new User("","","","","","","","");
+  user: UserDto = {
+    firstName: '',
+    email: ''
+  };
 
-  constructor(private httpClientService: UserService, private router: Router, private loginService: AuthenticationService) { }
+  constructor(private httpClientService: UserControllerService, private router: Router, private loginService: AuthenticationService) { }
 
   ngOnInit(): void {
     if (!this.loginService.isUserLoggedIn()) {
       this.router.navigate(['/login'])
     }
     else {
-      this.httpClientService.getUser().subscribe(
+      this.httpClientService.user().subscribe(
         response => this.handleSuccessfulResponse(response),
       );
     }
   }
 
-  deleteUser(user: User): void {
-    this.httpClientService.deleteUser(user)
+  deleteUser(userId: string): void {
+    this.httpClientService.deleteUser(Number(userId))
       .subscribe();
     
     this.loginService.logOut();
@@ -36,12 +39,12 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['logout']);
   }
 
-  handleSuccessfulResponse(response: User) {
+  handleSuccessfulResponse(response: UserDto) {
     this.user = response;
   }
 
   updateUser() {
-    this.httpClientService.updateUser(this.user)
+    this.httpClientService.updateUser(Number(this.user.id), this.user)
     .subscribe(_data => {
       alert("User updated successfully.");
       this.router.navigate(['home']);

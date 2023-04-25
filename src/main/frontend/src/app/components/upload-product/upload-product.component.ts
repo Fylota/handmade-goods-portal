@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Category, CategoryService } from 'src/app/service/category.service';
-import ProductService, { Product } from 'src/app/service/product.service';
+import { Category, CategoryControllerService, Product, ProductControllerService } from 'src/app/core/api/v1';
 
 @Component({
   selector: 'app-upload-product',
@@ -12,7 +11,7 @@ export class UploadProductComponent implements OnInit {
   editProduct: Product | undefined;
 
   categories: Category[] = [];
-  product: Product = new Product("","",0,"","");
+  product: Product = {};
 
   @Output("closeEditing")
   closeEditing: EventEmitter<any> = new EventEmitter();
@@ -21,7 +20,7 @@ export class UploadProductComponent implements OnInit {
   @Output("updatedProduct")
   updatedProduct: EventEmitter<any> = new EventEmitter();
 
-  constructor(private productService: ProductService, private categoryService: CategoryService) { }
+  constructor(private productService: ProductControllerService, private categoryService: CategoryControllerService) { }
 
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe(
@@ -37,7 +36,7 @@ export class UploadProductComponent implements OnInit {
   }
 
   createProduct() {
-    this.productService.createProduct(this.product)
+    this.productService.addProduct(this.product)
       .subscribe((newProd) => {
         console.log(this.product);
         alert("Product created successfully.");
@@ -46,7 +45,7 @@ export class UploadProductComponent implements OnInit {
   }
 
   updateProduct() {
-    this.productService.updateProduct(this.product)
+    this.productService.updateProduct(this.product.id!, this.product)
       .subscribe((edited) => {
         console.log(this.product);
         alert("Product updated successfully.");

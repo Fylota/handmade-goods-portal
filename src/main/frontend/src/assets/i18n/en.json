@@ -1,0 +1,27 @@
+{
+  "HOME": {
+    "SELECT": "Change language",
+    "HERO": "Unique products Handmade for You"
+  },
+  "NAV": {
+    "PROFILE": "Profile",
+    "WISHLIST": "Wishlist",
+    "CART": "Cart",
+    "SEARCH": "Search...",
+    "PRODUCTS": "All Products",
+    "EVENTS": "Events",
+    "NEWS": "News",
+    "ADMIN": "Admin Page"
+  },
+  "LOGIN": {
+    "WELCOME": "Welcome back!",
+    "QUICK": "Quick Login",
+    "GOOGLE_BTN_LOCALE": "en_US",
+    "EMAIL_TITLE": "Or use your email address",
+    "EMAIL_PLACEHOLDER": "Your email address",
+    "PSW_PLACEHOLDER": "Your password",
+    "LOGIN_BTN": "Login",
+    "NOT_REGISTERED": "Haven't registered yet?",
+    "SIGNUP_BTN": "Sign up"
+  }
+}

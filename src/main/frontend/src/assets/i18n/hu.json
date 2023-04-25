@@ -1,0 +1,28 @@
+{
+    "HOME": {
+      "TITLE": "Szia Angular ngx-translate használatával!",
+      "SELECT": "Nyelv kiválasztása",
+      "HERO": "Egyedi ajándékok tárháza"
+    },
+    "NAV": {
+      "PROFILE": "Profil",
+      "WISHLIST":"Kívánságlista",
+      "CART":"Kosár",
+      "SEARCH": "Termékek keresése...",
+      "PRODUCTS": "Összes Termék",
+      "EVENTS": "Események",
+      "NEWS": "Hírek",
+      "ADMIN": "Admin oldal"
+    },
+    "LOGIN": {
+      "WELCOME": "Üdv újra!",
+      "QUICK": "Gyors bejelentkezés",
+      "GOOGLE_BTN_LOCALE": "hu_HU",
+      "EMAIL_TITLE": "Vagy használd az email címed",
+      "EMAIL_PLACEHOLDER": "Email címed",
+      "PSW_PLACEHOLDER": "Jelszavad",
+      "LOGIN_BTN": "Bejelentkezés",
+      "NOT_REGISTERED": "Még nem regisztráltál?",
+      "SIGNUP_BTN": "Regisztrálás"
+    }
+  }
