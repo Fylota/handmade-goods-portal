@@ -12,5 +12,16 @@
     "EVENTS": "Events",
     "NEWS": "News",
     "ADMIN": "Admin Page"
+  },
+  "LOGIN": {
+    "WELCOME": "Welcome back!",
+    "QUICK": "Quick Login",
+    "GOOGLE_BTN_LOCALE": "en_US",
+    "EMAIL_TITLE": "Or use your email address",
+    "EMAIL_PLACEHOLDER": "Your email address",
+    "PSW_PLACEHOLDER": "Your password",
+    "LOGIN_BTN": "Login",
+    "NOT_REGISTERED": "Haven't registered yet?",
+    "SIGNUP_BTN": "Sign up"
   }
 }
