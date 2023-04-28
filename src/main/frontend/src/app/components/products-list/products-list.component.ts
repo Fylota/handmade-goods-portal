@@ -9,6 +9,12 @@ import {
   ProductControllerService,
   UserControllerService,
 } from 'src/app/core/api/v1';
+import { PageEvent } from '@angular/material/paginator';
+
+interface SortValue {
+  value: string[];
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-products-list',
@@ -17,7 +23,18 @@ import {
 })
 export class ProductsListComponent implements OnInit {
   @Input() category?: Category;
-  products$ = this.productService.getProducts();
+  products: Product[] | undefined;
+  length = 10;
+  pageSize = 10;
+  pageSizeOptions = [5, 10, 25];
+  pageIndex = 0;
+  sort = ["name", "asc"];
+  pageEvent: PageEvent | undefined;
+  sortValues: SortValue[] = [
+    {value: ["name", "asc"], viewValue: 'Name ascending'},
+    {value: ["name", "desc"], viewValue: 'Name descending'},
+  ]
+
   user$ = this.userService.user();
   userId = 0;
   faCartPlus = faCartPlus;
@@ -31,10 +48,33 @@ export class ProductsListComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.category !== undefined) {
-      this.products$ = this.productService.getProductsByCategory(
-        this.category.id!
-      );
+      this.productService.getProductsByCategory(this.category.id!).subscribe((res: any) => {
+        this.products = res;
+      })
+    } else {
+      this.productService.getProducts(this.pageIndex, this.pageSize, this.sort).subscribe((res: any) => {
+        this.products = res["products"];
+        this.length = res["totalItems"];
+      })
     }
+  }
+
+  handlePageEvent(e: PageEvent) {
+    this.pageEvent = e;
+    this.length = e.length;
+    this.pageSize = e.pageSize;
+    this.pageIndex = e.pageIndex;
+    this.productService.getProducts(this.pageIndex, this.pageSize, this.sort).subscribe((res: any) => {
+      this.products = res["products"];
+      this.length = res["totalItems"];
+    })
+  }
+
+  handleSelectEvent() {
+    this.productService.getProducts(this.pageIndex, this.pageSize, this.sort).subscribe((res: any) => {
+      this.products = res["products"];
+      this.length = res["totalItems"];
+    })
   }
 
   navigateToProductDetails(product: Product) {

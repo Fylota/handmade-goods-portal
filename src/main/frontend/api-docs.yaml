@@ -775,6 +775,31 @@ paths:
       tags:
       - product-controller
       operationId: getProducts
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 3
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+          default:
+          - id
+          - desc
       responses:
         "404":
           description: Not Found
@@ -787,9 +812,9 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Product'
+                type: object
+                additionalProperties:
+                  type: object
     post:
       tags:
       - product-controller
@@ -1066,6 +1091,30 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/JwtRequest'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+  /auth/google:
+    post:
+      tags:
+      - home-controller
+      operationId: loginWithGoogle
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
         required: true
       responses:
         "404":
