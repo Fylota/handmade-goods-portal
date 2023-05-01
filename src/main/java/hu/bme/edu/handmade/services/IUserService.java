@@ -21,4 +21,7 @@ public interface IUserService {
     void changeUserPassword(User user, String password);
     boolean checkIfValidOldPassword(User user, String password);
     User processOAuthPostLogin(String email, String lastName, String firstName);
+    void createPasswordResetTokenForUser(User user, String token);
+    Optional<User> getUserByPasswordResetToken(String token);
+    String validatePasswordResetToken(String token);
 }

@@ -23,6 +23,12 @@
       "PSW_PLACEHOLDER": "Jelszavad",
       "LOGIN_BTN": "Bejelentkezés",
       "NOT_REGISTERED": "Még nem regisztráltál?",
-      "SIGNUP_BTN": "Regisztrálás"
+      "SIGNUP_BTN": "Regisztrálás",
+      "FORGOTTEN_PSW": "Elfelejtett jelszó"
+    },
+    "CHANGE_PSW": {
+      "UPDATE_BTN": "Új jelszó mentése",
+      "PSW": "Új jelszó",
+      "PSW_AGAIN": "Új jelszó újra"
     }
   }

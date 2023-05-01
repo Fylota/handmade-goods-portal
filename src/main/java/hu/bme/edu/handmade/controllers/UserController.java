@@ -4,10 +4,12 @@ import hu.bme.edu.handmade.mappers.AddressMapper;
 import hu.bme.edu.handmade.mappers.UserMapper;
 import hu.bme.edu.handmade.models.CartProduct;
 import hu.bme.edu.handmade.models.User;
+import hu.bme.edu.handmade.services.IEmailService;
 import hu.bme.edu.handmade.services.IUserService;
 import hu.bme.edu.handmade.services.IWishListService;
 import hu.bme.edu.handmade.services.impl.CartProductService;
 import hu.bme.edu.handmade.web.dto.CartProductDto;
+import hu.bme.edu.handmade.web.dto.PasswordDto;
 import hu.bme.edu.handmade.web.dto.ProductDto;
 import hu.bme.edu.handmade.web.dto.user.AddressDto;
 import hu.bme.edu.handmade.web.dto.user.UserDto;
@@ -18,11 +20,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import java.net.URI;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins="http://localhost:4200", maxAge=3600)
@@ -31,11 +35,13 @@ public class UserController {
     private final IUserService userService;
     private final CartProductService cartService;
     private final IWishListService wishListService;
+    private final IEmailService emailService;
 
-    UserController(IUserService userService, CartProductService cartService, IWishListService wishListService) {
+    UserController(IUserService userService, CartProductService cartService, IWishListService wishListService, IEmailService emailService) {
         this.userService = userService;
         this.cartService = cartService;
         this.wishListService = wishListService;
+        this.emailService = emailService;
     }
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
@@ -163,5 +169,33 @@ public class UserController {
     @DeleteMapping("/{user_id}/wishlist")
     void removeFromWishList(@PathVariable("user_id") Long userId, @RequestParam("product_id") Long productId) {
         wishListService.removeFromWishList(userId, productId);
+    }
+
+    /** Reset Password */
+    @PostMapping("/sendPswResetRequest")
+    public ResponseEntity<?> sendResetPasswordMail(@RequestParam("email") String userEmail) {
+        String decodedEmail = URLDecoder.decode(userEmail, StandardCharsets.UTF_8);
+        User user = userService.findUserByEmail(decodedEmail);
+        if (user == null) {
+            throw new ResourceNotFoundException("User with email: " + userEmail + " is not found.");
+        }
+        String token = UUID.randomUUID().toString();
+        userService.createPasswordResetTokenForUser(user, token);
+        return emailService.sendPasswordReset(decodedEmail, token);
+    }
+
+    @PostMapping("/updatePassword")
+    public ResponseEntity<?> updatePassword(PasswordDto passwordDto) {
+        String tokenError = userService.validatePasswordResetToken(passwordDto.getToken());
+        if (tokenError != null) {
+            return ResponseEntity.badRequest().build();
+        }
+        Optional<User> user = userService.getUserByPasswordResetToken(passwordDto.getToken());
+        if(user.isPresent()) {
+            userService.changeUserPassword(user.get(), passwordDto.getNewPassword());
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

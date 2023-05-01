@@ -22,6 +22,12 @@
     "PSW_PLACEHOLDER": "Your password",
     "LOGIN_BTN": "Login",
     "NOT_REGISTERED": "Haven't registered yet?",
-    "SIGNUP_BTN": "Sign up"
+    "SIGNUP_BTN": "Sign up",
+    "FORGOTTEN_PSW": "Forgot password"
+  },
+  "CHANGE_PSW": {
+    "UPDATE_BTN": "Save new password",
+    "PSW": "New password",
+    "PSW_AGAIN": "New password again"
   }
 }
