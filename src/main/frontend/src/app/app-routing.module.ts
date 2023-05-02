@@ -17,6 +17,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { UserComponent } from './components/user/user.component';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { AuthGuardService } from './service/auth-guard.service';
+import { PasswordResetComponent } from './components/password-reset/password-reset.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 
 const routes: Routes = [
@@ -34,8 +36,10 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_USER'} },
   { path: 'wishlist', component: WishlistComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_USER'} },
   { path: 'admin', component: AdminPageComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_ADMIN'} },
-  { path: 'checkout', component: CheckoutComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_USER'}},
-
+  { path: 'checkout', component: CheckoutComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_USER'} },
+  { path: 'changePassword', component: PasswordResetComponent },
+  { path: 'forgotPassword', component: ForgotPasswordComponent },
+  
   { path: '**', component: PageNotFoundComponent },
 ];
 

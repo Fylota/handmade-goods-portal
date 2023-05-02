@@ -23,6 +23,22 @@
       "PSW_PLACEHOLDER": "Jelszavad",
       "LOGIN_BTN": "Bejelentkezés",
       "NOT_REGISTERED": "Még nem regisztráltál?",
-      "SIGNUP_BTN": "Regisztrálás"
+      "SIGNUP_BTN": "Regisztrálás",
+      "FORGOTTEN_PSW": "Elfelejtett jelszó"
+    },
+    "CHANGE_PSW": {
+      "UPDATE_BTN": "Új jelszó mentése",
+      "PSW": "Új jelszó",
+      "PSW_AGAIN": "Új jelszó újra",
+      "MATCH_ERROR": "A két jelszó mező nem egyezik meg",
+      "SUCCESS": "Jelszó sikeresen megváltoztatva. Kérlek jelentkezz be.",
+      "ERROR": "Nem sikerült a jelszó változtatás."
+    },
+    "FORGOT": {
+      "TITLE": "Kérjük add meg az email címed, és elküldjük neked a jelszó visszaállító linket.",
+      "SEND_BTN": "Email küldése",
+      "SUCCESS": "Email elküldve!",
+      "ERROR": "Nem sikerült az email küldés",
+      "SNACK_DISMISS": "Bezárás"
     }
   }

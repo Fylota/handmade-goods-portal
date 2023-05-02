@@ -4,6 +4,7 @@ import { AppConstants } from 'src/app/_shared/app.constants';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { CredentialResponse } from 'google-one-tap';
 import jwt_decode from 'jwt-decode';
+import { UserControllerService } from 'src/app/core/api/v1';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router,
     private loginservice: AuthenticationService,
+    private userService: UserControllerService,
     private _ngZone: NgZone) { }
 
   ngOnInit(): void {
@@ -43,8 +45,8 @@ export class LoginComponent implements OnInit {
   }
 
   async handleCredentialResponse(response: CredentialResponse) {
-    this.loginservice.LoginWithGoogle(response.credential).subscribe(
-      (x: any) => {
+    this.loginservice.LoginWithGoogle(response.credential).subscribe({
+      next: (x: any) => {
         sessionStorage.setItem("token", 'Bearer ' + x.token);
         const tokenInfo = this.getDecodedAccessToken(x.token);
         console.log(tokenInfo)
@@ -54,10 +56,8 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/home']);
         });
       },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+      error: (e) => console.error(e)
+    })
   }
 
   checkLogin() {
@@ -87,5 +87,9 @@ export class LoginComponent implements OnInit {
 
   googleLogin() {
     window.open("http://localhost:8080/login/oauth2/code/google");
+  }
+
+  handleForgottenPsw() {
+    this.router.navigate(['forgotPassword'])
   }
 }

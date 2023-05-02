@@ -3,7 +3,6 @@
     <h1>{{ "LOGIN.WELCOME" | translate }}</h1>
   </div>
   <div id="googleBtnDiv">
-    <!--<a href="http://localhost:8080/oauth2/authorization/google" class="btn google-btn social-btn" type="button">{{ "LOGIN.GOOGLE" | translate }}</a>-->
   </div>
   <form>
     <div class="form-group email-login">
@@ -26,6 +25,9 @@
     <button (click)="checkLogin()" class="btn btn-success">
       {{ "LOGIN.LOGIN_BTN" | translate }}
     </button>
+    <div>
+      <a class="forgot-psw" (click)="handleForgottenPsw()">{{ "LOGIN.FORGOTTEN_PSW" | translate }}</a>
+    </div>
     <p>{{ "LOGIN.NOT_REGISTERED" | translate }}</p>
     <span
       ><button (click)="goToRegisterPage()" class="btn btn-secondary">

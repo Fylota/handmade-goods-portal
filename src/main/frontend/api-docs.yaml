@@ -746,6 +746,78 @@ paths:
                 $ref: '#/components/schemas/AddressDto'
       security:
       - Bearer_Authentication: []
+  /users/updatePassword:
+    post:
+      tags:
+      - user-controller
+      operationId: updatePassword
+      parameters:
+      - name: passwordDto
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/PasswordDto'
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+  /users/sendPswResetRequest:
+    post:
+      tags:
+      - user-controller
+      operationId: sendResetPasswordMail
+      parameters:
+      - name: email
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+  /sendMail:
+    post:
+      tags:
+      - email-controller
+      operationId: sendMail
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailDetails'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
   /register:
     post:
       tags:
@@ -1472,6 +1544,26 @@ components:
         createdDate:
           type: string
           format: date-time
+    PasswordDto:
+      type: object
+      properties:
+        oldPassword:
+          type: string
+        token:
+          type: string
+        newPassword:
+          type: string
+    EmailDetails:
+      type: object
+      properties:
+        recipient:
+          type: string
+        msgBody:
+          type: string
+        subject:
+          type: string
+        attachment:
+          type: string
     UserRegistrationDto:
       type: object
       properties:

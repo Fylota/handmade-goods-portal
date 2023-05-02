@@ -22,6 +22,22 @@
     "PSW_PLACEHOLDER": "Your password",
     "LOGIN_BTN": "Login",
     "NOT_REGISTERED": "Haven't registered yet?",
-    "SIGNUP_BTN": "Sign up"
+    "SIGNUP_BTN": "Sign up",
+    "FORGOTTEN_PSW": "Forgot password"
+  },
+  "CHANGE_PSW": {
+    "UPDATE_BTN": "Save new password",
+    "PSW": "New password",
+    "PSW_AGAIN": "New password again",
+    "MATCH_ERROR": "The two password fields do not match",
+    "SUCCESS": "Password changed. Please log in",
+    "ERROR": "Something went wrong, try again"
+  },
+  "FORGOT": {
+    "TITLE": "Please enter your email address and we will send a password reset link.",
+    "SEND_BTN": "Send email",
+    "SUCCESS": "Email sent!",
+    "ERROR": "Something went wrong...",
+    "SNACK_DISMISS": "Dismiss"
   }
 }
