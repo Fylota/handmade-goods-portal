@@ -29,5 +29,9 @@
     "UPDATE_BTN": "Save new password",
     "PSW": "New password",
     "PSW_AGAIN": "New password again"
+  },
+  "FORGOT": {
+    "TITLE": "Please enter your email address and we will send a password reset link.",
+    "SEND_BTN": "Send mail"
   }
 }

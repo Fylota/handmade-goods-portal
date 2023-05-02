@@ -30,5 +30,9 @@
       "UPDATE_BTN": "Új jelszó mentése",
       "PSW": "Új jelszó",
       "PSW_AGAIN": "Új jelszó újra"
+    },
+    "FORGOT": {
+      "TITLE": "Kérjük add meg az email címed, és elküldjük neked a jelszó visszaállító linket.",
+      "SEND_BTN": "Email küldése"
     }
   }

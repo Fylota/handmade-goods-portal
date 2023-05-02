@@ -41,6 +41,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { CartItemsTableComponent } from './components/cart-items-table/cart-items-table.component';
 import { AdminSectionListComponent } from './components/admin-section-list/admin-section-list.component';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -76,7 +77,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     CheckoutComponent,
     CartItemsTableComponent,
     AdminSectionListComponent,
-    PasswordResetComponent
+    PasswordResetComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,

@@ -90,8 +90,6 @@ export class LoginComponent implements OnInit {
   }
 
   handleForgottenPsw() {
-    const encodedEmail = encodeURIComponent(this.username);
-    console.log(encodedEmail);
-    this.userService.sendResetPasswordMail(this.username).subscribe(res => console.log(res));
+    this.router.navigate(['forgotPassword'])
   }
 }
