@@ -31,7 +31,16 @@ export class PasswordResetComponent implements OnInit {
       token: this.token,
       newPassword: this.newPassword
     }
-    this.userService.updatePassword(passwordDto).subscribe(res => console.log(res));
+    this.userService.updatePassword(passwordDto).subscribe({
+      next: (response) => {
+        console.log('response received')
+        console.log(response)
+      },
+      error: (error) => {
+        console.error('error caught in component')
+        throw error;
+      }
+    })
   }
 
 }

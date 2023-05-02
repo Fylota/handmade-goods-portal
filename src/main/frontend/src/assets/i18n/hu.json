@@ -33,6 +33,9 @@
     },
     "FORGOT": {
       "TITLE": "Kérjük add meg az email címed, és elküldjük neked a jelszó visszaállító linket.",
-      "SEND_BTN": "Email küldése"
+      "SEND_BTN": "Email küldése",
+      "SUCCESS": "Email elküldve!",
+      "ERROR": "Nem sikerült az email küldés",
+      "SNACK_DISMISS": "Bezárás"
     }
   }

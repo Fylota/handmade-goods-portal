@@ -32,6 +32,9 @@
   },
   "FORGOT": {
     "TITLE": "Please enter your email address and we will send a password reset link.",
-    "SEND_BTN": "Send mail"
+    "SEND_BTN": "Send email",
+    "SUCCESS": "Email sent!",
+    "ERROR": "Something went wrong...",
+    "SNACK_DISMISS": "Dismiss"
   }
 }

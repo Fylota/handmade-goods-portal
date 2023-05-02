@@ -57,7 +57,7 @@ public class EmailService implements IEmailService {
             mailMessage.setSubject("Password Reset");
 
             javaMailSender.send(mailMessage);
-            return ResponseEntity.ok("Mail Sent Successfully...");
+            return ResponseEntity.ok().build();
         }
         catch (Exception e) {
             return ResponseEntity.badRequest().build();
