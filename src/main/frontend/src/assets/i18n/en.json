@@ -28,7 +28,10 @@
   "CHANGE_PSW": {
     "UPDATE_BTN": "Save new password",
     "PSW": "New password",
-    "PSW_AGAIN": "New password again"
+    "PSW_AGAIN": "New password again",
+    "MATCH_ERROR": "The two password fields do not match",
+    "SUCCESS": "Password changed. Please log in",
+    "ERROR": "Something went wrong, try again"
   },
   "FORGOT": {
     "TITLE": "Please enter your email address and we will send a password reset link.",

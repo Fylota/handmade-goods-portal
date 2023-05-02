@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { PasswordDto, UserControllerService } from 'src/app/core/api/v1';
 
 @Component({
@@ -12,10 +14,13 @@ export class PasswordResetComponent implements OnInit {
   email = "";
   newPassword = "";
   matchingPassword = "";
+  resultMessage?: string;
 
   constructor(
     private route: ActivatedRoute,
     private userService: UserControllerService,
+    private _snackBar: MatSnackBar,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -31,16 +36,35 @@ export class PasswordResetComponent implements OnInit {
       token: this.token,
       newPassword: this.newPassword
     }
+    if (this.newPassword !== this.matchingPassword) {
+      this.translate.get('CHANGE_PSW.MATCH_ERROR').subscribe((res: string) => {
+        this.resultMessage =  res;
+        const dismiss = this.translate.instant('FORGOT.SNACK_DISMISS');
+        this.openSnackBar(this.resultMessage, dismiss);
+      });
+      throw Error("Passwords don't match");
+    }
     this.userService.updatePassword(passwordDto).subscribe({
-      next: (response) => {
-        console.log('response received')
-        console.log(response)
+      next: () => {
+        this.translate.get('CHANGE_PSW.SUCCESS').subscribe((res: string) => {
+          this.resultMessage =  res;
+          const dismiss = this.translate.instant('FORGOT.SNACK_DISMISS');
+          this.openSnackBar(this.resultMessage, dismiss);
+        });
       },
       error: (error) => {
-        console.error('error caught in component')
+        this.translate.get('CHANGE_PSW.ERROR').subscribe((res: string) => {
+          this.resultMessage =  res;
+          const dismiss = this.translate.instant('FORGOT.SNACK_DISMISS');
+          this.openSnackBar(this.resultMessage, dismiss);
+        });
         throw error;
       }
-    })
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
   }
 
 }
