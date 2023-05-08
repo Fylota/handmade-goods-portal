@@ -15,6 +15,7 @@ public class UserDto {
     private String email;
     private String phoneNumber;
     private List<AddressDto> addresses;
+    private boolean subscribedToNewsletter;
     public String getEmail() {
         return email;
     }
@@ -42,5 +43,11 @@ public class UserDto {
     }
     public void setAddresses(List<AddressDto> addresses) {
         this.addresses = addresses;
+    }
+    public boolean isSubscribedToNewsletter() {
+        return subscribedToNewsletter;
+    }
+    public void setSubscribedToNewsletter(boolean subscribedToNewsletter) {
+        this.subscribedToNewsletter = subscribedToNewsletter;
     }
 }

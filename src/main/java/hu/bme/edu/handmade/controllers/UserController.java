@@ -112,6 +112,14 @@ public class UserController {
         return AddressMapper.INSTANCE.toAddressDto(userService.updateAddress(userId, address));
     }
 
+    /** Newsletter subscription */
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @SecurityRequirement(name = "Bearer_Authentication")
+    @PostMapping("/{id}/unsubscribe")
+    public void unsubscribeFromNewsletter(@PathVariable("id") Long userId) {
+        userService.setNewsletterSubscription(userId, false);
+    }
+
     /** Cart */
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @SecurityRequirement(name = "Bearer_Authentication")

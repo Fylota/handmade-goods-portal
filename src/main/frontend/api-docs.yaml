@@ -652,6 +652,52 @@ paths:
           description: OK
       security:
       - Bearer_Authentication: []
+  /users/{id}/unsubscribe:
+    post:
+      tags:
+      - user-controller
+      operationId: unsubscribeFromNewsletter
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+      security:
+      - Bearer_Authentication: []
+  /users/{id}/subscribe:
+    post:
+      tags:
+      - user-controller
+      operationId: subscribeToNewsletter
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+      security:
+      - Bearer_Authentication: []
   /users/{id}/cart:
     get:
       tags:
@@ -794,17 +840,11 @@ paths:
             application/json:
               schema:
                 type: object
-  /sendMail:
+  /sendNewsletter:
     post:
       tags:
       - email-controller
-      operationId: sendMail
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EmailDetails'
-        required: true
+      operationId: sendNewsletter
       responses:
         "404":
           description: Not Found
@@ -817,7 +857,9 @@ paths:
           content:
             application/json:
               schema:
-                type: string
+                type: object
+      security:
+      - Bearer_Authentication: []
   /register:
     post:
       tags:
@@ -1406,6 +1448,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AddressDto'
+        subscribedToNewsletter:
+          type: boolean
     Address:
       type: object
       properties:
@@ -1442,6 +1486,8 @@ components:
             $ref: '#/components/schemas/Address'
         password:
           type: string
+        subscribedToNewsletter:
+          type: boolean
         enabled:
           type: boolean
         cartProducts:
@@ -1552,17 +1598,6 @@ components:
         token:
           type: string
         newPassword:
-          type: string
-    EmailDetails:
-      type: object
-      properties:
-        recipient:
-          type: string
-        msgBody:
-          type: string
-        subject:
-          type: string
-        attachment:
           type: string
     UserRegistrationDto:
       type: object

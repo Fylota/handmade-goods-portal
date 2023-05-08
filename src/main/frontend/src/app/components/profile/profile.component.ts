@@ -11,7 +11,7 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
 export class ProfileComponent implements OnInit {
   user: UserDto = {
     firstName: '',
-    email: ''
+    email: '',
   };
 
   constructor(private httpClientService: UserControllerService, private router: Router, private loginService: AuthenticationService) { }

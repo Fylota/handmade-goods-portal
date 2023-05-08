@@ -150,6 +150,10 @@ public class UserService implements IUserService {
     public List<User> findUsersSubscribedToNewsletter() {
         return userRepository.findUsersBySubscribedToNewsletterTrue();
     }
+    @Override
+    public void setNewsletterSubscription(Long userId, boolean subscribe) {
+        userRepository.findById(userId).ifPresent(user -> user.setSubscribedToNewsletter(subscribe));
+    }
 
     private boolean emailExists(final String email) {
         return userRepository.findByEmail(email) != null;

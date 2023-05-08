@@ -1,15 +1,5 @@
 <div class="card w-90">
     <div class="card-body">
-        <h5 class="card-title"></h5>
-        <ul class="card-text">
-            <li>My orders</li>
-            <li>My wishlist</li>
-            <li>My saved events</li>
-        </ul>
-    </div>
-</div>
-<div class="card w-90">
-    <div class="card-body">
         <h5 class="card-title">Change my personal data</h5>
         <form class="card-text">
             <div class="form-group">
@@ -40,6 +30,8 @@
                 <input type="text" [(ngModel)]="user.addresses" placeholder="Address" name="address"
                     class="form-control" id="address" required>
             </div>
+
+            <mat-slide-toggle [(ngModel)]="user.subscribedToNewsletter" name="newsletter">Subscribe to newsletter</mat-slide-toggle>
     
             <button class="btn btn-success" (click)="updateUser()">Save</button>
         </form>

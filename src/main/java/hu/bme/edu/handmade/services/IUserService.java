@@ -25,4 +25,5 @@ public interface IUserService {
     Optional<User> getUserByPasswordResetToken(String token);
     String validatePasswordResetToken(String token);
     List<User> findUsersSubscribedToNewsletter();
+    void setNewsletterSubscription(Long userId, boolean subscribe);
 }
