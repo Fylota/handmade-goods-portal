@@ -24,4 +24,5 @@ public interface IUserService {
     void createPasswordResetTokenForUser(User user, String token);
     Optional<User> getUserByPasswordResetToken(String token);
     String validatePasswordResetToken(String token);
+    List<User> findUsersSubscribedToNewsletter();
 }

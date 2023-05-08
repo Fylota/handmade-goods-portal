@@ -33,6 +33,9 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "newsletter")
+    private boolean subscribedToNewsletter = false;
+
     @CreatedDate
     @Column(name = "registered_at_date")
     private Date registeredAt;
@@ -126,6 +129,13 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+    public boolean isSubscribedToNewsletter() {
+        return subscribedToNewsletter;
+    }
+
+    public void setSubscribedToNewsletter(boolean subscribedToNewsletter) {
+        this.subscribedToNewsletter = subscribedToNewsletter;
     }
 
     @Override

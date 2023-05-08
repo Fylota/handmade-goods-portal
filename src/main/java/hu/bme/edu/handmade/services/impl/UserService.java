@@ -146,6 +146,11 @@ public class UserService implements IUserService {
         return Optional.ofNullable(passwordResetTokenRepository.findByToken(token).getUser());
     }
 
+    @Override
+    public List<User> findUsersSubscribedToNewsletter() {
+        return userRepository.findUsersBySubscribedToNewsletterTrue();
+    }
+
     private boolean emailExists(final String email) {
         return userRepository.findByEmail(email) != null;
     }
