@@ -12,6 +12,10 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 
 @Service
@@ -47,17 +51,21 @@ public class EmailService implements IEmailService {
     }
 
     @Override
-    public ResponseEntity<?> sendNewsletterEmail() {
+    public ResponseEntity<?> sendNewsletterEmail() throws IOException {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper;
+
+        ClassLoader classLoader = getClass().getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream("newsletter.html");
+        String data = readFromInputStream(inputStream);
+
         List<User> recipients = userService.findUsersSubscribedToNewsletter();
         for (User user : recipients) {
             try {
                 mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
                 mimeMessageHelper.setFrom(sender);
                 mimeMessageHelper.setTo(user.getEmail());
-                mimeMessageHelper.setText("<h1>This is a test Spring Boot email</h1>" +
-                        "<p>It can contain <strong>HTML</strong> content.</p>", true);
+                mimeMessageHelper.setText(data, true);
                 mimeMessageHelper.setSubject("Test newsletter for " + user.getFirstName());
 
                 javaMailSender.send(mimeMessage);
@@ -68,5 +76,17 @@ public class EmailService implements IEmailService {
             }
         }
         return ResponseEntity.ok().build();
+    }
+
+    private String readFromInputStream(InputStream inputStream) throws IOException {
+        StringBuilder resultStringBuilder = new StringBuilder();
+        try (BufferedReader br
+                     = new BufferedReader(new InputStreamReader(inputStream))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                resultStringBuilder.append(line).append("\n");
+            }
+        }
+        return resultStringBuilder.toString();
     }
 }
