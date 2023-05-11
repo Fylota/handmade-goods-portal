@@ -42,6 +42,12 @@ import { CartItemsTableComponent } from './components/cart-items-table/cart-item
 import { AdminSectionListComponent } from './components/admin-section-list/admin-section-list.component';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { ContactInformationComponent } from './components/profile/contact-information/contact-information.component';
+import { AddressBookComponent } from './components/profile/address-book/address-book.component';
+import { EditAddressBookComponent } from './components/profile/edit-address-book/edit-address-book.component';
+import { OrdersListComponent } from './components/orders/orders-list/orders-list.component';
+import { OrderDetailsComponent } from './components/orders/order-details/order-details.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -78,7 +84,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     CartItemsTableComponent,
     AdminSectionListComponent,
     PasswordResetComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    EditProfileComponent,
+    ContactInformationComponent,
+    AddressBookComponent,
+    EditAddressBookComponent,
+    OrdersListComponent,
+    OrderDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -675,29 +675,6 @@ paths:
           description: OK
       security:
       - Bearer_Authentication: []
-  /users/{id}/subscribe:
-    post:
-      tags:
-      - user-controller
-      operationId: subscribeToNewsletter
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      responses:
-        "404":
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                type: string
-        "200":
-          description: OK
-      security:
-      - Bearer_Authentication: []
   /users/{id}/cart:
     get:
       tags:
@@ -1464,8 +1441,6 @@ components:
           type: string
         addressLine:
           type: string
-        user:
-          $ref: '#/components/schemas/User'
     User:
       type: object
       properties:
@@ -1549,6 +1524,9 @@ components:
           type: string
         shippingMethod:
           type: string
+        creationDate:
+          type: string
+          format: date-time
     OrderProductDto:
       type: object
       properties:

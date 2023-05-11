@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserControllerService, UserDto } from 'src/app/core/api/v1';
+import { AddressDto, UserControllerService, UserDto } from 'src/app/core/api/v1';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 
 @Component({
@@ -14,6 +14,11 @@ export class ProfileComponent implements OnInit {
     email: '',
   };
 
+  editContact = false;
+  editAddress = false;
+
+  selectedAddress?: AddressDto;
+
   constructor(private httpClientService: UserControllerService, private router: Router, private loginService: AuthenticationService) { }
 
   ngOnInit(): void {
@@ -25,6 +30,18 @@ export class ProfileComponent implements OnInit {
         response => this.handleSuccessfulResponse(response),
       );
     }
+  }
+
+  setEditContact(value: boolean): void {
+    this.editContact = value;
+  }
+
+  setEditAddress(value: boolean): void {
+    this.editAddress = value;
+  }
+
+  setSelectedAddress(value: AddressDto) {
+    this.selectedAddress = value;
   }
 
   deleteUser(userId: string): void {
@@ -41,13 +58,5 @@ export class ProfileComponent implements OnInit {
 
   handleSuccessfulResponse(response: UserDto) {
     this.user = response;
-  }
-
-  updateUser() {
-    this.httpClientService.updateUser(Number(this.user.id), this.user)
-    .subscribe(_data => {
-      alert("User updated successfully.");
-      this.router.navigate(['home']);
-    });
   }
 }

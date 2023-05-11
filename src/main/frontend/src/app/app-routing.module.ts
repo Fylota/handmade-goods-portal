@@ -19,6 +19,7 @@ import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { AuthGuardService } from './service/auth-guard.service';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { OrderDetailsComponent } from './components/orders/order-details/order-details.component';
 
 
 const routes: Routes = [
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'checkout', component: CheckoutComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_USER'} },
   { path: 'changePassword', component: PasswordResetComponent },
   { path: 'forgotPassword', component: ForgotPasswordComponent },
+  { path: 'orders/view', component: OrderDetailsComponent, data: {roles: 'ROLE_USER'} },
   
   { path: '**', component: PageNotFoundComponent },
 ];

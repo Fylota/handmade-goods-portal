@@ -1,5 +1,7 @@
 package hu.bme.edu.handmade.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -21,6 +23,7 @@ public class Address {
     @Column(name = "address_line")
     private String addressLine;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id")
     private User user;
 
