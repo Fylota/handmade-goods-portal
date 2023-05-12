@@ -822,6 +822,13 @@ paths:
       tags:
       - email-controller
       operationId: sendNewsletter
+      parameters:
+      - name: fileId
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         "404":
           description: Not Found
@@ -1082,6 +1089,35 @@ paths:
                 $ref: '#/components/schemas/OrderItemDto'
       security:
       - Bearer_Authentication: []
+  /newsletter/upload:
+    post:
+      tags:
+      - newsletter-controller
+      operationId: uploadFile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - file
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
   /events:
     get:
       tags:
@@ -1318,6 +1354,54 @@ paths:
                   $ref: '#/components/schemas/OrderItemDto'
       security:
       - Bearer_Authentication: []
+  /newsletter/files:
+    get:
+      tags:
+      - newsletter-controller
+      operationId: getListFiles
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResponseFile'
+  /newsletter/files/{id}:
+    get:
+      tags:
+      - newsletter-controller
+      operationId: getFile
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: byte
   /categories/{category_name}:
     get:
       tags:
@@ -1613,6 +1697,11 @@ components:
           type: string
         shippingMethod:
           type: string
+    ResponseMessage:
+      type: object
+      properties:
+        message:
+          type: string
     JwtRequest:
       type: object
       properties:
@@ -1620,6 +1709,16 @@ components:
           type: string
         password:
           type: string
+    ResponseFile:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+        size:
+          type: integer
+          format: int64
   securitySchemes:
     Bearer_Authentication:
       type: http
