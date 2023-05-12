@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthenticationService } from 'src/app/service/authentication.service';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -9,11 +7,5 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  faSearch = faSearch;
-  constructor(public loginService:AuthenticationService, public translate: TranslateService) { }
-
-  logout() {
-    sessionStorage.clear();
-  }
-
+  constructor(public translate: TranslateService) { }
 }
