@@ -1,7 +1,9 @@
 package hu.bme.edu.handmade.services.impl;
 
+import hu.bme.edu.handmade.models.Newsletter;
 import hu.bme.edu.handmade.models.User;
 import hu.bme.edu.handmade.services.IEmailService;
+import hu.bme.edu.handmade.services.INewsletterStorageService;
 import hu.bme.edu.handmade.services.IUserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -12,22 +14,21 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Service
 public class EmailService implements IEmailService {
     private final JavaMailSender javaMailSender;
     private final IUserService userService;
+    private final INewsletterStorageService storageService;
 
     @Value("${spring.mail.username}") private String sender;
 
-    public EmailService(JavaMailSender javaMailSender, IUserService userService) {
+    public EmailService(JavaMailSender javaMailSender, IUserService userService, INewsletterStorageService storageService) {
         this.javaMailSender = javaMailSender;
         this.userService = userService;
+        this.storageService = storageService;
     }
 
     @Override
@@ -51,13 +52,12 @@ public class EmailService implements IEmailService {
     }
 
     @Override
-    public ResponseEntity<?> sendNewsletterEmail() throws IOException {
+    public ResponseEntity<?> sendNewsletterEmail(Long fileId) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper;
 
-        ClassLoader classLoader = getClass().getClassLoader();
-        InputStream inputStream = classLoader.getResourceAsStream("newsletter.html");
-        String data = readFromInputStream(inputStream);
+        Newsletter newsletter = storageService.load(fileId);
+        String data = new String(newsletter.getContent(), StandardCharsets.UTF_8);
 
         List<User> recipients = userService.findUsersSubscribedToNewsletter();
         for (User user : recipients) {
@@ -76,17 +76,5 @@ public class EmailService implements IEmailService {
             }
         }
         return ResponseEntity.ok().build();
-    }
-
-    private String readFromInputStream(InputStream inputStream) throws IOException {
-        StringBuilder resultStringBuilder = new StringBuilder();
-        try (BufferedReader br
-                     = new BufferedReader(new InputStreamReader(inputStream))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                resultStringBuilder.append(line).append("\n");
-            }
-        }
-        return resultStringBuilder.toString();
     }
 }

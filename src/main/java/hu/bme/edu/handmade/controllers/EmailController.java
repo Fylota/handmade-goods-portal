@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class EmailController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @SecurityRequirement(name = "Bearer_Authentication")
     @PostMapping("/sendNewsletter")
-    public ResponseEntity<?> sendNewsletter() throws IOException {
-        return emailService.sendNewsletterEmail();
+    public ResponseEntity<?> sendNewsletter(@RequestParam("fileId") Long fileId) throws IOException {
+        return emailService.sendNewsletterEmail(fileId);
     }
 }

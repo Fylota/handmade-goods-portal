@@ -1,33 +1,43 @@
 package hu.bme.edu.handmade.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.Type;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.Objects;
+import java.util.Date;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "newsletters")
 public class Newsletter {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
-    @Basic
     @Column(name = "title")
     private String title;
-    @Basic
-    @Column(name = "content")
-    private String content;
-    @Basic
-    @Column(name = "creation_date")
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate creationDate;
 
-    public long getId() {
+    @Type(type="org.hibernate.type.BinaryType")
+    @Column(name = "content")
+    private byte[] content;
+    @CreatedDate
+    @Column(name = "creation_date")
+    private Date creationDate;
+
+    public Newsletter() {
+    }
+
+    public Newsletter(String title, byte[] content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -39,32 +49,19 @@ public class Newsletter {
         this.title = title;
     }
 
-    public String getContent() {
+    public byte[] getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public void setContent(byte[] content) {
         this.content = content;
     }
 
-    public LocalDate getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Newsletter that = (Newsletter) o;
-        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(content, that.content) && Objects.equals(creationDate, that.creationDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, content, creationDate);
     }
 }
