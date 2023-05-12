@@ -8,46 +8,45 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppComponent } from './app.component';
-import { UserComponent } from './components/user/user.component';
-import { AddUserComponent } from './components/add-user/add-user.component';
+import { UserComponent } from './components/admin/listUsers/user.component';
+import { AddUserComponent } from './components/user/add-user/add-user.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { LoginComponent } from './components/login/login.component';
-import { LogoutComponent } from './components/logout/logout.component';
+import { LoginComponent } from './components/user/login/login.component';
+import { LogoutComponent } from './components/user/logout/logout.component';
 import { BasicAuthHtppInterceptorService } from './service/basic-auth-htpp-interceptor.service';
-import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomeComponent } from './components/home/home.component';
-import { CartComponent } from './components/cart/cart.component';
-import { WishlistComponent } from './components/wishlist/wishlist.component';
+import { CartComponent } from './components/shop/cart/cart.component';
+import { WishlistComponent } from './components/shop/wishlist/wishlist.component';
 import { MaterialModule } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SidenavdrawerComponent } from './components/sidenavdrawer/sidenavdrawer.component';
-import { ProductsComponent } from './components/products/products.component';
-import { ProductDetailsComponent } from './components/product-details/product-details.component';
-import { UploadProductComponent } from './components/upload-product/upload-product.component';
+import { ProductsComponent } from './components/shop/products/products.component';
+import { ProductDetailsComponent } from './components/shop/product-details/product-details.component';
+import { UploadProductComponent } from './components/admin/upload-product/upload-product.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { CategoryComponent } from './components/category/category.component';
-import { ProductsListComponent } from './components/products-list/products-list.component';
-import { UploadNewsComponent } from './components/upload-news/upload-news.component';
+import { CategoryComponent } from './components/shop/category/category.component';
+import { ProductsListComponent } from './components/shop/products-list/products-list.component';
+import { UploadNewsComponent } from './components/admin/upload-news/upload-news.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { EventsComponent } from './components/events/events.component';
-import { UploadEventComponent } from './components/upload-event/upload-event.component';
+import { UploadEventComponent } from './components/admin/upload-event/upload-event.component';
 import { HomeHeroComponent } from './components/home-hero/home-hero.component';
-import { AdminPageComponent } from './components/admin-page/admin-page.component';
+import { AdminPageComponent } from './components/admin/admin-page/admin-page.component';
 import { MessageService } from './service/message.service';
 import { HttpErrorHandler } from './service/http-error-handler.service';
-import { CheckoutComponent } from './components/checkout/checkout.component';
-import { CartItemsTableComponent } from './components/cart-items-table/cart-items-table.component';
-import { AdminSectionListComponent } from './components/admin-section-list/admin-section-list.component';
-import { PasswordResetComponent } from './components/password-reset/password-reset.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
-import { ContactInformationComponent } from './components/profile/contact-information/contact-information.component';
-import { AddressBookComponent } from './components/profile/address-book/address-book.component';
-import { EditAddressBookComponent } from './components/profile/edit-address-book/edit-address-book.component';
-import { OrdersListComponent } from './components/orders/orders-list/orders-list.component';
-import { OrderDetailsComponent } from './components/orders/order-details/order-details.component';
+import { CheckoutComponent } from './components/shop/checkout/checkout.component';
+import { CartItemsTableComponent } from './components/shop/cart-items-table/cart-items-table.component';
+import { AdminSectionListComponent } from './components/admin/admin-section-list/admin-section-list.component';
+import { PasswordResetComponent } from './components/user/password-reset/password-reset.component';
+import { ForgotPasswordComponent } from './components/user/forgot-password/forgot-password.component';
+import { EditProfileComponent } from './components/user/edit-profile/edit-profile.component';
+import { ContactInformationComponent } from './components/user/contact-information/contact-information.component';
+import { AddressBookComponent } from './components/user/address-book/address-book.component';
+import { EditAddressBookComponent } from './components/user/edit-address-book/edit-address-book.component';
+import { OrdersListComponent } from './components/shop/orders-list/orders-list.component';
+import { OrderDetailsComponent } from './components/shop/order-details/order-details.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -67,7 +66,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     CartComponent,
     WishlistComponent,
-    SidenavdrawerComponent,
     ProductsComponent,
     ProductDetailsComponent,
     UploadProductComponent,
