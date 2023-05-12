@@ -1,0 +1,22 @@
+<div class="card-text">
+  <p *ngIf="user.addresses === undefined || user.addresses.length === 0">
+    There is no saved address. Add one by clicking the button below!
+  </p>
+  <div *ngIf="user.addresses !== undefined && user.addresses.length > 0" class="row row-cols-1 g-2">
+    <div *ngFor="let address of user.addresses" class="card">
+      <p>{{ address.zip }}, {{ address.city }}</p>
+      <p>{{ address.country }}</p>
+      <p>{{ address.addressLine }}</p>
+      <div>
+        <button type="button" class="btn btn-primary" (click)="editAddress(address)">
+          Edit
+        </button>
+      </div>
+    </div>
+  </div>
+  <div>
+    <button type="button" class="btn btn-primary" (click)="editAddress()">
+      Add new address
+    </button>
+  </div>
+</div>
