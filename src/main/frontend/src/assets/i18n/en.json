@@ -7,11 +7,10 @@
     "PROFILE": "Profile",
     "WISHLIST": "Wishlist",
     "CART": "Cart",
-    "SEARCH": "Search...",
-    "PRODUCTS": "All Products",
+    "SHOP": "Shop",
     "EVENTS": "Events",
-    "NEWS": "News",
-    "ADMIN": "Admin Page"
+    "BLOG": "Blog",
+    "ADMIN": "Admin"
   },
   "LOGIN": {
     "WELCOME": "Welcome back!",

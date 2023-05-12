@@ -8,11 +8,10 @@
       "PROFILE": "Profil",
       "WISHLIST":"Kívánságlista",
       "CART":"Kosár",
-      "SEARCH": "Termékek keresése...",
-      "PRODUCTS": "Összes Termék",
+      "SHOP": "Termékek",
       "EVENTS": "Események",
-      "NEWS": "Hírek",
-      "ADMIN": "Admin oldal"
+      "BLOG": "Blog",
+      "ADMIN": "Admin"
     },
     "LOGIN": {
       "WELCOME": "Üdv újra!",
