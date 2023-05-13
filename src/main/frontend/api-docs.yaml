@@ -1501,6 +1501,8 @@ components:
           format: int64
         name:
           type: string
+        imageUrl:
+          type: string
     Product:
       type: object
       properties:
@@ -1621,6 +1623,8 @@ components:
           type: string
         content:
           type: string
+        imageUrl:
+          type: string
     Post:
       type: object
       properties:
@@ -1630,6 +1634,8 @@ components:
         title:
           type: string
         content:
+          type: string
+        imageUrl:
           type: string
         creationDate:
           type: string

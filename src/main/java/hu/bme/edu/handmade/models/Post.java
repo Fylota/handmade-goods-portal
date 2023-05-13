@@ -21,6 +21,9 @@ public class Post {
     @Basic
     @Column(name = "content")
     private String content;
+
+    @Column(name = "image_url")
+    private String imageUrl;
     @CreatedDate
     @Column(name = "creation_date")
     private LocalDateTime creationDate;
@@ -47,6 +50,14 @@ public class Post {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public LocalDateTime getCreationDate() {

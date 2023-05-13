@@ -14,6 +14,9 @@ public class Category {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     public Long getId() {
         return id;
     }
@@ -28,6 +31,14 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @Override
