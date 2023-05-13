@@ -2,7 +2,7 @@
     <h2>Shop by Categories</h2>
     <div class="category--container">
         <div *ngFor="let category of categories" class="category--card" (click)="goToCategory(category)">
-            <img src="../../../assets/no-image-icon-23485.png" class="category--card-img" alt={{category.name}}>
+            <img src={{category.imageUrl}} class="category--card-img" alt={{category.name}}>
             <p class="category--card-title">{{category.name}}</p>
         </div>
     </div>
