@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {
   Category,
   CategoryControllerService,
+  Post,
   PostControllerService,
   PostDto,
   Product,
@@ -17,7 +18,7 @@ import {
 export class HomeComponent implements OnInit {
   topCategories?: Category[];
   newProducts?: Product[];
-  newPosts?: PostDto[];
+  newPosts?: Post[];
 
   constructor(
     private categoryService: CategoryControllerService,
@@ -35,7 +36,7 @@ export class HomeComponent implements OnInit {
       this.newProducts = res["products"];
       console.log(this.newProducts);
     });
-    this.postService.getPostPages(0,4, ["creationDate", "desc"]).subscribe((res: any) => {
+    this.postService.getPostPages(0,3, ["creationDate", "desc"]).subscribe((res: any) => {
       this.newPosts = res["data"];
       console.log(this.newPosts);
     });
@@ -50,5 +51,11 @@ export class HomeComponent implements OnInit {
   goToCategory(cat: Category) {
     const catName = cat ? cat.name : null;
     this.router.navigate(['products/category'], { queryParams: { name: catName }})
+  }
+
+  navigateToPost(post: Post) {
+    this.router.navigate(['posts/view'], {
+      queryParams: {id: post.id},
+    });
   }
 }

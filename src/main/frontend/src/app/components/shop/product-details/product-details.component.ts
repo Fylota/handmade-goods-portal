@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import {
   CartProductDto,
   Product,
   ProductControllerService,
   UserControllerService,
   UserDto,
+  ReviewDto
 } from 'src/app/core/api/v1';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 
@@ -15,9 +17,10 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
   styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent {
-  param = '';
+  param: number | undefined;
   product: Product | undefined;
   user: UserDto | undefined;
+  reviews$: Observable<ReviewDto[]> | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,11 +29,13 @@ export class ProductDetailsComponent {
     private userService: UserControllerService
   ) {
     this.route.queryParams.subscribe((params) => {
-      this.param = params['id'];
-      productService.getProduct(Number(this.param)).subscribe((res) => {
-        this.product = res;
-        console.log(this.product);
-      });
+      this.param = Number(params['id']);
+      if (this.param != undefined) {
+        this.reviews$ =  productService.getReviews(this.param);
+        this.productService.getProduct(this.param).subscribe((res) => {
+          this.product = res;
+        });
+      }
     });
     if (this.authService.isUserLoggedIn()) {
       this.userService.user().subscribe((response) => (this.user = response));
