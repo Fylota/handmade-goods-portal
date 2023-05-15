@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faMinus } from '@fortawesome/free-solid-svg-icons';
@@ -8,7 +8,7 @@ import { faMinus } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './cart-items-table.component.html',
   styleUrls: ['./cart-items-table.component.scss']
 })
-export class CartItemsTableComponent implements OnInit {
+export class CartItemsTableComponent {
 
   @Input()
   products: any;
@@ -17,17 +17,14 @@ export class CartItemsTableComponent implements OnInit {
   faPlus = faPlus;
   faMinus = faMinus;
 
-  @Output("removeFromCart")
+  @Output()
   removeFromCart: EventEmitter<any> = new EventEmitter();
-  @Output("decreaseQty")
+  @Output()
   decreaseQty: EventEmitter<any> = new EventEmitter();
-  @Output("increaseQty")
+  @Output()
   increaseQty: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
   emitRemoveFromCart(item: any) {
     this.removeFromCart.emit(item);

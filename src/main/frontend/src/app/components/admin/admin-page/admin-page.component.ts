@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { OrderControllerService, Product, ProductControllerService } from 'src/app/core/api/v1';
 
 @Component({
@@ -6,7 +6,7 @@ import { OrderControllerService, Product, ProductControllerService } from 'src/a
   templateUrl: './admin-page.component.html',
   styleUrls: ['./admin-page.component.scss']
 })
-export class AdminPageComponent {
+export class AdminPageComponent implements OnInit {
 
   activeTab = 0;
   allProducts: Product[] = [];

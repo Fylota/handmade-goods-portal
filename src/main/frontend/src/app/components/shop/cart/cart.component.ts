@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartProduct, UserControllerService, UserDto } from 'src/app/core/api/v1';
 import { AuthenticationService } from 'src/app/service/authentication.service';
@@ -9,7 +9,7 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnChanges {
   user: UserDto | undefined;
   products: CartProduct[] = [];
   subTotal = 0;

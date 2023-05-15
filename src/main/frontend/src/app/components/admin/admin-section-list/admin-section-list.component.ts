@@ -13,9 +13,9 @@ export class AdminSectionListComponent {
 
   headers = ["id", "name", "actions"];
 
-  @Output("deleteItem")
+  @Output()
   deleteItem: EventEmitter<any> = new EventEmitter();
-  @Output("editItem")
+  @Output()
   editItem: EventEmitter<any> = new EventEmitter();
 
   emitDelete(id: number) {

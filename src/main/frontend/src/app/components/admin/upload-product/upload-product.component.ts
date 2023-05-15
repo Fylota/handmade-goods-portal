@@ -13,11 +13,11 @@ export class UploadProductComponent implements OnInit {
   categories: Category[] = [];
   product: Product = {};
 
-  @Output("closeEditing")
+  @Output()
   closeEditing: EventEmitter<any> = new EventEmitter();
-  @Output("newProductSaved")
+  @Output()
   newProductSaved: EventEmitter<any> = new EventEmitter();
-  @Output("updatedProduct")
+  @Output()
   updatedProduct: EventEmitter<any> = new EventEmitter();
 
   constructor(private productService: ProductControllerService, private categoryService: CategoryControllerService) { }
