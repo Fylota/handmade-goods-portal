@@ -21,6 +21,7 @@ import { PasswordResetComponent } from './components/user/password-reset/passwor
 import { ForgotPasswordComponent } from './components/user/forgot-password/forgot-password.component';
 import { OrderDetailsComponent } from './components/shop/order-details/order-details.component';
 import { AllCategoriesComponent } from './components/shop/all-categories/all-categories.component';
+import { PostDetailsComponent } from './components/posts/post-details/post-details.component';
 
 
 const routes: Routes = [
@@ -29,7 +30,8 @@ const routes: Routes = [
   { path: 'products/category', component: CategoryComponent},
   { path: 'products/view', component: ProductDetailsComponent},
   { path: 'categories', component: AllCategoriesComponent },
-  { path: 'posts', component: PostsComponent},
+  { path: 'posts', component: PostsComponent },
+  { path: 'posts/view', component: PostDetailsComponent },
   { path: 'events', component: EventsComponent},
   { path: 'user', component: UserComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_USER'} },
   { path: 'register', component: AddUserComponent},

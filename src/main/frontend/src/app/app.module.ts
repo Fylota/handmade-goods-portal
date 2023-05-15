@@ -48,6 +48,7 @@ import { EditAddressBookComponent } from './components/user/edit-address-book/ed
 import { OrdersListComponent } from './components/shop/orders-list/orders-list.component';
 import { OrderDetailsComponent } from './components/shop/order-details/order-details.component';
 import { AllCategoriesComponent } from './components/shop/all-categories/all-categories.component';
+import { PostDetailsComponent } from './components/posts/post-details/post-details.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -90,7 +91,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditAddressBookComponent,
     OrdersListComponent,
     OrderDetailsComponent,
-    AllCategoriesComponent
+    AllCategoriesComponent,
+    PostDetailsComponent
   ],
   imports: [
     BrowserModule,
