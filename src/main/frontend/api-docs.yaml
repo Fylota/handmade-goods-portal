@@ -1730,6 +1730,8 @@ components:
         userId:
           type: integer
           format: int64
+        reviewerName:
+          type: string
         content:
           type: string
         creationDate:
