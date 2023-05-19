@@ -49,6 +49,13 @@ import { OrdersListComponent } from './components/shop/orders-list/orders-list.c
 import { OrderDetailsComponent } from './components/shop/order-details/order-details.component';
 import { AllCategoriesComponent } from './components/shop/all-categories/all-categories.component';
 import { PostDetailsComponent } from './components/posts/post-details/post-details.component';
+import { UploadCategoryComponent } from './components/admin/upload-category/upload-category.component';
+import { ManageOrdersComponent } from './components/admin/manage-orders/manage-orders.component';
+import { ManageUsersComponent } from './components/admin/manage-users/manage-users.component';
+import { ManageProductsComponent } from './components/admin/manage-products/manage-products.component';
+import { ManagePostsComponent } from './components/admin/manage-posts/manage-posts.component';
+import { ManageEventsComponent } from './components/admin/manage-events/manage-events.component';
+import { ManageCategoriesComponent } from './components/admin/manage-categories/manage-categories.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -92,7 +99,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     OrdersListComponent,
     OrderDetailsComponent,
     AllCategoriesComponent,
-    PostDetailsComponent
+    PostDetailsComponent,
+    UploadCategoryComponent,
+    ManageOrdersComponent,
+    ManageUsersComponent,
+    ManageProductsComponent,
+    ManagePostsComponent,
+    ManageEventsComponent,
+    ManageCategoriesComponent
   ],
   imports: [
     BrowserModule,

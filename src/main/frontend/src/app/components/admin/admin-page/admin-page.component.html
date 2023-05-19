@@ -1,51 +1,97 @@
 <h1 class="admin--title">Admin Page</h1>
-<div class="admin--navigation">
-    <ul>
-        <li (click)="scrollToElement(manageProducts)">Products</li>
-        <li (click)="scrollToElement(manageOrders)">Orders</li>
-        <li (click)="scrollToElement(manageNews)">News</li>
-        <li (click)="scrollToElement(manageUsers)">Users</li>
-        <li (click)="scrollToElement(manageEvents)">Events</li>
-    </ul>
-</div>
-<section #manageProducts class="admin--section">
-    <h2 class="admin--section-title">Manage Products</h2>
-    <div class="admin--section-content">
-        <div class="admin--section-content-top">
-            <button (click)="handleProductsTab(0)">Add new product</button>
-            <button (click)="handleProductsTab(1)">Modify / Delete product</button>
-            <button (click)="handleProductsTab(2)">Create new category</button>
-            <button (click)="handleProductsTab(3)">Modify category</button>
+
+<div class="container">
+    <div class="wrapper">
+        <div class="grid-item" (click)="navigateToPage('admin/orders')">
+            <fa-stack size="3x">
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon [icon]="faGear" [inverse]="true" stackItemSize="1x"></fa-icon>
+            </fa-stack>
+            <div>
+                Manage Orders
+            </div>
         </div>
-        <div [ngSwitch]="activeTab">
-            <app-upload-product *ngSwitchCase="0"
-                (newProductSaved)="saveItem($event)">
-            </app-upload-product>
-            <app-admin-section-list *ngSwitchCase="1" 
-                [items]="allProducts" 
-                (deleteItem)="deleteItem($event)" 
-                (editItem)="editItem($event)">
-            </app-admin-section-list>
-            <app-upload-product *ngIf="editProduct" 
-                [editProduct]="editProduct"
-                (closeEditing)="closeEditing()"
-                (updatedProduct)="updateItem($event)">
-            </app-upload-product>
-            <p *ngSwitchCase="2">TODO Create new category</p>
-            <p *ngSwitchCase="3">TODO Modify category</p>
+        <div class="grid-item" (click)="navigateToPage('admin/users')">
+            <fa-stack size="3x">
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon [icon]="faGear" [inverse]="true" stackItemSize="1x"></fa-icon>
+            </fa-stack>
+            <div>
+                Manage Users
+            </div>
+        </div>
+        <div class="grid-item" (click)="navigateToPage('admin/add-product')">
+            <fa-stack size="3x">
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon [icon]="faGear" [inverse]="true" stackItemSize="1x"></fa-icon>
+            </fa-stack>
+            <div>
+                Add Product
+            </div>
+        </div>
+        <div class="grid-item" (click)="navigateToPage('admin/add-post')">
+            <fa-stack size="3x">
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon [icon]="faGear" [inverse]="true" stackItemSize="1x"></fa-icon>
+            </fa-stack>
+            <div>
+                Add Blog Post
+            </div>
+        </div>
+        <div class="grid-item" (click)="navigateToPage('admin/add-event')">
+            <fa-stack size="3x">
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon [icon]="faGear" [inverse]="true" stackItemSize="1x"></fa-icon>
+            </fa-stack>
+            <div>
+                Add Event
+            </div>
+        </div>
+        <div class="grid-item" (click)="navigateToPage('admin/add-category')">
+            <fa-stack size="3x">
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon [icon]="faGear" [inverse]="true" stackItemSize="1x"></fa-icon>
+            </fa-stack>
+            <div>
+                Add Category
+            </div>
+        </div>
+        <div class="grid-item" (click)="navigateToPage('admin/products')">
+            <fa-stack size="3x">
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon [icon]="faGear" [inverse]="true" stackItemSize="1x"></fa-icon>
+            </fa-stack>
+            <div>
+                Edit Products
+            </div>
+        </div>
+        <div class="grid-item" (click)="navigateToPage('admin/posts')">
+            <fa-stack size="3x">
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon [icon]="faGear" [inverse]="true" stackItemSize="1x"></fa-icon>
+            </fa-stack>
+            <div>
+                Edit Blog Posts
+            </div>
+        </div>
+        <div class="grid-item" (click)="navigateToPage('admin/events')">
+            <fa-stack size="3x">
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon [icon]="faGear" [inverse]="true" stackItemSize="1x"></fa-icon>
+            </fa-stack>
+            <div>
+                Edit Events
+            </div>
+        </div>
+        <div class="grid-item" (click)="navigateToPage('admin/categories')">
+            <fa-stack size="3x">
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon [icon]="faGear" [inverse]="true" stackItemSize="1x"></fa-icon>
+            </fa-stack>
+            <div>
+                Edit Categories
+            </div>
         </div>
     </div>
-</section>
+</div>
 
-<section #manageOrders class="admin--section">
-    <h2 class="admin--section-title">Manage Orders</h2>
-</section>
-<section #manageNews class="admin--section">
-    <h2 class="admin--section-title">Manage News</h2>
-</section>
-<section #manageUsers class="admin--section">
-    <h2 class="admin--section-title">Manage Users</h2>
-</section>
-<section #manageEvents class="admin--section">
-    <h2 class="admin--section-title">Manage Events</h2>
-</section>

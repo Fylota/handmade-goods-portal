@@ -22,6 +22,16 @@ import { ForgotPasswordComponent } from './components/user/forgot-password/forgo
 import { OrderDetailsComponent } from './components/shop/order-details/order-details.component';
 import { AllCategoriesComponent } from './components/shop/all-categories/all-categories.component';
 import { PostDetailsComponent } from './components/posts/post-details/post-details.component';
+import { UploadProductComponent } from './components/admin/upload-product/upload-product.component';
+import { UploadEventComponent } from './components/admin/upload-event/upload-event.component';
+import { UploadNewsComponent } from './components/admin/upload-news/upload-news.component';
+import { UploadCategoryComponent } from './components/admin/upload-category/upload-category.component';
+import { ManageOrdersComponent } from './components/admin/manage-orders/manage-orders.component';
+import { ManageCategoriesComponent } from './components/admin/manage-categories/manage-categories.component';
+import { ManageEventsComponent } from './components/admin/manage-events/manage-events.component';
+import { ManagePostsComponent } from './components/admin/manage-posts/manage-posts.component';
+import { ManageProductsComponent } from './components/admin/manage-products/manage-products.component';
+import { ManageUsersComponent } from './components/admin/manage-users/manage-users.component';
 
 
 const routes: Routes = [
@@ -40,7 +50,19 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_USER'} },
   { path: 'cart', component: CartComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_USER'} },
   { path: 'wishlist', component: WishlistComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_USER'} },
+  
   { path: 'admin', component: AdminPageComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_ADMIN'} },
+  { path: 'admin/add-product', component: UploadProductComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_ADMIN'} },
+  { path: 'admin/add-event', component: UploadEventComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_ADMIN'} },
+  { path: 'admin/add-post', component: UploadNewsComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_ADMIN'} },
+  { path: 'admin/add-category', component: UploadCategoryComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_ADMIN'} },
+  { path: 'admin/orders', component: ManageOrdersComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_ADMIN'} },
+  { path: 'admin/users', component: ManageUsersComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_ADMIN'} },
+  { path: 'admin/products', component: ManageProductsComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_ADMIN'} },
+  { path: 'admin/posts', component: ManagePostsComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_ADMIN'} },
+  { path: 'admin/events', component: ManageEventsComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_ADMIN'} },
+  { path: 'admin/categories', component: ManageCategoriesComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_ADMIN'} },
+
   { path: 'checkout', component: CheckoutComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_USER'} },
   { path: 'changePassword', component: PasswordResetComponent },
   { path: 'forgotPassword', component: ForgotPasswordComponent },

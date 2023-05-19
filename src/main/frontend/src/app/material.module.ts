@@ -6,6 +6,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   exports: [
@@ -16,6 +18,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatSlideToggleModule,
     MatTableModule,
     MatSortModule,
+    MatIconModule,
+    MatButtonModule
   ],
   imports: [
   ],

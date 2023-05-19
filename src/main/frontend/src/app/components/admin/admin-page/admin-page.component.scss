@@ -33,3 +33,24 @@
     justify-content: space-around;
     margin: 2rem;
 }
+
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 2em;
+    div {
+        cursor: pointer;
+    }
+}
+
+.grid-item fa-stack {
+    color: #135f92;
+    transition: 1s ease;
+}
+
+.grid-item fa-stack:hover {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+    transition: 1s ease;
+}
