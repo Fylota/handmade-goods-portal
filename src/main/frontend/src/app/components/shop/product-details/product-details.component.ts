@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import {
   CartProductDto,
   Product,
@@ -20,7 +19,11 @@ export class ProductDetailsComponent {
   param: number | undefined;
   product: Product | undefined;
   user: UserDto | undefined;
-  reviews$: Observable<ReviewDto[]> | undefined;
+  // reviews$: Observable<ReviewDto[]> = new Observable<ReviewDto[]>;
+  reviews: ReviewDto[] = [];
+  editReview: ReviewDto = {};
+  reviewContent = "";
+  loggedIn = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,30 +34,46 @@ export class ProductDetailsComponent {
     this.route.queryParams.subscribe((params) => {
       this.param = Number(params['id']);
       if (this.param != undefined) {
-        this.reviews$ =  productService.getReviews(this.param);
+        this.reloadReviews(this.param)
         this.productService.getProduct(this.param).subscribe((res) => {
           this.product = res;
         });
       }
     });
     if (this.authService.isUserLoggedIn()) {
-      this.userService.user().subscribe((response) => (this.user = response));
+      this.loggedIn = true;
+      this.userService.user().subscribe((response) => {
+        this.user = response;
+        this.editReview.productId = this.product?.id;
+        this.editReview.userId = Number(this.user?.id);
+        this.editReview.reviewerName = this.user?.firstName ? this.user?.firstName : "Anonymus reviewer";
+      });
     }
   }
 
+  reloadReviews(productId: number): void {
+    this.productService.getReviews(productId).subscribe(res => this.reviews = res)
+  }
+
   addToCart() {
-    if (!this.authService.isUserLoggedIn()) {
+    if (!this.loggedIn) {
       window.alert('You must log in first!');
-      // TODO temp cart
     } else {
       let userId = Number(this.user!.id);
       let cartProduct: CartProductDto = {
         productId: this.product!.id!,
         quantity: 1,
       };
-      //"",userId, this.product!.id, 1);
       this.userService.addCartProduct(userId, cartProduct).subscribe();
       window.alert('Your product has been added to the cart!');
     }
   }
+
+  postReview() {
+    if (this.product?.id !== undefined && this.user !== undefined) {
+      this.editReview.content = this.reviewContent;
+      this.productService.addReview(this.product?.id, this.editReview).subscribe(_ => this.reloadReviews(this.product?.id!))
+    }
+  }
+
 }

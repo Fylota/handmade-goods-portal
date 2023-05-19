@@ -23,6 +23,9 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Column(name = "reviewer_name")
+    private String reviewerName;
     @Basic
     @Column(name = "content")
     private String content;
@@ -47,6 +50,14 @@ public class Review {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getReviewerName() {
+        return reviewerName;
+    }
+
+    public void setReviewerName(String reviewerName) {
+        this.reviewerName = reviewerName;
     }
 
     public Long getId() {
