@@ -24,7 +24,7 @@
           <li class="nav-item">
             <a routerLink="events" class="nav-link">{{ "NAV.EVENTS" | translate }}</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="isAdmin">
             <a routerLink="admin" class="nav-link">{{ "NAV.ADMIN" | translate }}</a>
           </li>
         </ul>

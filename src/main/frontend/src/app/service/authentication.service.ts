@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 
 export class UserStatus {
@@ -20,6 +20,8 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthenticationService {
+  private adminStatus = new BehaviorSubject<boolean>(false);
+  public admin$ = this.adminStatus.asObservable();
   roleAs = '';
 
   constructor(private httpClient: HttpClient, private router: Router) { }
@@ -36,6 +38,7 @@ export class AuthenticationService {
         console.log(tokenInfo)
         const roles = tokenInfo.authorities;
         sessionStorage.setItem('roles', roles);
+        this.adminStatus.next(this.isAdmin());
         return userData;
        }
      )
@@ -56,13 +59,22 @@ export class AuthenticationService {
     sessionStorage.removeItem('token');
     sessionStorage.setItem('roles', '');
     this.router.navigate(['logout']);
+    this.adminStatus.next(this.isAdmin());
     return this.httpClient.post('http://localhost:8080/logout', { }, httpOptions);
   }
 
   getRole() {
     this.roleAs = sessionStorage.getItem('roles') != null ? sessionStorage.getItem('roles')! : '';
-    console.log(this.roleAs);
     return this.roleAs;
+  }
+
+  isAdmin(): boolean {
+    return this.getRole().indexOf('ROLE_ADMIN') !== -1;
+  }
+
+  getAdmin(): Observable<boolean> {
+    this.adminStatus.next(this.isAdmin());
+    return this.admin$;
   }
 
   getDecodedAccessToken(token: string): any {
