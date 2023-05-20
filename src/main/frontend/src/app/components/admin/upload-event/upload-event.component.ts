@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { EventControllerService, EventDto } from 'src/app/core/api/v1';
 
 @Component({
@@ -8,13 +9,15 @@ import { EventControllerService, EventDto } from 'src/app/core/api/v1';
 })
 export class UploadEventComponent {
   event: EventDto = {};
-  constructor(private eventService: EventControllerService) { }
+  constructor(
+    private eventService: EventControllerService,
+    private _snackBar: MatSnackBar) { }
 
   createEvent() {
     this.eventService.addEvent(this.event)
     .subscribe(() => {
-      console.log(this.event);
-      alert("Event created successfully.");
+      this._snackBar.open("Product saved", "Dismiss");
+      this.event = {};
     });
   }
 }

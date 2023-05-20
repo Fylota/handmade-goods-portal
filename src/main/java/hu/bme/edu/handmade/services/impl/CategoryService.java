@@ -18,10 +18,8 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public Category createCategory(String categoryName) {
-        Category newCategory = new Category();
-        newCategory.setName(categoryName);
-        return categoryRepository.save(newCategory);
+    public Category createCategory(Category cat) {
+        return categoryRepository.save(cat);
     }
 
     @Override

@@ -1127,7 +1127,7 @@ paths:
       operationId: uploadFile
       requestBody:
         content:
-          application/json:
+          multipart/form-data:
             schema:
               required:
               - file
@@ -1149,6 +1149,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseMessage'
+      security:
+      - Bearer_Authentication: []
   /events:
     get:
       tags:
@@ -1222,7 +1224,7 @@ paths:
         content:
           application/json:
             schema:
-              type: string
+              $ref: '#/components/schemas/Category'
         required: true
       responses:
         "404":
@@ -1501,6 +1503,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ResponseFile'
+      security:
+      - Bearer_Authentication: []
   /newsletter/files/{id}:
     get:
       tags:
@@ -1529,6 +1533,8 @@ paths:
                 items:
                   type: string
                   format: byte
+      security:
+      - Bearer_Authentication: []
   /categories/{category_name}:
     get:
       tags:
@@ -1855,6 +1861,9 @@ components:
     ResponseFile:
       type: object
       properties:
+        id:
+          type: integer
+          format: int64
         name:
           type: string
         url:

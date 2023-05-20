@@ -4,8 +4,10 @@ import hu.bme.edu.handmade.models.Newsletter;
 import hu.bme.edu.handmade.models.response.ResponseFile;
 import hu.bme.edu.handmade.models.response.ResponseMessage;
 import hu.bme.edu.handmade.services.INewsletterStorageService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +20,6 @@ import java.util.stream.Collectors;
 @RestController
 @CrossOrigin(origins="http://localhost:4200", maxAge=3600)
 @RequestMapping("/newsletter")
-@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class NewsletterController {
     private final INewsletterStorageService storageService;
 
@@ -26,8 +27,12 @@ public class NewsletterController {
         this.storageService = storageService;
     }
 
-    @PostMapping("/upload")
-    public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @SecurityRequirement(name = "Bearer_Authentication")
+    @RequestMapping(value = "/upload",
+            method = RequestMethod.POST,
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ResponseMessage> uploadFile(@RequestPart("file") MultipartFile file) {
         String message;
         try {
             storageService.store(file);
@@ -40,6 +45,8 @@ public class NewsletterController {
         }
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @GetMapping("/files")
     public ResponseEntity<List<ResponseFile>> getListFiles() {
         List<ResponseFile> files = storageService.loadAll().map(dbFile -> {
@@ -50,6 +57,7 @@ public class NewsletterController {
                     .toUriString();
 
             return new ResponseFile(
+                    dbFile.getId(),
                     dbFile.getTitle(),
                     fileDownloadUri,
                     dbFile.getContent().length);
@@ -58,12 +66,14 @@ public class NewsletterController {
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @GetMapping("/files/{id}")
-    public ResponseEntity<byte[]> getFile(@PathVariable Long id) {
+    public ResponseEntity<Newsletter> getFile(@PathVariable Long id) {
         Newsletter fileDB = storageService.load(id);
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getTitle() + "\"")
-                .body(fileDB.getContent());
+                .body(fileDB);
     }
 }

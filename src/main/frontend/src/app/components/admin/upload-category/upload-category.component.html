@@ -1,1 +1,18 @@
-<p>upload-category works!</p>
+<div class="container">
+    <h1 class="title">Upload new Category</h1>
+    <a href="/admin" class="btn btn-primary">Back to Admin Page</a>
+    <form>
+        <div class="form-group">
+            <label for="title">Name: </label>
+            <input type="text" [(ngModel)]="category.name" name="title"
+                class="form-control" id="title">
+        </div>
+
+        <div class="form-group">
+            <label for="image">Image URL: </label>
+            <input type="text" [(ngModel)]="category.imageUrl" name="image" class="form-control" id="image">
+        </div>
+
+        <button class="btn btn-success" (click)="createCategory()">Create</button>
+    </form>
+</div>
