@@ -1,9 +1,11 @@
 package hu.bme.edu.handmade.services.impl;
 
 import hu.bme.edu.handmade.mappers.AddressMapper;
+import hu.bme.edu.handmade.mappers.RoleMapper;
 import hu.bme.edu.handmade.mappers.UserMapper;
 import hu.bme.edu.handmade.models.Address;
 import hu.bme.edu.handmade.models.PasswordResetToken;
+import hu.bme.edu.handmade.models.Role;
 import hu.bme.edu.handmade.models.User;
 import hu.bme.edu.handmade.repositories.AddressRepository;
 import hu.bme.edu.handmade.repositories.PasswordResetTokenRepository;
@@ -11,6 +13,7 @@ import hu.bme.edu.handmade.repositories.RoleRepository;
 import hu.bme.edu.handmade.repositories.UserRepository;
 import hu.bme.edu.handmade.services.IUserService;
 import hu.bme.edu.handmade.web.dto.user.AddressDto;
+import hu.bme.edu.handmade.web.dto.user.RoleDto;
 import hu.bme.edu.handmade.web.dto.user.UserDto;
 import hu.bme.edu.handmade.web.dto.error.UserAlreadyExistException;
 import hu.bme.edu.handmade.web.dto.user.UserRegistrationDto;
@@ -22,10 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -68,6 +68,30 @@ public class UserService implements IUserService {
     @Override
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
+    }
+
+    @Override
+    public void setRoles(Long userId, List<Long> roleIds) {
+        Optional<User> foundUser = userRepository.findById(userId);
+        if (foundUser.isPresent()) {
+            List<Role> rolesToSet = (List<Role>) roleRepository.findAllById(roleIds);
+            foundUser.get().setRoles(rolesToSet);
+        }
+    }
+
+    @Override
+    public List<RoleDto> getAllRoles() {
+        return RoleMapper.INSTANCE.toRoleDtos(roleRepository.findAll());
+    }
+
+    @Override
+    public List<RoleDto> getUserRoles(Long userId) {
+        Optional<User> foundUser = userRepository.findById(userId);
+        if (foundUser.isPresent()) {
+            Collection<Role> roles = foundUser.get().getRoles();
+            return RoleMapper.INSTANCE.toRoleDtos(roles);
+        }
+        return new ArrayList<>();
     }
 
     @Override

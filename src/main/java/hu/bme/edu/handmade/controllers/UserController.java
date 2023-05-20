@@ -12,6 +12,7 @@ import hu.bme.edu.handmade.web.dto.CartProductDto;
 import hu.bme.edu.handmade.web.dto.PasswordDto;
 import hu.bme.edu.handmade.web.dto.ProductDto;
 import hu.bme.edu.handmade.web.dto.user.AddressDto;
+import hu.bme.edu.handmade.web.dto.user.RoleDto;
 import hu.bme.edu.handmade.web.dto.user.UserDto;
 import hu.bme.edu.handmade.web.dto.error.ResourceNotFoundException;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -205,5 +206,25 @@ public class UserController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @SecurityRequirement(name = "Bearer_Authentication")
+    @PostMapping("/setRole")
+    public void setRole(@RequestParam("userId") Long userId, @RequestParam("roleIds") List<Long> roleIds) {
+        userService.setRoles(userId, roleIds);
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @SecurityRequirement(name = "Bearer_Authentication")
+    @GetMapping("/roles")
+    public List<RoleDto> getRoles() {
+        return userService.getAllRoles();
+    }
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @SecurityRequirement(name = "Bearer_Authentication")
+    @GetMapping("/{userId}/roles")
+    public List<RoleDto> getUserRoles(@PathVariable("userId") Long userId) {
+        return userService.getUserRoles(userId);
     }
 }
