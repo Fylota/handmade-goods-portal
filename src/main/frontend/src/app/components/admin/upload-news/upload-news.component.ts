@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { PostControllerService, PostDto } from 'src/app/core/api/v1';
 
 @Component({
@@ -9,13 +10,16 @@ import { PostControllerService, PostDto } from 'src/app/core/api/v1';
 export class UploadNewsComponent {
 
   post: PostDto = {title: "", content: ""};
-  constructor(private postService: PostControllerService) { }
+  constructor(
+    private postService: PostControllerService,
+    private _snackBar: MatSnackBar) { }
 
   createPost() {
     this.postService.addPost(this.post)
     .subscribe(() => {
       console.log(this.post);
-      alert("Post created successfully.");
+      this._snackBar.open("Product saved", "Dismiss");
+      this.post = {};
     });
   }
 

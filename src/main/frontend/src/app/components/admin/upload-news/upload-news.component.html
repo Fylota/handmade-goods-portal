@@ -1,5 +1,6 @@
-<div class="col-md-6">
-    <h2 class="text-center">Upload post</h2>
+<div class="container">
+    <h1 class="title">Upload new Post</h1>
+    <a href="/admin" class="btn btn-primary">Back to Admin Page</a>
     <form>
         <div class="form-group">
             <label for="title">Title: </label>
@@ -11,6 +12,11 @@
             <label for="content">Content: </label>
             <textarea [(ngModel)]="post.content" name="content" class="form-control"
                 id="content"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Image URL: </label>
+            <input type="text" [(ngModel)]="post.imageUrl" name="image" class="form-control" id="image">
         </div>
 
         <button class="btn btn-success" (click)="createPost()">Create</button>

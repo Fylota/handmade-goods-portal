@@ -56,6 +56,7 @@ import { ManageProductsComponent } from './components/admin/manage-products/mana
 import { ManagePostsComponent } from './components/admin/manage-posts/manage-posts.component';
 import { ManageEventsComponent } from './components/admin/manage-events/manage-events.component';
 import { ManageCategoriesComponent } from './components/admin/manage-categories/manage-categories.component';
+import { NewsletterComponent } from './components/admin/newsletter/newsletter.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -106,7 +107,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ManageProductsComponent,
     ManagePostsComponent,
     ManageEventsComponent,
-    ManageCategoriesComponent
+    ManageCategoriesComponent,
+    NewsletterComponent
   ],
   imports: [
     BrowserModule,

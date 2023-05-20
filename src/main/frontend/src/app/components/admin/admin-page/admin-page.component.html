@@ -56,6 +56,15 @@
                 Add Category
             </div>
         </div>
+        <div class="grid-item" (click)="navigateToPage('admin/newsletter')">
+            <fa-stack size="3x">
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon [icon]="faGear" [inverse]="true" stackItemSize="1x"></fa-icon>
+            </fa-stack>
+            <div>
+                Send Newsletter
+            </div>
+        </div>
         <div class="grid-item" (click)="navigateToPage('admin/products')">
             <fa-stack size="3x">
                 <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>

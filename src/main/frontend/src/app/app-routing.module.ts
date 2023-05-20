@@ -32,6 +32,7 @@ import { ManageEventsComponent } from './components/admin/manage-events/manage-e
 import { ManagePostsComponent } from './components/admin/manage-posts/manage-posts.component';
 import { ManageProductsComponent } from './components/admin/manage-products/manage-products.component';
 import { ManageUsersComponent } from './components/admin/manage-users/manage-users.component';
+import { NewsletterComponent } from './components/admin/newsletter/newsletter.component';
 
 
 const routes: Routes = [
@@ -62,6 +63,7 @@ const routes: Routes = [
   { path: 'admin/posts', component: ManagePostsComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_ADMIN'} },
   { path: 'admin/events', component: ManageEventsComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_ADMIN'} },
   { path: 'admin/categories', component: ManageCategoriesComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_ADMIN'} },
+  { path: 'admin/newsletter', component: NewsletterComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_ADMIN'} },
 
   { path: 'checkout', component: CheckoutComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_USER'} },
   { path: 'changePassword', component: PasswordResetComponent },

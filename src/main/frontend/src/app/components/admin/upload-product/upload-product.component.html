@@ -1,4 +1,6 @@
-<div>
+<div class="container">
+    <h1 class="title">Upload new Product</h1>
+    <a href="/admin" class="btn btn-primary">Back to Admin Page</a>
     <form>
         <div class="form-group">
             <label for="name">Name: </label>
@@ -20,12 +22,16 @@
 
         <div class="form-group">
             <label for="category">Category: </label><br>
-            <select class="form-select" aria-label="select-category" [(ngModel)]="product.category" name="category" id="category">
+            <select class="form-select" aria-label="select-category" [(ngModel)]="product.categoryId" name="category" id="category">
                 <option *ngFor="let cat of categories" [ngValue]="cat.id">{{ cat.name }}</option>
             </select>
         </div>
 
-        <button class="btn btn-success" (click)="handleSaveButton()">Save</button>
-        <button (click)="cancelEditing()">Cancel</button>
+        <div class="form-group">
+            <label for="image">Image URL: </label>
+            <input type="text" [(ngModel)]="product.imageURL" name="image" class="form-control" id="image">
+        </div>
+
+        <button class="btn btn-success" (click)="createProduct()">Save</button>
     </form>
 </div>

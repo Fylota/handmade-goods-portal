@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Category, CategoryControllerService, Product, ProductControllerService } from 'src/app/core/api/v1';
+import { Component, OnInit } from '@angular/core';
+import { Category, CategoryControllerService, ProductControllerService, ProductDto } from 'src/app/core/api/v1';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-upload-product',
@@ -7,55 +8,27 @@ import { Category, CategoryControllerService, Product, ProductControllerService 
   styleUrls: ['./upload-product.component.scss']
 })
 export class UploadProductComponent implements OnInit {
-  @Input()
-  editProduct: Product | undefined;
 
   categories: Category[] = [];
-  product: Product = {};
+  product: ProductDto = {};
 
-  @Output()
-  closeEditing: EventEmitter<any> = new EventEmitter();
-  @Output()
-  newProductSaved: EventEmitter<any> = new EventEmitter();
-  @Output()
-  updatedProduct: EventEmitter<any> = new EventEmitter();
-
-  constructor(private productService: ProductControllerService, private categoryService: CategoryControllerService) { }
+  constructor(
+    private productService: ProductControllerService,
+    private categoryService: CategoryControllerService,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe(
       response => this.categories = response
     );
-    if (this.editProduct) {
-      this.product = this.editProduct;
-    }
-  }
-
-  handleSaveButton() {
-    this.editProduct ? this.updateProduct() : this.createProduct();
   }
 
   createProduct() {
     this.productService.addProduct(this.product)
-      .subscribe((newProd) => {
-        console.log(this.product);
-        alert("Product created successfully.");
-        this.newProductSaved.emit(newProd);
+      .subscribe(_ => {
+        this._snackBar.open("Product saved", "Dismiss");
+        this.product = {};
       });
-  }
-
-  updateProduct() {
-    this.productService.updateProduct(this.product.id!, this.product)
-      .subscribe((edited) => {
-        console.log(this.product);
-        alert("Product updated successfully.");
-        this.updatedProduct.emit(edited);
-      });
-    this.editProduct = undefined;
-  }
-
-  cancelEditing() {
-    this.closeEditing.emit();
   }
 
 }
