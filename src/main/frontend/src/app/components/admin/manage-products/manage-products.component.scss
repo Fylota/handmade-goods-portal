@@ -1,0 +1,36 @@
+.title {
+  margin: 1em;
+  margin-left: 0;
+}
+
+form {
+  margin-bottom: 1em;
+  width: 100%;
+  margin-top: 55px;
+}
+
+button {
+  margin-right: 1em;
+  margin-top: 1em;
+}
+
+.grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
+}
+
+section {
+  padding: 1em;
+}
+
+table {
+  width: 100%;
+}
+
+tr.mat-row {
+  cursor: pointer;
+}
+
+tr.mat-row:hover .mat-cell {
+  background-color: rgb(235, 235, 235);
+}

@@ -1,1 +1,120 @@
-<p>manage-products works!</p>
+<div class="container">
+  <h1 class="title">Edit Products</h1>
+  <a href="/admin" class="btn btn-primary">Back to Admin Page</a>
+  <div class="grid-wrapper">
+    <section>
+      <mat-form-field appearance="fill">
+        <mat-label>Sort</mat-label>
+        <mat-select [(value)]="sort" (selectionChange)="refreshData()">
+          <mat-option
+            *ngFor="let sortValue of sortValues"
+            [value]="sortValue.value"
+          >
+            {{ sortValue.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <table
+        *ngIf="dataSource"
+        mat-table
+        [dataSource]="dataSource"
+        multiTemplateDataRows
+        class="mat-elevation-z8"
+        aria-describedby="orders table"
+      >
+        <ng-container
+          matColumnDef="{{ column }}"
+          *ngFor="let column of columnsToDisplay"
+        >
+          <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+          <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: columnsToDisplay"
+          (click)="handleRowClicked(row)"
+        ></tr>
+      </table>
+
+      <mat-paginator
+        (page)="handlePageEvent($event)"
+        [length]="length"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        [pageIndex]="pageIndex"
+        aria-label="Select page"
+      >
+      </mat-paginator>
+    </section>
+    <section *ngIf="selectedProduct !== null">
+      <form>
+        <div class="form-group">
+          <label for="name">Name: </label>
+          <input
+            type="text"
+            [(ngModel)]="selectedProduct.name"
+            name="name"
+            class="form-control"
+            id="name"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description: </label>
+          <textarea
+            [(ngModel)]="selectedProduct.description"
+            name="description"
+            class="form-control"
+            id="description"
+          >
+          </textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Price: </label>
+          <input
+            type="text"
+            [(ngModel)]="selectedProduct.price"
+            name="price"
+            class="form-control"
+            id="price"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category: </label><br />
+          <select
+            class="form-select"
+            aria-label="select-category"
+            [(ngModel)]="selectedProduct.category!.id"
+            name="category"
+            id="category"
+          >
+            <option *ngFor="let cat of categories" [ngValue]="cat.id">
+              {{ cat.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="image">Image URL: </label>
+          <input
+            type="text"
+            [(ngModel)]="selectedProduct.imageURL"
+            name="image"
+            class="form-control"
+            id="image"
+          />
+        </div>
+
+        <button class="btn btn-success" (click)="updateProduct()">
+          Update
+        </button>
+        <button class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+        <button class="btn btn-danger" (click)="deleteProduct()">Delete</button>
+      </form>
+    </section>
+  </div>
+</div>

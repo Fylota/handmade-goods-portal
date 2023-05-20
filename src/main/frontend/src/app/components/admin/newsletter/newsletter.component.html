@@ -1,0 +1,41 @@
+<div class="container">
+  <h1 class="title">Send newsletter</h1>
+  <a href="/admin" class="btn btn-primary">Back to Admin Page</a>
+
+  <h4>Upload file for Newsletter</h4>
+  <form enctype="multipart/form-data">
+    <label for="newsletterFile">Choose a html file: </label>
+    <input
+      type="file"
+      id="newsletterFile"
+      name="newsletterFile"
+      accept=".html"
+      (change)="onChange($event)"
+    />
+    <div>
+      <button *ngIf="fileToUpload !== null" class="btn btn-success" (click)="onSaveFile()">Upload</button>
+    </div>
+  </form>
+
+  <h4>Send newsletter</h4>
+  <div>
+    <label id="example-radio-group-label">Select a file to send</label>
+    <mat-radio-group
+      aria-labelledby="example-radio-group-label"
+      class="example-radio-group"
+      [(ngModel)]="selectedFile"
+    >
+      <mat-radio-button
+        class="example-radio-button"
+        *ngFor="let file of allFiles"
+        [value]="file"
+      >
+        {{ file.name }}
+      </mat-radio-button>
+    </mat-radio-group>
+    <div *ngIf="selectedFile !== undefined">Selected file is: {{ selectedFile.name }}</div>
+    <div>
+        <button *ngIf="selectedFile !== undefined" (click)="sendNewsletter(selectedFile.id!)" class="btn btn-success">Send out newsletter</button>
+    </div>
+  </div>
+</div>
