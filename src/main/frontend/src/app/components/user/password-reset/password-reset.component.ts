@@ -39,7 +39,7 @@ export class PasswordResetComponent implements OnInit {
     if (this.newPassword !== this.matchingPassword) {
       this.translate.get('CHANGE_PSW.MATCH_ERROR').subscribe((res: string) => {
         this.resultMessage =  res;
-        const dismiss = this.translate.instant('FORGOT.SNACK_DISMISS');
+        const dismiss = this.translate.instant('COMMON.SNACK_DISMISS');
         this.openSnackBar(this.resultMessage, dismiss);
       });
       throw Error("Passwords don't match");
@@ -48,14 +48,14 @@ export class PasswordResetComponent implements OnInit {
       next: () => {
         this.translate.get('CHANGE_PSW.SUCCESS').subscribe((res: string) => {
           this.resultMessage =  res;
-          const dismiss = this.translate.instant('FORGOT.SNACK_DISMISS');
+          const dismiss = this.translate.instant('COMMON.SNACK_DISMISS');
           this.openSnackBar(this.resultMessage, dismiss);
         });
       },
       error: (error) => {
         this.translate.get('CHANGE_PSW.ERROR').subscribe((res: string) => {
           this.resultMessage =  res;
-          const dismiss = this.translate.instant('FORGOT.SNACK_DISMISS');
+          const dismiss = this.translate.instant('COMMON.SNACK_DISMISS');
           this.openSnackBar(this.resultMessage, dismiss);
         });
         throw error;

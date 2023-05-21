@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { faCircle, faGear } from '@fortawesome/free-solid-svg-icons'
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-admin-page',
@@ -13,7 +14,8 @@ export class AdminPageComponent {
   faGear = faGear;
 
   constructor(
-    private router: Router
+    private router: Router,
+    public translate: TranslateService
   ) { }
 
   navigateToPage(page: String): void {

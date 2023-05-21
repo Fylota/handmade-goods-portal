@@ -1,4 +1,12 @@
 {
+  "COMMON": {
+    "SNACK_DISMISS": "Dismiss",
+    "UPDATE": "Update",
+    "CANCEL": "Cancel",
+    "DELETE": "Delete",
+    "BACK_TO_ADMIN_PAGE": "Back to Admin Page",
+    "SORT": "Sort"
+  },
   "HOME": {
     "SELECT": "Change language",
     "HERO": "Unique products Handmade for You"
@@ -36,7 +44,36 @@
     "TITLE": "Please enter your email address and we will send a password reset link.",
     "SEND_BTN": "Send email",
     "SUCCESS": "Email sent!",
-    "ERROR": "Something went wrong...",
-    "SNACK_DISMISS": "Dismiss"
-  }
+    "ERROR": "Something went wrong..."
+  },
+  "ADMIN": {
+    "TITLE":"Admin Page",
+    "MANAGE_ORDERS": "Manage Orders",
+    "MANAGE_USERS": "Manage Users",
+    "ADD_PRODUCT": "Add Product",
+    "ADD_BLOG_POST": "Add Blog Post",
+    "ADD_EVENT": "Add Event",
+    "ADD_CATEGORY": "Add Category",
+    "SEND_NEWSLETTER": "Send Newsletter",
+    "EDIT_PRODUCTS": "Edit Products",
+    "EDIT_BLOG_POSTS": "Edit Blog Posts",
+    "EDIT_EVENTS": "Edit Events",
+    "EDIT_CATEGORIES": "Edit Categories"
+  },
+  "MANAGE_CATEGORIES": {
+    "TITLE": "Edit Categories",
+    "BACK_TO_ADMIN_PAGE": "Back to Admin Page",
+    "NAME:": "Name:",
+    "IMAGE_URL:": "Image URL:"
+  },
+  "MANAGE_EVENTS": {
+    "EDIT_EVENTS": "Edit Events",
+    "BACK_TO_ADMIN_PAGE": "Back to Admin Page",
+    "TITLE": "Title:",
+    "DESCRIPTION": "Description:",
+    "START_DATE": "Start date:",
+    "END_DATE": "End date:",
+    "SORT": "Sort"
+}
+
 }

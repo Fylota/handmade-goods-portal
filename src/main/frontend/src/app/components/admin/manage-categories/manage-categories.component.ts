@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { TranslateService } from '@ngx-translate/core';
 import { Category, CategoryControllerService } from 'src/app/core/api/v1';
 
 @Component({
@@ -15,7 +16,8 @@ export class ManageCategoriesComponent implements OnInit {
 
   constructor(
     private categoryService: CategoryControllerService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    public translate: TranslateService
   ) { }
 
   ngOnInit(): void {

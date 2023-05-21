@@ -26,14 +26,14 @@ export class ForgotPasswordComponent {
       next: () => {
         this.translate.get('FORGOT.SUCCESS').subscribe((res: string) => {
           this.resultMessage =  res;
-          const dismiss = this.translate.instant('FORGOT.SNACK_DISMISS');
+          const dismiss = this.translate.instant('COMMON.SNACK_DISMISS');
           this.openSnackBar(this.resultMessage, dismiss);
         });
       },
       error: (error) => {
         this.translate.get('FORGOT.ERROR').subscribe((res: string) => {
           this.resultMessage =  res;
-          const dismiss = this.translate.instant('FORGOT.SNACK_DISMISS');
+          const dismiss = this.translate.instant('COMMON.SNACK_DISMISS');
           this.openSnackBar(this.resultMessage, dismiss);
         });
         throw error;

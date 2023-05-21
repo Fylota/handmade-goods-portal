@@ -1,43 +1,82 @@
 {
-    "HOME": {
-      "TITLE": "Szia Angular ngx-translate használatával!",
-      "SELECT": "Nyelv kiválasztása",
-      "HERO": "Egyedi ajándékok tárháza"
-    },
-    "NAV": {
-      "PROFILE": "Profil",
-      "WISHLIST":"Kívánságlista",
-      "CART":"Kosár",
-      "SHOP": "Termékek",
-      "EVENTS": "Események",
-      "BLOG": "Blog",
-      "ADMIN": "Admin"
-    },
-    "LOGIN": {
-      "WELCOME": "Üdv újra!",
-      "QUICK": "Gyors bejelentkezés",
-      "GOOGLE_BTN_LOCALE": "hu_HU",
-      "EMAIL_TITLE": "Vagy használd az email címed",
-      "EMAIL_PLACEHOLDER": "Email címed",
-      "PSW_PLACEHOLDER": "Jelszavad",
-      "LOGIN_BTN": "Bejelentkezés",
-      "NOT_REGISTERED": "Még nem regisztráltál?",
-      "SIGNUP_BTN": "Regisztrálás",
-      "FORGOTTEN_PSW": "Elfelejtett jelszó"
-    },
-    "CHANGE_PSW": {
-      "UPDATE_BTN": "Új jelszó mentése",
-      "PSW": "Új jelszó",
-      "PSW_AGAIN": "Új jelszó újra",
-      "MATCH_ERROR": "A két jelszó mező nem egyezik meg",
-      "SUCCESS": "Jelszó sikeresen megváltoztatva. Kérlek jelentkezz be.",
-      "ERROR": "Nem sikerült a jelszó változtatás."
-    },
-    "FORGOT": {
-      "TITLE": "Kérjük add meg az email címed, és elküldjük neked a jelszó visszaállító linket.",
-      "SEND_BTN": "Email küldése",
-      "SUCCESS": "Email elküldve!",
-      "ERROR": "Nem sikerült az email küldés",
-      "SNACK_DISMISS": "Bezárás"
-    }
+  "COMMON": {
+    "SNACK_DISMISS": "Bezárás",
+    "UPDATE": "Update",
+    "CANCEL": "Cancel",
+    "DELETE": "Delete",
+    "BACK_TO_ADMIN_PAGE": "Back to Admin Page",
+    "SORT": "Sort"
+  },
+  "HOME": {
+    "TITLE": "Szia Angular ngx-translate használatával!",
+    "SELECT": "Nyelv kiválasztása",
+    "HERO": "Egyedi ajándékok tárháza"
+  },
+  "NAV": {
+    "PROFILE": "Profil",
+    "WISHLIST": "Kívánságlista",
+    "CART": "Kosár",
+    "SHOP": "Termékek",
+    "EVENTS": "Események",
+    "BLOG": "Blog",
+    "ADMIN": "Admin"
+  },
+  "LOGIN": {
+    "WELCOME": "Üdv újra!",
+    "QUICK": "Gyors bejelentkezés",
+    "GOOGLE_BTN_LOCALE": "hu_HU",
+    "EMAIL_TITLE": "Vagy használd az email címed",
+    "EMAIL_PLACEHOLDER": "Email címed",
+    "PSW_PLACEHOLDER": "Jelszavad",
+    "LOGIN_BTN": "Bejelentkezés",
+    "NOT_REGISTERED": "Még nem regisztráltál?",
+    "SIGNUP_BTN": "Regisztrálás",
+    "FORGOTTEN_PSW": "Elfelejtett jelszó"
+  },
+  "CHANGE_PSW": {
+    "UPDATE_BTN": "Új jelszó mentése",
+    "PSW": "Új jelszó",
+    "PSW_AGAIN": "Új jelszó újra",
+    "MATCH_ERROR": "A két jelszó mező nem egyezik meg",
+    "SUCCESS": "Jelszó sikeresen megváltoztatva. Kérlek jelentkezz be.",
+    "ERROR": "Nem sikerült a jelszó változtatás."
+  },
+  "FORGOT": {
+    "TITLE": "Kérjük add meg az email címed, és elküldjük neked a jelszó visszaállító linket.",
+    "SEND_BTN": "Email küldése",
+    "SUCCESS": "Email elküldve!",
+    "ERROR": "Nem sikerült az email küldés",
+    "SNACK_DISMISS": "Bezárás"
+  },
+  "ADMIN": {
+    "TITLE": "Admin Page",
+    "MANAGE_ORDERS": "Rendelések kezelése",
+    "MANAGE_USERS": "Felhasználók kezelése",
+    "ADD_PRODUCT": "Termék hozzáadása",
+    "ADD_BLOG_POST": "Blog poszt hozzáadása",
+    "ADD_EVENT": "Esemény hozzáadása",
+    "ADD_CATEGORY": "Kategória hozzáadása",
+    "SEND_NEWSLETTER": "Hírlevél küldése",
+    "EDIT_PRODUCTS": "Termékek szerkesztése",
+    "EDIT_BLOG_POSTS": "Blog posztok szerkesztése",
+    "EDIT_EVENTS": "Események szerkesztése",
+    "EDIT_CATEGORIES": "Kategóriák szerkesztése"
+  },
+  "MANAGE_CATEGORIES": {
+    "TITLE": "Edit Categories",
+    "BACK_TO_ADMIN_PAGE": "Back to Admin Page",
+    "NAME:": "Name:",
+    "IMAGE_URL:": "Image URL:",
+    "UPDATE": "Update",
+    "CANCEL": "Cancel",
+    "DELETE": "Delete"
+  },
+  "MANAGE_EVENTS": {
+    "EDIT_EVENTS": "Edit Events",
+    "BACK_TO_ADMIN_PAGE": "Back to Admin Page",
+    "TITLE": "Title:",
+    "DESCRIPTION": "Description:",
+    "START_DATE": "Start date:",
+    "END_DATE": "End date:"
   }
+}

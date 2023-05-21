@@ -1,4 +1,4 @@
-<h1 class="admin--title">Admin Page</h1>
+<h1 class="admin--title">{{ "ADMIN.TITLE" | translate }}</h1>
 
 <div class="container">
     <div class="wrapper">
@@ -8,7 +8,7 @@
                 <fa-icon [icon]="faGear" [inverse]="true" stackItemSize="1x"></fa-icon>
             </fa-stack>
             <div>
-                Manage Orders
+                {{ "ADMIN.MANAGE_ORDERS" | translate }}
             </div>
         </div>
         <div class="grid-item" (click)="navigateToPage('admin/users')">
@@ -17,7 +17,7 @@
                 <fa-icon [icon]="faGear" [inverse]="true" stackItemSize="1x"></fa-icon>
             </fa-stack>
             <div>
-                Manage Users
+                {{ "ADMIN.MANAGE_USERS" | translate }}
             </div>
         </div>
         <div class="grid-item" (click)="navigateToPage('admin/add-product')">
@@ -26,7 +26,7 @@
                 <fa-icon [icon]="faGear" [inverse]="true" stackItemSize="1x"></fa-icon>
             </fa-stack>
             <div>
-                Add Product
+                {{ "ADMIN.ADD_PRODUCT" | translate }}
             </div>
         </div>
         <div class="grid-item" (click)="navigateToPage('admin/add-post')">
@@ -35,7 +35,7 @@
                 <fa-icon [icon]="faGear" [inverse]="true" stackItemSize="1x"></fa-icon>
             </fa-stack>
             <div>
-                Add Blog Post
+                {{ "ADMIN.ADD_BLOG_POST" | translate }}
             </div>
         </div>
         <div class="grid-item" (click)="navigateToPage('admin/add-event')">
@@ -44,7 +44,7 @@
                 <fa-icon [icon]="faGear" [inverse]="true" stackItemSize="1x"></fa-icon>
             </fa-stack>
             <div>
-                Add Event
+                {{ "ADMIN.ADD_EVENT" | translate }}
             </div>
         </div>
         <div class="grid-item" (click)="navigateToPage('admin/add-category')">
@@ -53,7 +53,7 @@
                 <fa-icon [icon]="faGear" [inverse]="true" stackItemSize="1x"></fa-icon>
             </fa-stack>
             <div>
-                Add Category
+                {{ "ADMIN.ADD_CATEGORY" | translate }}
             </div>
         </div>
         <div class="grid-item" (click)="navigateToPage('admin/newsletter')">
@@ -62,7 +62,7 @@
                 <fa-icon [icon]="faGear" [inverse]="true" stackItemSize="1x"></fa-icon>
             </fa-stack>
             <div>
-                Send Newsletter
+                {{ "ADMIN.SEND_NEWSLETTER" | translate }}
             </div>
         </div>
         <div class="grid-item" (click)="navigateToPage('admin/products')">
@@ -71,7 +71,7 @@
                 <fa-icon [icon]="faGear" [inverse]="true" stackItemSize="1x"></fa-icon>
             </fa-stack>
             <div>
-                Edit Products
+                {{ "ADMIN.EDIT_PRODUCTS" | translate }}
             </div>
         </div>
         <div class="grid-item" (click)="navigateToPage('admin/posts')">
@@ -80,7 +80,7 @@
                 <fa-icon [icon]="faGear" [inverse]="true" stackItemSize="1x"></fa-icon>
             </fa-stack>
             <div>
-                Edit Blog Posts
+                {{ "ADMIN.EDIT_BLOG_POSTS" | translate }}
             </div>
         </div>
         <div class="grid-item" (click)="navigateToPage('admin/events')">
@@ -89,7 +89,7 @@
                 <fa-icon [icon]="faGear" [inverse]="true" stackItemSize="1x"></fa-icon>
             </fa-stack>
             <div>
-                Edit Events
+                {{ "ADMIN.EDIT_EVENTS" | translate }}
             </div>
         </div>
         <div class="grid-item" (click)="navigateToPage('admin/categories')">
@@ -98,9 +98,8 @@
                 <fa-icon [icon]="faGear" [inverse]="true" stackItemSize="1x"></fa-icon>
             </fa-stack>
             <div>
-                Edit Categories
+                {{ "ADMIN.EDIT_CATEGORIES" | translate }}
             </div>
         </div>
     </div>
 </div>
-
