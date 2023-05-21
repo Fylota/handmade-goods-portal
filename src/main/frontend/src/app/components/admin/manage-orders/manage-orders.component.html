@@ -28,7 +28,7 @@
     <ng-container matColumnDef="expandedDetail">
         <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
         <div class="element-detail"
-            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+            [@detailExpand]="element === expandedElement ? 'expanded' : 'collapsed'">
             <div>
                 <ul>
                     <li *ngFor="let item of element.items">Product id: {{item.productId}}, Qty: {{item.quantity}}</li>

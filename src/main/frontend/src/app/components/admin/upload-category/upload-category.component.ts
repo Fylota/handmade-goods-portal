@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Category, CategoryControllerService } from 'src/app/core/api/v1';
 
@@ -7,16 +7,13 @@ import { Category, CategoryControllerService } from 'src/app/core/api/v1';
   templateUrl: './upload-category.component.html',
   styleUrls: ['./upload-category.component.scss']
 })
-export class UploadCategoryComponent implements OnInit {
+export class UploadCategoryComponent {
   category: Category = {};
 
   constructor(
     private categoryService: CategoryControllerService,
     private _snackBar: MatSnackBar
   ) { }
-
-  ngOnInit(): void {
-  }
 
   createCategory() {
     this.categoryService.addNewCategory(this.category).subscribe(() => {
