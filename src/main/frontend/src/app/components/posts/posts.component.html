@@ -2,7 +2,7 @@
   <h1 class="text-center">Our Blog</h1>
   <div class="wrapper masonry">
     <div class="block" *ngFor="let post of posts$ | async">
-      <img src="{{ post.imageUrl }}" />
+      <img src="{{ post.imageUrl }}" alt="{{post.title}} image"/>
       <div class="content">
         <h2>{{ post.title }}</h2>
         <p>
@@ -12,4 +12,8 @@
       </div>
     </div>
   </div>
+  <div class="text-center">
+    <button class="btn">Load more</button>
+  </div>
+
 </div>

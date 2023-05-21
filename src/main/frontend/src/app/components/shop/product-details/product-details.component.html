@@ -14,10 +14,12 @@
       <p>{{ product.description }}</p>
     </div>
     <div *ngIf="loggedIn">
-      <button class="btn" (click)="addToCart()">Add to cart</button>
+      <button class="btn btn-primary" (click)="addToCart()">Add to cart</button>
+      <button class="btn" (click)="addToWishlist()">
+        <fa-icon [icon]="faStar"></fa-icon> Add to wishlist</button>
     </div>
     <div *ngIf="!loggedIn">
-      <p>Log in to add to cart</p>
+      <p>Log in to add to cart or to wishlist</p>
     </div>
     <h3>Reviews</h3>
     <div class="rewiew-card" *ngFor="let review of reviews">

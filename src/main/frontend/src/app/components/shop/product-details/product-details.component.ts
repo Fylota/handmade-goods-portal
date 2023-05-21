@@ -10,6 +10,9 @@ import {
 } from 'src/app/core/api/v1';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
@@ -24,12 +27,14 @@ export class ProductDetailsComponent {
   editReview: ReviewDto = {};
   reviewContent = "";
   loggedIn = false;
+  faStar = faStar;
 
   constructor(
     private route: ActivatedRoute,
     private productService: ProductControllerService,
     private authService: AuthenticationService,
-    private userService: UserControllerService
+    private userService: UserControllerService,
+    private _snackBar: MatSnackBar
   ) {
     this.route.queryParams.subscribe((params) => {
       this.param = Number(params['id']);
@@ -64,9 +69,12 @@ export class ProductDetailsComponent {
         productId: this.product!.id!,
         quantity: 1,
       };
-      this.userService.addCartProduct(userId, cartProduct).subscribe();
-      window.alert('Your product has been added to the cart!');
+      this.userService.addCartProduct(userId, cartProduct).subscribe(() => this._snackBar.open("Added to cart!", "Ok"));
     }
+  }
+
+  addToWishlist() {
+    this.userService.addToWishList(Number(this.user!.id), this.product!.id!).subscribe(() => this._snackBar.open("Added to wishlist!", "Ok"));
   }
 
   postReview() {
