@@ -16,7 +16,7 @@ export class UploadEventComponent {
   createEvent() {
     this.eventService.addEvent(this.event)
     .subscribe(() => {
-      this._snackBar.open("Product saved", "Dismiss");
+      this._snackBar.open("Event saved", "Dismiss");
       this.event = {};
     });
   }

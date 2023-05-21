@@ -32,8 +32,7 @@ export class ManageOrdersComponent implements OnInit {
   }
 
   changeOrderStatus(orderId: number):void {
-    this.orderService.updateOrderStatus(orderId, this.statusSelectValue).subscribe(res => {
-      console.log(res);
+    this.orderService.updateOrderStatus(orderId, this.statusSelectValue).subscribe(() => {
       this.refreshOrders();
     });
   }

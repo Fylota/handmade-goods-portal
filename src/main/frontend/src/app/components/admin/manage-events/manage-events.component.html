@@ -1,1 +1,94 @@
-<p>manage-events works!</p>
+<div class="container">
+    <h1 class="title">Edit Posts</h1>
+    <a href="/admin" class="btn btn-primary">Back to Admin Page</a>
+    <div class="grid-wrapper">
+      <section>
+        <mat-form-field appearance="fill">
+          <mat-label>Sort</mat-label>
+          <mat-select [(value)]="sort" (selectionChange)="refreshData()">
+            <mat-option
+              *ngFor="let sortValue of sortValues"
+              [value]="sortValue.value"
+            >
+              {{ sortValue.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <table
+          *ngIf="dataSource"
+          mat-table
+          [dataSource]="dataSource"
+          multiTemplateDataRows
+          class="mat-elevation-z8"
+          aria-describedby="orders table"
+        >
+          <ng-container
+            matColumnDef="{{ column }}"
+            *ngFor="let column of columnsToDisplay"
+          >
+            <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+            <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: columnsToDisplay"
+            (click)="handleRowClicked(row)"
+          ></tr>
+        </table>
+  
+        <mat-paginator
+          (page)="handlePageEvent($event)"
+          [length]="length"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="pageSizeOptions"
+          [pageIndex]="pageIndex"
+          aria-label="Select page"
+        >
+        </mat-paginator>
+      </section>
+      <section *ngIf="selectedEvent !== null">
+        <form>
+          <div class="form-group">
+            <label for="name">Title: </label>
+            <input
+              type="text"
+              [(ngModel)]="selectedEvent.title"
+              name="name"
+              class="form-control"
+              id="name"
+            />
+          </div>
+  
+          <div class="form-group">
+            <label for="description">Description: </label>
+            <textarea
+              [(ngModel)]="selectedEvent.description"
+              name="description"
+              class="form-control"
+              id="description"
+            >
+            </textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="startDate">Start date: </label><br>
+            <input type="datetime-local" id="startDate" [(ngModel)]="selectedEvent.startDateTime" name="startDate">
+        </div>
+
+        <div class="form-group">
+            <label for="endDate">End date: </label><br>
+            <input type="datetime-local" id="endDate" [(ngModel)]="selectedEvent.endDateTime" name="startDate">
+        </div>
+  
+          <button class="btn btn-success" (click)="updateEvent()">
+              Update
+          </button>
+          <button class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+          <button class="btn btn-danger" (click)="deleteEvent()">Delete</button>
+        </form>
+      </section>
+    </div>
+  </div>
+  

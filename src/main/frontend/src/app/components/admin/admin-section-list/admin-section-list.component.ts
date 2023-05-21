@@ -23,7 +23,6 @@ export class AdminSectionListComponent {
   }
 
   emitEdit(id: number) {
-    console.log("edititem in admin-section");
     this.editItem.emit(id);
   }
 
