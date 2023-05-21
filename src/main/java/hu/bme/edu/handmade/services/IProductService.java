@@ -20,6 +20,7 @@ public interface IProductService {
     List<Product> findAllProducts();
 
     List<Product> findProductsByCategory(Long categoryId);
+    Page<Product> findPagesByCategory(Pageable paging, Long categoryId);
 
     Page<Product> findAll(Pageable paging);
 }

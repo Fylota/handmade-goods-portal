@@ -14,7 +14,6 @@ import { PostsComponent } from './components/posts/posts.component';
 import { ProductDetailsComponent } from './components/shop/product-details/product-details.component';
 import { ProductsComponent } from './components/shop/products/products.component';
 import { ProfileComponent } from './components/user/profile/profile.component';
-import { UserComponent } from './components/admin/listUsers/user.component';
 import { WishlistComponent } from './components/shop/wishlist/wishlist.component';
 import { AuthGuardService } from './service/auth-guard.service';
 import { PasswordResetComponent } from './components/user/password-reset/password-reset.component';
@@ -44,7 +43,6 @@ const routes: Routes = [
   { path: 'posts', component: PostsComponent },
   { path: 'posts/view', component: PostDetailsComponent },
   { path: 'events', component: EventsComponent},
-  { path: 'user', component: UserComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_USER'} },
   { path: 'register', component: AddUserComponent},
   { path: 'login', component: LoginComponent},
   { path: 'logout', component: LogoutComponent, canActivate:[AuthGuardService], data: {roles: 'ROLE_USER'} },

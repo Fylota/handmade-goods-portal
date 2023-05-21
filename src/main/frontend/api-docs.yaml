@@ -905,6 +905,12 @@ paths:
       - product-controller
       operationId: getProducts
       parameters:
+      - name: categoryId
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
       - name: page
         in: query
         required: false

@@ -8,7 +8,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppComponent } from './app.component';
-import { UserComponent } from './components/admin/listUsers/user.component';
 import { AddUserComponent } from './components/user/add-user/add-user.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -38,7 +37,6 @@ import { MessageService } from './service/message.service';
 import { HttpErrorHandler } from './service/http-error-handler.service';
 import { CheckoutComponent } from './components/shop/checkout/checkout.component';
 import { CartItemsTableComponent } from './components/shop/cart-items-table/cart-items-table.component';
-import { AdminSectionListComponent } from './components/admin/admin-section-list/admin-section-list.component';
 import { PasswordResetComponent } from './components/user/password-reset/password-reset.component';
 import { ForgotPasswordComponent } from './components/user/forgot-password/forgot-password.component';
 import { EditProfileComponent } from './components/user/edit-profile/edit-profile.component';
@@ -66,7 +64,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    UserComponent,
     AddUserComponent,
     HeaderComponent,
     FooterComponent,
@@ -90,7 +87,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdminPageComponent,
     CheckoutComponent,
     CartItemsTableComponent,
-    AdminSectionListComponent,
     PasswordResetComponent,
     ForgotPasswordComponent,
     EditProfileComponent,

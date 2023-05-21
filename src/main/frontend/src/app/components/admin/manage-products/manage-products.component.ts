@@ -28,7 +28,7 @@ export class ManageProductsComponent implements OnInit {
   dataSource: MatTableDataSource<Product> = new MatTableDataSource<Product>();
   columnsToDisplay: string[] = ['id', 'name'];
   selectedProduct: Product | null = null;
-  categories: Category[] = []; 
+  categories: Category[] = [];
 
   constructor(
     private productService: ProductControllerService,
@@ -52,7 +52,7 @@ export class ManageProductsComponent implements OnInit {
   }
 
   refreshData(): void {
-    this.productService.getProducts(this.pageIndex, this.pageSize, this.sort).subscribe((res: any) => {
+    this.productService.getProducts(undefined, this.pageIndex, this.pageSize, this.sort).subscribe((res: any) => {
       this.length = res["totalItems"];
       this.dataSource.data = res["products"];
     })
@@ -77,7 +77,7 @@ export class ManageProductsComponent implements OnInit {
           this._snackBar.open("Product saved", "Dismiss");
           this.selectedProduct = null;
         },
-        error: (e) => this._snackBar.open("Something went wrong :/", "Dismiss")
+        error: () => this._snackBar.open("Something went wrong :/", "Dismiss")
       });
     }
   }
@@ -94,7 +94,7 @@ export class ManageProductsComponent implements OnInit {
           this.selectedProduct = null;
           this.refreshData();
         },
-        error: (e) => this._snackBar.open("Something went wrong :/", "Dismiss")
+        error: () => this._snackBar.open("Something went wrong :/", "Dismiss")
       });
     }
   }

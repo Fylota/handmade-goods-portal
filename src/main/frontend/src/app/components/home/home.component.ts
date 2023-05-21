@@ -5,7 +5,6 @@ import {
   CategoryControllerService,
   Post,
   PostControllerService,
-  PostDto,
   Product,
   ProductControllerService,
 } from 'src/app/core/api/v1';
@@ -32,7 +31,7 @@ export class HomeComponent implements OnInit {
       this.topCategories = res.slice(0, 3);
       console.log(this.topCategories);
     });
-    this.productService.getProducts(0, 4, ["name", "asc"]).subscribe((res: any) => {
+    this.productService.getProducts(undefined, 0, 4, ["name", "asc"]).subscribe((res: any) => {
       this.newProducts = res["products"];
       console.log(this.newProducts);
     });

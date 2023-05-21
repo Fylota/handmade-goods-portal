@@ -45,15 +45,13 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteUser(userId: string): void {
-    this.httpClientService.deleteUser(Number(userId))
-      .subscribe();
-    
-    this.loginService.logOut();
-    this.router.navigate(['home']);
+    this.httpClientService.deleteUser(Number(userId)).subscribe();
+    this.logOut();
   }
 
   logOut() {
-    this.router.navigate(['logout']);
+    this.loginService.logOut();
+    this.router.navigate(['home']);
   }
 
   handleSuccessfulResponse(response: UserDto) {

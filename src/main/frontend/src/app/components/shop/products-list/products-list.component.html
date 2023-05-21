@@ -3,7 +3,7 @@
         <mat-label>Sort</mat-label>
         <mat-select 
             [(value)]="sort"
-            (selectionChange)="handleSelectEvent()">
+            (selectionChange)="refreshData()">
           <mat-option *ngFor="let sortValue of sortValues" [value]="sortValue.value">
             {{sortValue.viewValue}}
           </mat-option>

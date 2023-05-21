@@ -47,16 +47,7 @@ export class ProductsListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.category !== undefined) {
-      this.productService.getProductsByCategory(this.category.id!).subscribe((res: any) => {
-        this.products = res;
-      })
-    } else {
-      this.productService.getProducts(this.pageIndex, this.pageSize, this.sort).subscribe((res: any) => {
-        this.products = res["products"];
-        this.length = res["totalItems"];
-      })
-    }
+    this.refreshData();
   }
 
   handlePageEvent(e: PageEvent) {
@@ -64,23 +55,21 @@ export class ProductsListComponent implements OnInit {
     this.length = e.length;
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
-    this.productService.getProducts(this.pageIndex, this.pageSize, this.sort).subscribe((res: any) => {
-      this.products = res["products"];
-      this.length = res["totalItems"];
-    })
-  }
-
-  handleSelectEvent() {
-    this.productService.getProducts(this.pageIndex, this.pageSize, this.sort).subscribe((res: any) => {
-      this.products = res["products"];
-      this.length = res["totalItems"];
-    })
+    this.refreshData();
   }
 
   navigateToProductDetails(product: Product) {
     this.router.navigate(['products/view'], {
       queryParams: { id: product.id },
     });
+  }
+
+  refreshData() {
+    const catId = this.category ? this.category.id : undefined;
+    this.productService.getProducts(catId, this.pageIndex, this.pageSize, this.sort).subscribe((res: any) => {
+      this.products = res["products"];
+      this.length = res["totalItems"];
+    })
   }
 
   addToCart(productId: number) {

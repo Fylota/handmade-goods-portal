@@ -49,11 +49,13 @@ public class ProductController {
     }
 
     @GetMapping()
-    public ResponseEntity<Map<String, Object>> getProducts(@RequestParam(defaultValue = "0") int page,
+    public ResponseEntity<Map<String, Object>> getProducts(@RequestParam(required = false) Long categoryId,
+                                                           @RequestParam(defaultValue = "0") int page,
                                                            @RequestParam(defaultValue = "3") int size,
                                                            @RequestParam(defaultValue = "id,desc") String[] sort) {
         try {
             List<Sort.Order> orders = new ArrayList<>();
+            Page<Product> pageProds;
 
             if (sort[0].contains(",")) {
                 for (String sortOrder : sort) {
@@ -65,7 +67,12 @@ public class ProductController {
             }
 
             Pageable paging = PageRequest.of(page, size, Sort.by(orders));
-            Page<Product> pageProds = productService.findAll(paging);
+            if (categoryId == null) {
+                pageProds = productService.findAll(paging);
+            } else {
+                pageProds = productService.findPagesByCategory(paging, categoryId);
+            }
+
             List<Product> products = pageProds.getContent();
 
             if (products.isEmpty()) {
@@ -86,7 +93,7 @@ public class ProductController {
 
     @GetMapping("/categories")
     public List<Product> getProductsByCategory(@RequestParam Long id) {
-        return  productService.findProductsByCategory(id);
+        return productService.findProductsByCategory(id);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

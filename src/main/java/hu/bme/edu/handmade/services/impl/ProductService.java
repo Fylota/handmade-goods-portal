@@ -61,6 +61,11 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    public Page<Product> findPagesByCategory(Pageable paging, Long categoryId) {
+        return productRepository.findAllByCategory_Id(paging, categoryId);
+    }
+
+    @Override
     public Page<Product> findAll(Pageable paging) {
         return productRepository.findAll(paging);
     }
