@@ -14,7 +14,7 @@ import hu.bme.edu.handmade.web.dto.ProductDto;
 import hu.bme.edu.handmade.web.dto.user.AddressDto;
 import hu.bme.edu.handmade.web.dto.user.RoleDto;
 import hu.bme.edu.handmade.web.dto.user.UserDto;
-import hu.bme.edu.handmade.web.dto.error.ResourceNotFoundException;
+import hu.bme.edu.handmade.exception.ResourceNotFoundException;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
@@ -51,15 +51,6 @@ public class UserController {
     public UserDto user(Principal principal) {
         String name = principal.getName();
         return UserMapper.INSTANCE.userToUserDto(userService.findUserByEmail(name));
-    }
-
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @SecurityRequirement(name = "Bearer_Authentication")
-    @GetMapping("/{id}")
-    public UserDto one(@PathVariable Long id) {
-        User u = userService.getUserByID(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User with id: " + id + " is not found."));
-        return UserMapper.INSTANCE.userToUserDto(u);
     }
 
     @SecurityRequirement(name = "Bearer_Authentication")
@@ -194,18 +185,14 @@ public class UserController {
     }
 
     @PostMapping("/updatePassword")
-    public ResponseEntity<?> updatePassword(PasswordDto passwordDto) {
+    public ResponseEntity<User> updatePassword(PasswordDto passwordDto) {
         String tokenError = userService.validatePasswordResetToken(passwordDto.getToken());
         if (tokenError != null) {
             return ResponseEntity.badRequest().build();
         }
-        Optional<User> user = userService.getUserByPasswordResetToken(passwordDto.getToken());
-        if(user.isPresent()) {
-            userService.changeUserPassword(user.get(), passwordDto.getNewPassword());
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        User user = userService.getUserByPasswordResetToken(passwordDto.getToken());
+        User updatedUser = userService.changeUserPassword(user, passwordDto.getNewPassword());
+        return ResponseEntity.ok(updatedUser);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

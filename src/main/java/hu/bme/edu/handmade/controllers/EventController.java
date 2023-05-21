@@ -3,7 +3,7 @@ package hu.bme.edu.handmade.controllers;
 import hu.bme.edu.handmade.models.Event;
 import hu.bme.edu.handmade.services.IEventService;
 import hu.bme.edu.handmade.web.dto.EventDto;
-import hu.bme.edu.handmade.web.dto.error.ResourceNotFoundException;
+import hu.bme.edu.handmade.exception.ResourceNotFoundException;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;

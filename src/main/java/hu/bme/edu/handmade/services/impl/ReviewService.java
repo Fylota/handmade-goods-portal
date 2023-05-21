@@ -33,7 +33,7 @@ public class ReviewService implements IReviewService {
     @Override
     public ReviewDto addReview(Long productId, ReviewDto dto) {
         Product foundProduct = productService.findProductById(productId).orElseThrow();
-        User foundUser = userService.getUserByID(dto.getUserId()).orElseThrow();
+        User foundUser = userService.getUserByID(dto.getUserId());
         Review newReview = ReviewMapper.INSTANCE.toReviewFromDto(dto);
         newReview.setProduct(foundProduct);
         newReview.setUser(foundUser);

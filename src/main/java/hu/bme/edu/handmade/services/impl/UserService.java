@@ -1,5 +1,6 @@
 package hu.bme.edu.handmade.services.impl;
 
+import hu.bme.edu.handmade.exception.ResourceNotFoundException;
 import hu.bme.edu.handmade.mappers.AddressMapper;
 import hu.bme.edu.handmade.mappers.RoleMapper;
 import hu.bme.edu.handmade.mappers.UserMapper;
@@ -15,7 +16,7 @@ import hu.bme.edu.handmade.services.IUserService;
 import hu.bme.edu.handmade.web.dto.user.AddressDto;
 import hu.bme.edu.handmade.web.dto.user.RoleDto;
 import hu.bme.edu.handmade.web.dto.user.UserDto;
-import hu.bme.edu.handmade.web.dto.error.UserAlreadyExistException;
+import hu.bme.edu.handmade.exception.UserAlreadyExistException;
 import hu.bme.edu.handmade.web.dto.user.UserRegistrationDto;
 import org.passay.CharacterData;
 import org.passay.CharacterRule;
@@ -105,8 +106,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Optional<User> getUserByID(long id) {
-        return userRepository.findById(id);
+    public User getUserByID(long id) {
+        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Couldn't find user with id" + id));
     }
 
     @Override
@@ -124,14 +125,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void changeUserPassword(User user, String password) {
+    public User changeUserPassword(User user, String password) {
         user.setPassword(passwordEncoder.encode(password));
-        userRepository.save(user);
-    }
-
-    @Override
-    public boolean checkIfValidOldPassword(User user, String oldPassword) {
-        return passwordEncoder.matches(oldPassword, user.getPassword());
+        return userRepository.save(user);
     }
 
     @Override
@@ -142,10 +138,7 @@ public class UserService implements IUserService {
 
     @Override
     public String validatePasswordResetToken(String token) {
-        final PasswordResetToken passToken = passwordResetTokenRepository.findByToken(token);
-        if (!isTokenFound(passToken)) {
-            return "invalidToken";
-        }
+        final PasswordResetToken passToken = passwordResetTokenRepository.findByToken(token).orElseThrow(() -> new ResourceNotFoundException("Couldn't find Token"));
         return isTokenExpired(passToken) ? "expired" : null;
     }
 
@@ -166,8 +159,10 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Optional<User> getUserByPasswordResetToken(String token) {
-        return Optional.ofNullable(passwordResetTokenRepository.findByToken(token).getUser());
+    public User getUserByPasswordResetToken(String token) {
+        return passwordResetTokenRepository.findByToken(token)
+                .map(PasswordResetToken::getUser)
+                .orElseThrow(() -> new ResourceNotFoundException("Couldn't find token"));
     }
 
     @Override
@@ -210,10 +205,6 @@ public class UserService implements IUserService {
 
         return gen.generatePassword(10, splCharRule, lowerCaseRule,
                 upperCaseRule, digitRule);
-    }
-
-    private boolean isTokenFound(PasswordResetToken passToken) {
-        return passToken != null;
     }
 
     private boolean isTokenExpired(PasswordResetToken passToken) {

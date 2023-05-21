@@ -5,7 +5,7 @@ import hu.bme.edu.handmade.services.IProductService;
 import hu.bme.edu.handmade.services.IReviewService;
 import hu.bme.edu.handmade.web.dto.ProductDto;
 import hu.bme.edu.handmade.web.dto.ReviewDto;
-import hu.bme.edu.handmade.web.dto.error.ResourceNotFoundException;
+import hu.bme.edu.handmade.exception.ResourceNotFoundException;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;

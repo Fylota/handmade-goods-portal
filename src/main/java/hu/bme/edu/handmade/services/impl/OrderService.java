@@ -35,7 +35,7 @@ public class OrderService implements IOrderService {
     public OrderItemDto createNewOrder(OrderCreateDto order) {
         Order newOrder = new Order();
         newOrder.setStatus("CREATED");
-        newOrder.setUser(userService.getUserByID(Long.parseLong(order.getUserId())).orElseThrow());
+        newOrder.setUser(userService.getUserByID(Long.parseLong(order.getUserId())));
         newOrder.setPaymentMethod(order.getPaymentMethod());
         newOrder.setShippingMethod(order.getShippingMethod());
 
@@ -56,7 +56,7 @@ public class OrderService implements IOrderService {
 
     @Override
     public List<OrderItemDto> getOrdersByUser(Long userId) {
-        User user = userService.getUserByID(userId).orElse(null);
+        User user = userService.getUserByID(userId);
         List<Order> orders = orderRepository.findAllByUser(user);
         return orders.stream().map(OrderItemMapper.INSTANCE::orderToOrderItemDto).collect(Collectors.toList());
     }

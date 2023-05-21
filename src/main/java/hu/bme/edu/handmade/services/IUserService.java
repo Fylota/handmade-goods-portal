@@ -16,18 +16,16 @@ public interface IUserService {
     void deleteUser(Long userId);
     void setRoles(Long userId, List<Long> roleIds);
     List<RoleDto> getAllRoles();
-
     List<RoleDto> getUserRoles(Long userId);
     User findUserByEmail(String email);
     List<User> findAllUsers();
-    Optional<User> getUserByID(long id);
+    User getUserByID(long id);
     Address addAddress(Long userId, AddressDto dto);
     Address updateAddress(Long userId, AddressDto dto);
-    void changeUserPassword(User user, String password);
-    boolean checkIfValidOldPassword(User user, String password);
+    User changeUserPassword(User user, String password);
     User processOAuthPostLogin(String email, String lastName, String firstName);
     void createPasswordResetTokenForUser(User user, String token);
-    Optional<User> getUserByPasswordResetToken(String token);
+    User getUserByPasswordResetToken(String token);
     String validatePasswordResetToken(String token);
     List<User> findUsersSubscribedToNewsletter();
     void setNewsletterSubscription(Long userId, boolean subscribe);

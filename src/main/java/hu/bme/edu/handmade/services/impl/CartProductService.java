@@ -30,7 +30,7 @@ public class CartProductService implements ICartProductService {
 
     @Override
     public CartProduct addCartProduct(CartProductDto cartProductDto, long userId) {
-        User foundUser = userService.getUserByID(userId).orElseThrow();
+        User foundUser = userService.getUserByID(userId);
         Product foundProduct = productService.findProductById(cartProductDto.getProductId()).orElseThrow();
         CartProduct cartProduct = CartProductMapper.INSTANCE.toCartProduct(cartProductDto);
         cartProduct.setProduct(foundProduct);
