@@ -1,1 +1,60 @@
-<p>manage-categories works!</p>
+<div class="container">
+  <h1 class="title">Edit Categories</h1>
+  <a href="/admin" class="btn btn-primary">Back to Admin Page</a>
+  <div class="grid-wrapper">
+    <section>
+      <table
+        *ngIf="dataSource"
+        mat-table
+        [dataSource]="dataSource"
+        multiTemplateDataRows
+        class="mat-elevation-z8"
+        aria-describedby="orders table"
+      >
+        <ng-container
+          matColumnDef="{{ column }}"
+          *ngFor="let column of columnsToDisplay"
+        >
+          <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+          <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: columnsToDisplay"
+          (click)="handleRowClicked(row)"
+        ></tr>
+      </table>
+
+    </section>
+    <section *ngIf="selectedCategory !== null">
+      <form>
+        <div class="form-group">
+          <label for="name">Name: </label>
+          <input
+            type="text"
+            [(ngModel)]="selectedCategory.name"
+            name="name"
+            class="form-control"
+            id="name"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="description">Image URL: </label>
+          <textarea
+            [(ngModel)]="selectedCategory.imageUrl"
+            name="description"
+            class="form-control"
+            id="description"
+          >
+          </textarea>
+        </div>
+
+        <button class="btn btn-success" (click)="updateCategory()">Update</button>
+        <button class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+        <button class="btn btn-danger" (click)="deleteCategory()">Delete</button>
+      </form>
+    </section>
+  </div>
+</div>

@@ -79,6 +79,7 @@ export class ManagePostsComponent implements OnInit {
 
   cancelEdit() {
     this.selectedPost = null;
+    this.refreshData();
   }
 
   deletePost() {
