@@ -1,4 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
+import { Location } from '@angular/common'
 import { Router } from '@angular/router';
 import { AppConstants } from 'src/app/_shared/app.constants';
 import { AuthenticationService } from 'src/app/service/authentication.service';
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router,
     private loginservice: AuthenticationService,
     private userService: UserControllerService,
-    private _ngZone: NgZone) { }
+    private _ngZone: NgZone,
+    private location: Location) { }
 
   ngOnInit(): void {
     // @ts-ignore
@@ -53,7 +55,7 @@ export class LoginComponent implements OnInit {
         const roles = tokenInfo.authorities;
         sessionStorage.setItem('roles', roles);
         this._ngZone.run(() => {
-          this.router.navigate(['/home']);
+          this.location.back();
         });
       },
       error: (e) => console.error(e)
@@ -63,7 +65,7 @@ export class LoginComponent implements OnInit {
   checkLogin() {
     (this.loginservice.authenticate(this.username, this.password).subscribe({
       next: (_data) => {
-        this.router.navigate(['home'])
+        this.location.back();
         this.invalidLogin = false
       },
       error: (_error) => {
@@ -83,10 +85,6 @@ export class LoginComponent implements OnInit {
 
   goToRegisterPage() {
     this.router.navigate(['register'])
-  }
-
-  googleLogin() {
-    window.open("http://localhost:8080/login/oauth2/code/google");
   }
 
   handleForgottenPsw() {
