@@ -1,15 +1,25 @@
 {
   "COMMON": {
     "SNACK_DISMISS": "Bezárás",
-    "UPDATE": "Update",
-    "CANCEL": "Cancel",
-    "DELETE": "Delete",
-    "BACK_TO_ADMIN_PAGE": "Back to Admin Page",
-    "SORT": "Sort"
+    "UPDATE": "Mentés",
+    "CANCEL": "Mégse",
+    "DELETE": "Törlés",
+    "BACK_TO_ADMIN_PAGE": "Vissza az Admin oldalra",
+    "SORT": "Rendezés",
+    "CREATE": "Létrehozás",
+    "SAVE": "Mentés",
+    "TITLE": "Cím:",
+    "CONTENT": "Tartalom:",
+    "IMAGE_URL": "Kép url:",
+    "NAME": "Név:",
+    "DESCRIPTION": "Leírás:",
+    "PRICE": "Ár:",
+    "CATEGORY": "Kategória:",
+    "ACTIONS": "Műveletek",
+    "START_DATE": "Kezdési dátum:",
+    "END_DATE": "Befejezési dátum:"
   },
   "HOME": {
-    "TITLE": "Szia Angular ngx-translate használatával!",
-    "SELECT": "Nyelv kiválasztása",
     "HERO": "Egyedi ajándékok tárháza"
   },
   "NAV": {
@@ -49,34 +59,30 @@
     "SNACK_DISMISS": "Bezárás"
   },
   "ADMIN": {
-    "TITLE": "Admin Page",
+    "TITLE": "Admin oldal",
     "MANAGE_ORDERS": "Rendelések kezelése",
     "MANAGE_USERS": "Felhasználók kezelése",
     "ADD_PRODUCT": "Termék hozzáadása",
     "ADD_BLOG_POST": "Blog poszt hozzáadása",
     "ADD_EVENT": "Esemény hozzáadása",
     "ADD_CATEGORY": "Kategória hozzáadása",
-    "SEND_NEWSLETTER": "Hírlevél küldése",
+    "MANAGE_NEWSLETTER": "Hírlevelek kezelése",
     "EDIT_PRODUCTS": "Termékek szerkesztése",
     "EDIT_BLOG_POSTS": "Blog posztok szerkesztése",
     "EDIT_EVENTS": "Események szerkesztése",
     "EDIT_CATEGORIES": "Kategóriák szerkesztése"
   },
-  "MANAGE_CATEGORIES": {
-    "TITLE": "Edit Categories",
-    "BACK_TO_ADMIN_PAGE": "Back to Admin Page",
-    "NAME:": "Name:",
-    "IMAGE_URL:": "Image URL:",
-    "UPDATE": "Update",
-    "CANCEL": "Cancel",
-    "DELETE": "Delete"
+  "MANAGE_USERS": {
+    "SET_AS_ADMIN": "Admin szerepkör hozzáadása",
+    "UNSET_AS_ADMIN": "Admin szerepkör visszavonása"
   },
-  "MANAGE_EVENTS": {
-    "EDIT_EVENTS": "Edit Events",
-    "BACK_TO_ADMIN_PAGE": "Back to Admin Page",
-    "TITLE": "Title:",
-    "DESCRIPTION": "Description:",
-    "START_DATE": "Start date:",
-    "END_DATE": "End date:"
+  "NEWSLETTER": {
+    "UPLOAD_FILE_FOR_NEWSLETTER": "Fájl feltöltése a hírlevélhez",
+    "CHOOSE_A_HTML_FILE": "Válassz egy html fájlt:",
+    "UPLOAD": "Feltöltés",
+    "SELECT_A_FILE_TO_SEND": "Válassz egy fájlt a küldéshez",
+    "SELECTED_FILE_IS": "Választott fájl: ",
+    "SEND_OUT_NEWSLETTER": "Hírlevél kiküldése"
   }
+
 }

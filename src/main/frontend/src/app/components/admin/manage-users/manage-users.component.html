@@ -1,6 +1,6 @@
 <div class="container">
-    <h1 class="title">Manage Users</h1>
-    <a href="/admin" class="btn btn-primary">Back to Admin Page</a>
+    <h1 class="title">{{"ADMIN.MANAGE_USERS" | translate}}</h1>
+    <a href="/admin" class="btn btn-primary">{{"COMMON.BACK_TO_ADMIN_PAGE" | translate}}</a>
   <table
     *ngIf="dataSource"
     mat-table
@@ -42,9 +42,9 @@
                 </ul>
             </div>
             <div>
-                <h4>Actions</h4>
-                <button *ngIf="!isAdmin" (click)="setAsAdmin(element.id)">Set as Admin</button>
-                <button *ngIf="isAdmin" (click)="unsetAsAdmin(element.id)">Unset as Admin</button>
+                <h4>{{"COMMON.ACTIONS" | translate}}</h4>
+                <button *ngIf="!isAdmin" (click)="setAsAdmin(element.id)">{{"MANAGE_USERS.SET_AS_ADMIN" | translate}}</button>
+                <button *ngIf="isAdmin" (click)="unsetAsAdmin(element.id)">{{"MANAGE_USERS.UNSET_AS_ADMIN" | translate}}</button>
             </div>
         </div>
         </td>

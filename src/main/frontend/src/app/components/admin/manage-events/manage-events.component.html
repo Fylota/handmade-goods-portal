@@ -1,6 +1,6 @@
 <div class="container">
-  <h1 class="title">{{"MANAGE_EVENTS.EDIT_EVENTS" | translate}}</h1>
-  <a href="/admin" class="btn btn-primary">{{"MANAGE_EVENTS.BACK_TO_ADMIN_PAGE" | translate}}</a>
+  <h1 class="title">{{"ADMIN.EDIT_EVENTS" | translate}}</h1>
+  <a href="/admin" class="btn btn-primary">{{"COMMON.BACK_TO_ADMIN_PAGE" | translate}}</a>
   <div class="grid-wrapper">
     <section>
       <mat-form-field appearance="fill">
@@ -51,7 +51,7 @@
     <section *ngIf="selectedEvent !== null">
       <form>
         <div class="form-group">
-          <label for="name">{{"MANAGE_EVENTS.TITLE" | translate}} </label>
+          <label for="name">{{"COMMON.TITLE" | translate}} </label>
           <input
             type="text"
             [(ngModel)]="selectedEvent.title"
@@ -62,7 +62,7 @@
         </div>
 
         <div class="form-group">
-          <label for="description">{{"MANAGE_EVENTS.DESCRIPTION" | translate}} </label>
+          <label for="description">{{"COMMON.DESCRIPTION" | translate}} </label>
           <textarea
             [(ngModel)]="selectedEvent.description"
             name="description"
@@ -73,7 +73,7 @@
         </div>
 
         <div class="form-group">
-          <label for="startDate">{{"MANAGE_EVENTS.START_DATE" | translate}} </label><br />
+          <label for="startDate">{{"COMMON.START_DATE" | translate}} </label><br />
           <input
             type="datetime-local"
             id="startDate"
@@ -83,7 +83,7 @@
         </div>
 
         <div class="form-group">
-          <label for="endDate">{{"MANAGE_EVENTS.END_DATE" | translate}} </label><br />
+          <label for="endDate">{{"COMMON.END_DATE" | translate}} </label><br />
           <input
             type="datetime-local"
             id="endDate"

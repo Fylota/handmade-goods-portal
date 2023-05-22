@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Category, CategoryControllerService, ProductControllerService, ProductDto } from 'src/app/core/api/v1';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-upload-product',
@@ -15,7 +16,9 @@ export class UploadProductComponent implements OnInit {
   constructor(
     private productService: ProductControllerService,
     private categoryService: CategoryControllerService,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+    public translate: TranslateService
+  ) { }
 
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe(

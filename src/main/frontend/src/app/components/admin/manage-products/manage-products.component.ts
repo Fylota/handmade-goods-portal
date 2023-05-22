@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { TranslateService } from '@ngx-translate/core';
 import { Category, CategoryControllerService, Product, ProductControllerService, ProductDto } from 'src/app/core/api/v1';
 
 interface SortValue {
@@ -33,7 +34,8 @@ export class ManageProductsComponent implements OnInit {
   constructor(
     private productService: ProductControllerService,
     private categoryService: CategoryControllerService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    public translate: TranslateService
   ) { }
 
   ngOnInit(): void {

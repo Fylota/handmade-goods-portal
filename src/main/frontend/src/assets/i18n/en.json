@@ -5,10 +5,21 @@
     "CANCEL": "Cancel",
     "DELETE": "Delete",
     "BACK_TO_ADMIN_PAGE": "Back to Admin Page",
-    "SORT": "Sort"
+    "SORT": "Sort",
+    "CREATE": "Create",
+    "SAVE": "Save",
+    "TITLE": "Title:",
+    "CONTENT": "Content:",
+    "IMAGE_URL": "Image url:",
+    "NAME": "Name:",
+    "DESCRIPTION": "Description:",
+    "PRICE": "Price:",
+    "CATEGORY": "Category:",
+    "ACTIONS": "Actions",
+    "START_DATE": "Start date:",
+    "END_DATE": "End date:"
   },
   "HOME": {
-    "SELECT": "Change language",
     "HERO": "Unique products Handmade for You"
   },
   "NAV": {
@@ -54,26 +65,23 @@
     "ADD_BLOG_POST": "Add Blog Post",
     "ADD_EVENT": "Add Event",
     "ADD_CATEGORY": "Add Category",
-    "SEND_NEWSLETTER": "Send Newsletter",
+    "MANAGE_NEWSLETTER": "Manage Newsletter",
     "EDIT_PRODUCTS": "Edit Products",
     "EDIT_BLOG_POSTS": "Edit Blog Posts",
     "EDIT_EVENTS": "Edit Events",
     "EDIT_CATEGORIES": "Edit Categories"
   },
-  "MANAGE_CATEGORIES": {
-    "TITLE": "Edit Categories",
-    "BACK_TO_ADMIN_PAGE": "Back to Admin Page",
-    "NAME:": "Name:",
-    "IMAGE_URL:": "Image URL:"
+  "MANAGE_USERS": {
+    "SET_AS_ADMIN": "Set as Admin",
+    "UNSET_AS_ADMIN": "Unset as Admin"
   },
-  "MANAGE_EVENTS": {
-    "EDIT_EVENTS": "Edit Events",
-    "BACK_TO_ADMIN_PAGE": "Back to Admin Page",
-    "TITLE": "Title:",
-    "DESCRIPTION": "Description:",
-    "START_DATE": "Start date:",
-    "END_DATE": "End date:",
-    "SORT": "Sort"
-}
+  "NEWSLETTER": {
+    "UPLOAD_FILE_FOR_NEWSLETTER": "Upload file for Newsletter",
+    "CHOOSE_A_HTML_FILE": "Choose a html file:",
+    "UPLOAD": "Upload",
+    "SELECT_A_FILE_TO_SEND": "Select a file to send",
+    "SELECTED_FILE_IS": "Selected file is: ",
+    "SEND_OUT_NEWSLETTER": "Send out newsletter"
+  }
 
 }

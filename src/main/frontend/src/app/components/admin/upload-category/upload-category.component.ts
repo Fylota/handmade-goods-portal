@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 import { Category, CategoryControllerService } from 'src/app/core/api/v1';
 
 @Component({
@@ -12,7 +13,8 @@ export class UploadCategoryComponent {
 
   constructor(
     private categoryService: CategoryControllerService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    public translate: TranslateService
   ) { }
 
   createCategory() {

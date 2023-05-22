@@ -1,6 +1,6 @@
 <div class="container">
-  <h1 class="title">{{"MANAGE_CATEGORIES.TITLE" | translate}}</h1>
-  <a href="/admin" class="btn btn-primary">{{"MANAGE_CATEGORIES.BACK_TO_ADMIN_PAGE" | translate}}</a>
+  <h1 class="title">{{"ADMIN.EDIT_CATEGORIES" | translate}}</h1>
+  <a href="/admin" class="btn btn-primary">{{"COMMON.BACK_TO_ADMIN_PAGE" | translate}}</a>
   <div class="grid-wrapper">
     <section>
       <table
@@ -30,7 +30,7 @@
     <section *ngIf="selectedCategory !== null">
       <form>
         <div class="form-group">
-          <label for="name">{{"MANAGE_CATEGORIES.NAME:" | translate}} </label>
+          <label for="name">{{"COMMON.NAME" | translate}} </label>
           <input
             type="text"
             [(ngModel)]="selectedCategory.name"
@@ -41,7 +41,7 @@
         </div>
 
         <div class="form-group">
-          <label for="description">{{"MANAGE_CATEGORIES.IMAGE_URL:" | translate}} </label>
+          <label for="description">{{"COMMON.IMAGE_URL" | translate}} </label>
           <textarea
             [(ngModel)]="selectedCategory.imageUrl"
             name="description"

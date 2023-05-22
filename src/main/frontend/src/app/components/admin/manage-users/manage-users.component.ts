@@ -1,6 +1,7 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { TranslateService } from '@ngx-translate/core';
 import { UserDto, UserControllerService, RoleDto } from 'src/app/core/api/v1';
 
 @Component({
@@ -26,7 +27,8 @@ export class ManageUsersComponent implements OnInit {
   isAdmin = false;
 
   constructor(
-    private userService: UserControllerService
+    private userService: UserControllerService,
+    public translate: TranslateService
   ) { }
 
   ngOnInit(): void {

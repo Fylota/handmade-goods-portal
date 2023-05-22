@@ -1,6 +1,7 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { TranslateService } from '@ngx-translate/core';
 import { OrderControllerService, OrderItemDto } from 'src/app/core/api/v1';
 
 @Component({
@@ -24,7 +25,8 @@ export class ManageOrdersComponent implements OnInit {
   statusSelectValue = "";
 
   constructor(
-    private orderService: OrderControllerService
+    private orderService: OrderControllerService,
+    public translate: TranslateService
   ) { }
 
   ngOnInit(): void {

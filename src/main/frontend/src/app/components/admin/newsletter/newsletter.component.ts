@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 import {
   EmailControllerService,
   NewsletterControllerService,
@@ -19,7 +20,8 @@ export class NewsletterComponent implements OnInit {
   constructor(
     private emailService: EmailControllerService,
     private newsletterService: NewsletterControllerService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    public translate: TranslateService
   ) {}
 
   ngOnInit(): void {

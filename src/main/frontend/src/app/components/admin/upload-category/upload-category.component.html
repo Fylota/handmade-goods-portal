@@ -1,18 +1,18 @@
 <div class="container">
-    <h1 class="title">Upload new Category</h1>
-    <a href="/admin" class="btn btn-primary">Back to Admin Page</a>
+    <h1 class="title">{{"ADMIN.ADD_CATEGORY" | translate}}</h1>
+    <a href="/admin" class="btn btn-primary">{{"COMMON.BACK_TO_ADMIN_PAGE" | translate}}</a>
     <form>
         <div class="form-group">
-            <label for="title">Name: </label>
+            <label for="title">{{"COMMON.NAME" | translate}} </label>
             <input type="text" [(ngModel)]="category.name" name="title"
                 class="form-control" id="title">
         </div>
 
         <div class="form-group">
-            <label for="image">Image URL: </label>
+            <label for="image">{{"COMMON.IMAGE_URL" | translate}} </label>
             <input type="text" [(ngModel)]="category.imageUrl" name="image" class="form-control" id="image">
         </div>
 
-        <button class="btn btn-success" (click)="createCategory()">Create</button>
+        <button class="btn btn-success" (click)="createCategory()">{{"COMMON.CREATE" | translate}}</button>
     </form>
 </div>
