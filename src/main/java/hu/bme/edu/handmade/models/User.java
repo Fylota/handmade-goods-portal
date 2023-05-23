@@ -17,7 +17,7 @@ public class User {
     @Column(name = "id", nullable = false)
     private Long id;
     @Basic
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name")
     private String firstName;
     @Basic
     @Column(name = "last_name")

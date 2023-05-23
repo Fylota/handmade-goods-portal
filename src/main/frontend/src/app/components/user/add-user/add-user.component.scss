@@ -1,0 +1,25 @@
+.container {
+    background-color: rgb(246, 246, 246);
+    padding: 3rem;
+    margin-top: 3rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    margin: 0 auto;
+    width: 300px;
+    margin-bottom: 1rem;
+}
+
+.error-output {
+    color: red;
+    ul {
+        list-style: none;
+        li {
+            text-align: initial;
+        }
+    }
+    
+}

@@ -44,8 +44,8 @@ export class ProfileComponent implements OnInit {
     this.selectedAddress = value;
   }
 
-  deleteUser(userId: string): void {
-    this.httpClientService.deleteUser(Number(userId)).subscribe();
+  deleteUser(): void {
+    this.httpClientService.deleteOwnProfile().subscribe();
     this.logOut();
   }
 

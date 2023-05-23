@@ -25,11 +25,13 @@ import org.passay.PasswordGenerator;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.*;
 
 @Service
 @Transactional
+@Validated
 public class UserService implements IUserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;

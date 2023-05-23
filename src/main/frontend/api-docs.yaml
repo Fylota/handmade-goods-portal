@@ -1581,6 +1581,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Category'
+  /users/delete:
+    delete:
+      tags:
+      - user-controller
+      operationId: deleteOwnProfile
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - Bearer_Authentication: []
 components:
   schemas:
     CartProductDto:
@@ -1829,8 +1849,6 @@ components:
       type: object
       properties:
         email:
-          type: string
-        firstName:
           type: string
         password:
           type: string

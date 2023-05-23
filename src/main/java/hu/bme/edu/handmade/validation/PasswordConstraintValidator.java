@@ -17,9 +17,11 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
     @Override
     public boolean isValid(final String password, ConstraintValidatorContext constraintValidatorContext) {
         final PasswordValidator validator = new PasswordValidator(Arrays.asList(
-                new LengthRule(8, 16),
+                new LengthRule(6, 16),
                 new CharacterRule(EnglishCharacterData.UpperCase, 1),
+                new CharacterRule(EnglishCharacterData.LowerCase, 1),
                 new CharacterRule(EnglishCharacterData.Digit, 1),
+                new CharacterRule(EnglishCharacterData.Special, 1),
                 new IllegalSequenceRule(EnglishSequenceData.Alphabetical, 5, false),
                 new IllegalSequenceRule(EnglishSequenceData.Numerical, 5, false),
                 new IllegalSequenceRule(EnglishSequenceData.USQwerty, 5, false),

@@ -10,6 +10,11 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
     private static final Pattern PATTERN = Pattern.compile(EMAIL_PATTERN);
 
     @Override
+    public void initialize(ValidEmail constraintAnnotation) {
+        ConstraintValidator.super.initialize(constraintAnnotation);
+    }
+
+    @Override
     public boolean isValid(final String username, final ConstraintValidatorContext context) {
         return (validateEmail(username));
     }
