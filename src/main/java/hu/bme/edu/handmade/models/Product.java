@@ -1,5 +1,7 @@
 package hu.bme.edu.handmade.models;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -7,6 +9,8 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "products")
 @SQLDelete(sql = "UPDATE products SET deleted = true WHERE id=?")
 @Where(clause = "deleted=false")
@@ -32,62 +36,6 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
 
     @Override
     public boolean equals(Object o) {

@@ -1,11 +1,15 @@
 package hu.bme.edu.handmade.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "addresses")
 public class Address {
     @Id
@@ -26,56 +30,6 @@ public class Address {
     @JsonIgnore
     @JoinColumn(name = "user_id")
     private User user;
-
-    // Getters, Setters
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getZip() {
-        return zip;
-    }
-
-    public void setZip(String zip) {
-        this.zip = zip;
-    }
-
-    public String getAddressLine() {
-        return addressLine;
-    }
-
-    public void setAddressLine(String addressLine) {
-        this.addressLine = addressLine;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     @Override
     public boolean equals(Object o) {

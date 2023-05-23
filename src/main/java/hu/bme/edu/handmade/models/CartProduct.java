@@ -1,11 +1,15 @@
 package hu.bme.edu.handmade.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Getter
+@Setter
 @JsonIgnoreProperties(value= {"user"})
 @Table(name = "cart_products")
 public class CartProduct {
@@ -22,38 +26,6 @@ public class CartProduct {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 
     @Override
     public boolean equals(Object o) {

@@ -1,6 +1,8 @@
 package hu.bme.edu.handmade.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -8,6 +10,8 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
+@Getter
+@Setter
 @JsonIgnoreProperties(value= {"roles"})
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "users")
@@ -52,86 +56,6 @@ public class User {
 
     public void addAddress(Address addr) {
         this.addresses.add(addr);
-    }
-
-    public List<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
-    }
-
-    public Set<CartProduct> getCartProducts() {
-        return cartProducts;
-    }
-
-    public void setCartProducts(Set<CartProduct> cartProducts) {
-        this.cartProducts = cartProducts;
-    }
-
-    public Collection<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-    public String getLastName() {
-        return lastName;
-    }
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-    public boolean isSubscribedToNewsletter() {
-        return subscribedToNewsletter;
     }
 
     public void setSubscribedToNewsletter(boolean subscribedToNewsletter) {

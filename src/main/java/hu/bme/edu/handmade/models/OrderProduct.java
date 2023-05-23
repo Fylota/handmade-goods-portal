@@ -1,11 +1,15 @@
 package hu.bme.edu.handmade.models;
 
 import hu.bme.edu.handmade.models.primary_key.OrderProductId;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "order_product")
 public class OrderProduct {
 
@@ -29,30 +33,6 @@ public class OrderProduct {
         this.order = order;
         this.product = product;
         this.id = new OrderProductId(order.getId(), product.getId());
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     @Override
