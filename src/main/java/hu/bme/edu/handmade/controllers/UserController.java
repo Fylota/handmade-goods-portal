@@ -1,6 +1,5 @@
 package hu.bme.edu.handmade.controllers;
 
-import hu.bme.edu.handmade.exception.ForbiddenException;
 import hu.bme.edu.handmade.mappers.AddressMapper;
 import hu.bme.edu.handmade.mappers.UserMapper;
 import hu.bme.edu.handmade.models.CartProduct;
@@ -27,7 +26,6 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -89,14 +87,10 @@ public class UserController {
         }
     }
 
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_USER') && #id == principal.getUsername()")
     @SecurityRequirement(name = "Bearer_Authentication")
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") Long id, @RequestBody UserDto userToUpdate, Principal principal) {
-        User principalUser = userService.findUserByEmail(principal.getName());
-        if (!Objects.equals(principalUser.getId(), id)) {
-            throw new ForbiddenException();
-        }
+    public ResponseEntity<User> updateUser(@PathVariable("id") Long id, @RequestBody UserDto userToUpdate) {
         Optional<User> updatedUser = userService.updateUser(id, userToUpdate);
 
         return updatedUser
@@ -110,92 +104,61 @@ public class UserController {
                     return ResponseEntity.created(location).body(createdUser);
                 });
     }
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_USER') && #userId == principal.getUsername()")
     @SecurityRequirement(name = "Bearer_Authentication")
     @PostMapping("/{id}/addresses")
-    public AddressDto addUserAddress(@PathVariable("id") Long userId, @RequestBody AddressDto address, Principal principal) {
-        User principalUser = userService.findUserByEmail(principal.getName());
-        if (!Objects.equals(principalUser.getId(), userId)) {
-            throw new ForbiddenException();
-        }
+    public AddressDto addUserAddress(@PathVariable("id") Long userId, @RequestBody AddressDto address) {
         return AddressMapper.INSTANCE.toAddressDto(userService.addAddress(userId, address));
     }
 
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_USER') && #userId == principal.getUsername()")
     @SecurityRequirement(name = "Bearer_Authentication")
     @PutMapping("/{id}/addresses/{addressId}")
     public AddressDto updateUserAddress(@PathVariable("id") Long userId,
                                         @PathVariable("addressId") Long addressId,
-                                        @RequestBody AddressDto address,
-                                        Principal principal) {
-        User principalUser = userService.findUserByEmail(principal.getName());
-        if (!Objects.equals(principalUser.getId(), userId)) {
-            throw new ForbiddenException();
-        }
+                                        @RequestBody AddressDto address) {
         return AddressMapper.INSTANCE.toAddressDto(userService.updateAddress(userId, address));
     }
 
     /** Newsletter subscription */
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_USER') && #userId == principal.getUsername()")
     @SecurityRequirement(name = "Bearer_Authentication")
     @PostMapping("/{id}/unsubscribe")
-    public void unsubscribeFromNewsletter(@PathVariable("id") Long userId, Principal principal) {
-        User principalUser = userService.findUserByEmail(principal.getName());
-        if (!Objects.equals(principalUser.getId(), userId)) {
-            throw new ForbiddenException();
-        }
+    public void unsubscribeFromNewsletter(@PathVariable("id") Long userId) {
         userService.setNewsletterSubscription(userId, false);
     }
 
     /** Cart */
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_USER') && #userId == principal.getUsername()")
     @SecurityRequirement(name = "Bearer_Authentication")
     @GetMapping("/{id}/cart")
-    List<CartProduct> getCartProducts(@PathVariable("id") long userId, Principal principal) {
-        User principalUser = userService.findUserByEmail(principal.getName());
-        if (!Objects.equals(principalUser.getId(), userId)) {
-            throw new ForbiddenException();
-        }
+    List<CartProduct> getCartProducts(@PathVariable("id") long userId) {
         return cartService.getCartProductsByUser(userId);
     }
 
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_USER') && #userId == principal.getUsername()")
     @SecurityRequirement(name = "Bearer_Authentication")
     @PostMapping("/{id}/cart")
-    CartProduct addCartProduct(@PathVariable("id") long userId, @RequestBody CartProductDto cartProductDto, Principal principal) {
-        User principalUser = userService.findUserByEmail(principal.getName());
-        if (!Objects.equals(principalUser.getId(), userId)) {
-            throw new ForbiddenException();
-        }
+    CartProduct addCartProduct(@PathVariable("id") long userId, @RequestBody CartProductDto cartProductDto) {
         return cartService.addCartProduct(cartProductDto, userId);
     }
 
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_USER') && #userId == principal.getUsername()")
     @SecurityRequirement(name = "Bearer_Authentication")
     @PutMapping("/{userId}/cart/{cartId}")
     CartProduct updateCartProduct(@PathVariable("userId") long userId,
                                   @PathVariable("cartId") long cartId,
-                                  @RequestBody CartProductDto cartProductDto,
-                                  Principal principal) {
-        User principalUser = userService.findUserByEmail(principal.getName());
-        if (!Objects.equals(principalUser.getId(), userId)) {
-            throw new ForbiddenException();
-        }
+                                  @RequestBody CartProductDto cartProductDto) {
         return cartService.findCartProductById(cartId)
                 .map(product -> cartService.updateCartProduct(cartProductDto, cartId))
                 .orElseGet(()->cartService.addCartProduct(cartProductDto, userId));
     }
 
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_USER') && #userId == principal.getUsername()")
     @SecurityRequirement(name = "Bearer_Authentication")
     @DeleteMapping("/{userId}/cart/{cartId}")
     ResponseEntity<?> removeCartProduct(@PathVariable("userId") Long userId,
-                                        @PathVariable("cartId") Long cartId,
-                                        Principal principal) {
-        User principalUser = userService.findUserByEmail(principal.getName());
-        if (!Objects.equals(principalUser.getId(), userId)) {
-            throw new ForbiddenException();
-        }
+                                        @PathVariable("cartId") Long cartId) {
         try {
             cartService.deleteCartProduct(cartId);
             return ResponseEntity.noContent().build();
@@ -206,40 +169,26 @@ public class UserController {
     }
 
     /** Wishlist */
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_USER') && #userId == principal.getUsername()")
     @SecurityRequirement(name = "Bearer_Authentication")
     @GetMapping("/{user_id}/wishlist")
-    List<ProductDto> getWishList(@PathVariable("user_id") Long id, Principal principal) {
-        User principalUser = userService.findUserByEmail(principal.getName());
-        if (!Objects.equals(principalUser.getId(), id)) {
-            throw new ForbiddenException();
-        }
+    List<ProductDto> getWishList(@PathVariable("user_id") Long id) {
         return wishListService.getWishListItemsByUserId(id);
     }
 
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_USER') && #userId == principal.getUsername()")
     @SecurityRequirement(name = "Bearer_Authentication")
     @PostMapping("/{user_id}/wishlist")
     ProductDto addToWishList(@PathVariable("user_id") Long userId,
-                             @RequestParam("product_id") Long productId,
-                             Principal principal) {
-        User principalUser = userService.findUserByEmail(principal.getName());
-        if (!Objects.equals(principalUser.getId(), userId)) {
-            throw new ForbiddenException();
-        }
+                             @RequestParam("product_id") Long productId) {
         return wishListService.addToWishlist(userId, productId);
     }
 
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_USER') && #userId == principal.getUsername()")
     @SecurityRequirement(name = "Bearer_Authentication")
     @DeleteMapping("/{user_id}/wishlist")
     void removeFromWishList(@PathVariable("user_id") Long userId,
-                            @RequestParam("product_id") Long productId,
-                            Principal principal) {
-        User principalUser = userService.findUserByEmail(principal.getName());
-        if (!Objects.equals(principalUser.getId(), userId)) {
-            throw new ForbiddenException();
-        }
+                            @RequestParam("product_id") Long productId) {
         wishListService.removeFromWishList(userId, productId);
     }
 
