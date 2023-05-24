@@ -1176,6 +1176,30 @@ paths:
                 $ref: '#/components/schemas/Event'
       security:
       - Bearer_Authentication: []
+  /contact:
+    post:
+      tags:
+      - email-controller
+      operationId: sendContactUsMessage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactForm'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
   /categories:
     get:
       tags:
@@ -1724,6 +1748,9 @@ components:
           type: string
         subscribedToNewsletter:
           type: boolean
+        registeredAt:
+          type: string
+          format: date-time
         enabled:
           type: boolean
         cartProducts:
@@ -1885,6 +1912,13 @@ components:
       type: object
       properties:
         message:
+          type: string
+    ContactForm:
+      type: object
+      properties:
+        email:
+          type: string
+        body:
           type: string
     JwtRequest:
       type: object

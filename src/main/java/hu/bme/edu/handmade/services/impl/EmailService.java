@@ -2,6 +2,7 @@ package hu.bme.edu.handmade.services.impl;
 
 import hu.bme.edu.handmade.models.Newsletter;
 import hu.bme.edu.handmade.models.User;
+import hu.bme.edu.handmade.models.request.ContactForm;
 import hu.bme.edu.handmade.services.IEmailService;
 import hu.bme.edu.handmade.services.INewsletterStorageService;
 import hu.bme.edu.handmade.services.IUserService;
@@ -76,5 +77,45 @@ public class EmailService implements IEmailService {
             }
         }
         return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<?> sendContactUsEmail(ContactForm data) {
+        if (!successfullySendAutomaticResponse(data.getEmail(), data.getBody())) {
+            return ResponseEntity.badRequest().build();
+        }
+        try {
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+
+            mailMessage.setFrom(sender);
+            mailMessage.setTo(sender);
+            mailMessage.setText("Sender: "+ data.getEmail() + "\n\n" + data.getBody());
+            mailMessage.setSubject("Handmade Contact Us");
+
+            javaMailSender.send(mailMessage);
+            return ResponseEntity.ok().build();
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    private boolean successfullySendAutomaticResponse(String recipient, String body) {
+        try {
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+
+            mailMessage.setFrom(sender);
+            mailMessage.setTo(recipient);
+            mailMessage.setText(
+                    "Thank you for contacting us! We will shortly respond to your message. \n\n" +
+                    "Your message: \n\n" + body);
+            mailMessage.setSubject("HandMade - AutoResponse - Do not reply");
+
+            javaMailSender.send(mailMessage);
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
     }
 }

@@ -32,6 +32,7 @@ import { ManagePostsComponent } from './components/admin/manage-posts/manage-pos
 import { ManageProductsComponent } from './components/admin/manage-products/manage-products.component';
 import { ManageUsersComponent } from './components/admin/manage-users/manage-users.component';
 import { NewsletterComponent } from './components/admin/newsletter/newsletter.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 
 const routes: Routes = [
@@ -67,6 +68,8 @@ const routes: Routes = [
   { path: 'changePassword', component: PasswordResetComponent },
   { path: 'forgotPassword', component: ForgotPasswordComponent },
   { path: 'orders/view', component: OrderDetailsComponent, data: {roles: 'ROLE_USER'} },
+
+  { path: 'contact', component: ContactComponent },
   
   { path: '**', component: PageNotFoundComponent },
 ];
