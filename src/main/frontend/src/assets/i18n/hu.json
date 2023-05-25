@@ -17,7 +17,8 @@
     "CATEGORY": "Kategória:",
     "ACTIONS": "Műveletek",
     "START_DATE": "Kezdési dátum:",
-    "END_DATE": "Befejezési dátum:"
+    "END_DATE": "Befejezési dátum:",
+    "PRODUCT_ID": "Termék azonosító: "
   },
   "HOME": {
     "HERO": "Egyedi ajándékok tárháza"
@@ -75,6 +76,9 @@
   "MANAGE_USERS": {
     "SET_AS_ADMIN": "Admin szerepkör hozzáadása",
     "UNSET_AS_ADMIN": "Admin szerepkör visszavonása"
+  },
+  "MANAGE_ORDERS": {
+    "CHANGE_ORDER_STATUS": "státusz változtatása"
   },
   "NEWSLETTER": {
     "UPLOAD_FILE_FOR_NEWSLETTER": "Fájl feltöltése a hírlevélhez",

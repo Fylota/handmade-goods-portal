@@ -31,7 +31,7 @@
             [@detailExpand]="element === expandedElement ? 'expanded' : 'collapsed'">
             <div>
                 <ul>
-                    <li *ngFor="let item of element.items">{{"MANAGE_ORDERS.PRODUCT_ID" | translate}}: {{item.productId}}, Qty: {{item.quantity}}</li>
+                    <li *ngFor="let item of element.items">{{"COMMON.PRODUCT_ID" | translate}}: {{item.productId}}, Qty: {{item.quantity}}</li>
                 </ul>
                 <label for="status">{{"MANAGE_ORDERS.CHANGE_ORDER_STATUS" | translate}}</label>
                 <select name="status" id="status" [(ngModel)]="statusSelectValue">

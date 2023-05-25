@@ -17,7 +17,8 @@
     "CATEGORY": "Category:",
     "ACTIONS": "Actions",
     "START_DATE": "Start date:",
-    "END_DATE": "End date:"
+    "END_DATE": "End date:",
+    "PRODUCT_ID": "Product id: "
   },
   "HOME": {
     "HERO": "Unique products Handmade for You"
@@ -74,6 +75,9 @@
   "MANAGE_USERS": {
     "SET_AS_ADMIN": "Set as Admin",
     "UNSET_AS_ADMIN": "Unset as Admin"
+  },
+  "MANAGE_ORDERS": {
+    "CHANGE_ORDER_STATUS": "Change order status"
   },
   "NEWSLETTER": {
     "UPLOAD_FILE_FOR_NEWSLETTER": "Upload file for Newsletter",
