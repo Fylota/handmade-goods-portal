@@ -1,4 +1,9 @@
-<table *ngIf="dataSource" mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8" aria-label="orders list">
+<table *ngIf="dataSource"
+  mat-table [dataSource]="dataSource"
+  matSort matSortActive="creationDate" matSortDirection="desc"
+  multiTemplateDataRows
+  class="mat-elevation-z8"
+  aria-label="orders list">
 
   <!-- id Column -->
   <ng-container matColumnDef="id">
