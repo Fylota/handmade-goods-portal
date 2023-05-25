@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { CartProduct, CartProductDto, OrderControllerService, OrderCreateDto, UserControllerService, UserDto } from 'src/app/core/api/v1';
+import { CartProduct, OrderControllerService, OrderCreateDto, OrderProductDto, UserControllerService, UserDto } from 'src/app/core/api/v1';
 
 @Component({
   selector: 'app-checkout',
@@ -9,7 +9,7 @@ import { CartProduct, CartProductDto, OrderControllerService, OrderCreateDto, Us
 })
 export class CheckoutComponent implements OnInit {
   user: UserDto | undefined;
-  cartItems: CartProductDto[] = [];
+  cartItems: CartProduct[] = [];
   subTotal = 0;
   shippingPrice = 0;
   orderTotal = 0;
@@ -112,9 +112,19 @@ export class CheckoutComponent implements OnInit {
     console.log(this.user);
     console.log(this.cartItems);
 
+    let orderItems: OrderProductDto[] = [];
+
+    for (const item of this.cartItems) {
+      const prod: OrderProductDto = {
+        productId: item.product?.id,
+        quantity: item.quantity
+      }
+      orderItems.push(prod);
+    }
+
     const newOrder: OrderCreateDto = {
       userId: this.user?.id,
-      items: this.cartItems,
+      items: orderItems,
       paymentMethod: this.checkoutForm.value.paymentForm!.paymentMethod!,
       shippingMethod: this.checkoutForm.value.shipmentForm!.shipment!
     }
