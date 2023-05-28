@@ -4,14 +4,14 @@
     <ng-template #thenBlock>
         <div>
             <h1>Your wishlist is empty</h1>
-            <a href="/products" class="btn btn-primary">Back to shopping</a>
+            <a routerLink="/products" class="btn btn-primary">Back to shopping</a>
         </div>
     </ng-template>
     
     <ng-template #elseBlock>
         <div class="container">
             <h2 class="title">My Wishlist</h2>
-            <a href="/products" class="btn btn-primary">Back to shopping</a>
+            <a routerLink="/products" class="btn btn-primary">Back to shopping</a>
             <table aria-labelledby="wishlist table">
                 <thead class="cart--header">
                   <tr class="cart-item--container">
