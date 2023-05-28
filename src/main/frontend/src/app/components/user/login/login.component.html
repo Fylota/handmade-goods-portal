@@ -2,18 +2,18 @@
   <div class="title">
     <h1>{{ "LOGIN.WELCOME" | translate }}</h1>
   </div>
-  <div id="googleBtnDiv">
-  </div>
+  <div id="googleBtnDiv"></div>
   <form>
     <div class="form-group email-login">
-      <p>{{ "LOGIN.EMAIL_TITLE" | translate }}</p>
+      <h5>- {{ "LOGIN.EMAIL_TITLE" | translate }} -</h5>
       <input
         type="email"
         class="form-control"
         name="email"
         [(ngModel)]="username"
-        placeholder="{{ 'LOGIN.EMAIL_PLACEHOLDER' | translate }}"
-      />
+        placeholder="{{ 'LOGIN.EMAIL_PLACEHOLDER' | translate }}"/>
+    </div>
+    <div class="form-group email-login">
       <input
         type="password"
         class="form-control"
@@ -25,14 +25,16 @@
     <button (click)="checkLogin()" class="btn btn-success">
       {{ "LOGIN.LOGIN_BTN" | translate }}
     </button>
-    <div>
-      <a class="forgot-psw" (click)="handleForgottenPsw()">{{ "LOGIN.FORGOTTEN_PSW" | translate }}</a>
-    </div>
-    <p>{{ "LOGIN.NOT_REGISTERED" | translate }}</p>
-    <span
-      ><button (click)="goToRegisterPage()" class="btn btn-secondary">
-        Create account
-      </button></span
-    >
   </form>
+  <div>
+    <p>{{ "LOGIN.NOT_REGISTERED" | translate }}</p>
+    <button (click)="goToRegisterPage()" class="btn btn-secondary">
+      {{ "LOGIN.REGISTER" | translate }}
+    </button>
+  </div>
+    <div>
+      <a class="forgot-psw" (click)="handleForgottenPsw()">{{
+        "LOGIN.FORGOTTEN_PSW" | translate
+      }}</a>
+    </div>
 </div>
