@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faCircle, faGear } from '@fortawesome/free-solid-svg-icons'
+import { faCircle, faCartShopping, faUserPen, faCalendar, faNewspaper, faPen, faPlus, faEnvelope, faTags } from '@fortawesome/free-solid-svg-icons'
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -11,14 +11,21 @@ import { TranslateService } from '@ngx-translate/core';
 export class AdminPageComponent {
 
   faCircle = faCircle;
-  faGear = faGear;
+  faCartShopping = faCartShopping;
+  faUserPen = faUserPen;
+  faCalendar = faCalendar;
+  faNewspaper = faNewspaper;
+  faPen = faPen;
+  faPlus = faPlus;
+  faEnvelope = faEnvelope;
+  faTags = faTags;
 
   constructor(
     private router: Router,
     public translate: TranslateService
   ) { }
 
-  navigateToPage(page: String): void {
+  navigateToPage(page: string): void {
     this.router.navigate([page]);
   }
 

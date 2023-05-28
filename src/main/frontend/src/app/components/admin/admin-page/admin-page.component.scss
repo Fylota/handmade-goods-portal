@@ -13,6 +13,14 @@
     }
 }
 
+.grid-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
 .grid-item fa-stack {
     color: #135f92;
     transition: 1s ease;

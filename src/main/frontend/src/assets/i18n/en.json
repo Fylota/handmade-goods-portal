@@ -42,7 +42,8 @@
     "LOGIN_BTN": "Login",
     "NOT_REGISTERED": "Haven't registered yet?",
     "SIGNUP_BTN": "Sign up",
-    "FORGOTTEN_PSW": "Forgot password"
+    "FORGOTTEN_PSW": "Forgot password",
+    "REGISTER": "Create Account"
   },
   "CHANGE_PSW": {
     "UPDATE_BTN": "Save new password",
@@ -59,7 +60,7 @@
     "ERROR": "Something went wrong..."
   },
   "ADMIN": {
-    "TITLE":"Admin Page",
+    "TITLE":"Admin Console",
     "MANAGE_ORDERS": "Manage Orders",
     "MANAGE_USERS": "Manage Users",
     "ADD_PRODUCT": "Add Product",
@@ -86,6 +87,10 @@
     "SELECT_A_FILE_TO_SEND": "Select a file to send",
     "SELECTED_FILE_IS": "Selected file is: ",
     "SEND_OUT_NEWSLETTER": "Send out newsletter"
+  },
+  "FOOTER": {
+    "QUESTION": "Got any questions? ",
+    "CONTACT_LINK": "Write to us!"
   }
 
 }

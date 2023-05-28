@@ -42,7 +42,8 @@
     "LOGIN_BTN": "Bejelentkezés",
     "NOT_REGISTERED": "Még nem regisztráltál?",
     "SIGNUP_BTN": "Regisztrálás",
-    "FORGOTTEN_PSW": "Elfelejtett jelszó"
+    "FORGOTTEN_PSW": "Elfelejtett jelszó",
+    "REGISTER": "Fiók létrehozása"
   },
   "CHANGE_PSW": {
     "UPDATE_BTN": "Új jelszó mentése",
@@ -60,7 +61,7 @@
     "SNACK_DISMISS": "Bezárás"
   },
   "ADMIN": {
-    "TITLE": "Admin oldal",
+    "TITLE": "Admin Vezérlőpult",
     "MANAGE_ORDERS": "Rendelések kezelése",
     "MANAGE_USERS": "Felhasználók kezelése",
     "ADD_PRODUCT": "Termék hozzáadása",
@@ -87,6 +88,10 @@
     "SELECT_A_FILE_TO_SEND": "Válassz egy fájlt a küldéshez",
     "SELECTED_FILE_IS": "Választott fájl: ",
     "SEND_OUT_NEWSLETTER": "Hírlevél kiküldése"
+  },
+  "FOOTER": {
+    "QUESTION": "Kérdésed van? ",
+    "CONTACT_LINK": "Írj nekünk!"
   }
 
 }
