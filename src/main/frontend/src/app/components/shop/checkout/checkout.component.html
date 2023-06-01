@@ -5,7 +5,7 @@
     </div>
 
     <div class="checkout--container">
-        <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" class="grid-form">
             <section class="shipping-address--section" formGroupName="addressForm">
                 <h2 class="section--header">Shipping Address</h2>
                 <div class="shipping-form--wrapper">
@@ -21,33 +21,31 @@
                     <input type="text" id="phoneNumber" formControlName="phoneNumber">
                 </div>
             </section>
-            <section class="shipping-method--section" formGroupName="shipmentForm">
-                <h2 class="section--header">Shipping Method</h2>
-                <div class="options--wrapper">
-                    <div>
-                        <input type="radio" id="in-store" formControlName="shipment" value="inStore">
-                        <label for="in-store">0Ft Pick up In-Store</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="shipping-hun" formControlName="shipment" value="shippingHun">
-                        <label for="shipping-hun">500Ft Inland Shipping in Hungary</label>
+            <section>
+                <div class="shipping-method--section" formGroupName="shipmentForm">
+                    <h2 class="section--header">Shipping Method</h2>
+                    <div class="options--wrapper">
+                        <div>
+                            <input type="radio" id="in-store" formControlName="shipment" value="inStore">
+                            <label for="in-store">0Ft Pick up In-Store</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="shipping-hun" formControlName="shipment" value="shippingHun">
+                            <label for="shipping-hun">500Ft Inland Shipping in Hungary</label>
+                        </div>
                     </div>
                 </div>
-            </section>
-            <section class="payment-method--section" formGroupName="paymentForm">
-                <h2 class="section--header">Payment Method</h2>
-                <div class="options--wrapper">
-                    <div>
-                        <input type="radio" value="cash" id="pay-cash" formControlName="paymentMethod">
-                        <label for="pay-cash">Cash On Delivery</label>
-                    </div>
-                    <div>
-                        <input type="radio" value="card" id="pay-card" formControlName="paymentMethod">
-                        <label for="pay-card">Credit Card Payment</label>
-                    </div>
-                    <div>
-                        <input type="radio" value="transfer" id="pay-transfer" formControlName="paymentMethod">
-                        <label for="pay-transfer">Bank Transfer - Pre-Payment</label>
+                <div class="payment-method--section" formGroupName="paymentForm">
+                    <h2 class="section--header">Payment Method</h2>
+                    <div class="options--wrapper">
+                        <div>
+                            <input type="radio" value="cash" id="pay-cash" formControlName="paymentMethod">
+                            <label for="pay-cash">Cash On Delivery</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="transfer" id="pay-transfer" formControlName="paymentMethod">
+                            <label for="pay-transfer">Bank Transfer - Pre-Payment</label>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -65,7 +63,7 @@
                     <p>Shipping: {{ shippingPrice }}Ft</p>
                     <p>Order Total: {{ orderTotal }}Ft</p>
                 </div>
-                <button type="submit">Place Order</button>
+                <button class="btn btn-primary" type="submit">Place Order</button>
             </section>
         </form>
     </div>

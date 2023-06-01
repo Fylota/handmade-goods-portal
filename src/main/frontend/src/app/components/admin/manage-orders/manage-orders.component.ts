@@ -1,6 +1,7 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 import { TranslateService } from '@ngx-translate/core';
 import { OrderControllerService, OrderItemDto } from 'src/app/core/api/v1';
 
@@ -23,6 +24,8 @@ export class ManageOrdersComponent implements OnInit {
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: OrderItemDto | undefined;
   statusSelectValue = "";
+  @ViewChild(MatSort)
+  sort: MatSort = new MatSort;
 
   constructor(
     private orderService: OrderControllerService,
@@ -31,6 +34,10 @@ export class ManageOrdersComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshOrders();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 
   changeOrderStatus(orderId: number):void {

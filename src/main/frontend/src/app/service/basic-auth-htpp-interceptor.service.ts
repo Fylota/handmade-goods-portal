@@ -27,7 +27,7 @@ export class BasicAuthHtppInterceptorService implements HttpInterceptor {
         if (
           error instanceof HttpErrorResponse &&
           !req.url.includes('/authenticate') &&
-          error.status === 0
+          error.status === 401
         ) {
           return this.handle401Error(req, next);
         }

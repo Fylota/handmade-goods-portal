@@ -3,7 +3,7 @@
 <ng-template #thenBlock>
   <div class="cart-empty--container">
     <h1>Your cart is empty</h1>
-    <button (click)="navigateToHome()">Back to the main page</button>
+    <button class="btn btn-primary" (click)="navigateToHome()">Back to the main page</button>
   </div>
 </ng-template>
 
@@ -17,13 +17,13 @@
         (increaseQty)="increaseQty($event)"
         (decreaseQty)="decreaseQty($event)">
       </app-cart-items-table>
-      <button (click)="navigateToProducts()">Continue Shopping</button>
+      <button class="btn btn-primary" (click)="navigateToProducts()">Continue Shopping</button>
     </section>
 
     <section class="cart--summary">
       <h2 class="cart--title">Summary</h2>
-      <p>{{ subTotal }} Ft</p>
-      <button (click)="navigateToCheckout()">Proceed to checkout</button>
+      <p>Total: {{ subTotal }} Ft</p>
+      <button class="btn btn-primary" (click)="navigateToCheckout()">Proceed to checkout</button>
     </section>
   </main>
 </ng-template>

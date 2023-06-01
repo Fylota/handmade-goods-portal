@@ -9,6 +9,12 @@ main {
     text-align: center;
 }
 
+.grid-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+}
+
 .title {
     margin: 0 auto 20px;
     font-weight: 700;
@@ -34,7 +40,7 @@ main {
 .options--wrapper {
     display: flex;
     flex-direction: column;
-    padding: 20px 0;
+    padding: 1em 0;
     gap: 1em;
 
     div {
@@ -52,4 +58,8 @@ main {
     background: #eee;
     font-weight: 600;
     font-size: 20px;
+}
+
+.order-summary--section {
+    grid-column-end: span 2;
 }
