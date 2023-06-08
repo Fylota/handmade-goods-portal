@@ -5,6 +5,7 @@ import hu.bme.edu.handmade.models.Event;
 import hu.bme.edu.handmade.repositories.EventRepository;
 import hu.bme.edu.handmade.services.IEventService;
 import hu.bme.edu.handmade.web.dto.EventDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,11 +17,10 @@ import java.util.Optional;
 @Service
 @Transactional
 public class EventService implements IEventService {
-    private final EventRepository eventRepository;
+    @Autowired
+    private EventRepository eventRepository;
 
-    EventService(EventRepository eventRepository) {
-        this.eventRepository = eventRepository;
-    }
+    EventService() {}
 
     @Override
     public List<Event> findAllEvents() {

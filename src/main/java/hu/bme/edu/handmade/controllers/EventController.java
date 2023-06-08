@@ -5,6 +5,7 @@ import hu.bme.edu.handmade.services.IEventService;
 import hu.bme.edu.handmade.web.dto.EventDto;
 import hu.bme.edu.handmade.exception.ResourceNotFoundException;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,10 +24,9 @@ import java.util.Map;
 @CrossOrigin(origins="http://localhost:4200", maxAge=3600)
 @RequestMapping("/events")
 public class EventController {
-    private final IEventService eventService;
-    EventController(IEventService eventService) {
-        this.eventService = eventService;
-    }
+    @Autowired
+    private IEventService eventService;
+    EventController() {}
 
     @GetMapping()
     public List<Event> getEvents() {

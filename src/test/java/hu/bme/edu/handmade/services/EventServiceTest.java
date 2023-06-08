@@ -26,7 +26,6 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 @ActiveProfiles("test")
 class EventServiceTest {
-    /*
     @InjectMocks
     private EventService eventService;
 
@@ -104,9 +103,10 @@ class EventServiceTest {
     @Test
     void testUpdateEvent() {
         // given
-        given(eventRepository.save(event)).willReturn(event);
+        given(eventRepository.findById(1L)).willReturn(Optional.of(event));
         event.setTitle("Modified Title");
         event.setDescription("Modified description.");
+        given(eventRepository.save(event)).willReturn(event);
 
         // when
         Event updatedEvent = eventService.updateEvent(EventMapper.INSTANCE.eventToEventDto(event), 1L);
@@ -120,13 +120,12 @@ class EventServiceTest {
     @Test
     void testDeleteEvent() {
         // given
-        willDoNothing().given(eventRepository).delete(event);
+        willDoNothing().given(eventRepository).deleteById(event.getId());
 
         // when
         eventService.deleteEvent(event.getId());
 
         // then
-        verify(eventRepository, times(1)).delete(event);
+        verify(eventRepository, times(1)).deleteById(event.getId());
     }
-    */
 }
