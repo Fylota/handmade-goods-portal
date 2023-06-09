@@ -54,7 +54,8 @@ public class SecurityConfig {
                         "/oauth2/**", "/login/**",
                         "/register","/authenticate", "/auth/google",
                         "/products/**", "/categories/**",
-                        "/posts/**", "/events/**")
+                        "/posts/**", "/events/**",
+                        "/users/sendPswResetRequest", "/users/updatePassword", "/contact/**")
                 .permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**")
                 .permitAll()

@@ -21,6 +21,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
@@ -88,7 +89,7 @@ public class HomeController {
     }
 
     @PostMapping(value = "/register")
-    public User saveUser(@RequestBody UserRegistrationDto user) {
+    public User saveUser(@Valid @RequestBody UserRegistrationDto user) {
         return userService.registerNewUserAccount(user);
     }
 

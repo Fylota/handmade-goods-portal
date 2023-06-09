@@ -31,8 +31,8 @@ public class CategoryController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @SecurityRequirement(name = "Bearer_Authentication")
     @PostMapping("")
-    public Category addNewCategory(@RequestBody String catName) {
-        return categoryService.createCategory(catName);
+    public Category addNewCategory(@RequestBody Category cat) {
+        return categoryService.createCategory(cat);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

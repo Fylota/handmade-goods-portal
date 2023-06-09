@@ -1,0 +1,14 @@
+<aside>
+    <h2>Shop by Categories</h2>
+    <div class="category--container">
+        <div *ngFor="let category of categories" class="category--card" (click)="goToCategory(category)">
+            <img src={{category.imageUrl}} class="category--card-img" alt={{category.name}}>
+            <p class="category--card-title">{{category.name}}</p>
+        </div>
+    </div>
+</aside>
+
+<main>
+    <h1>All Products</h1>
+    <app-products-list></app-products-list>
+</main>

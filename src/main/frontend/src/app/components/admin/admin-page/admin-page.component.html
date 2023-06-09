@@ -1,0 +1,105 @@
+<h1 class="admin--title">{{ "ADMIN.TITLE" | translate }}</h1>
+
+<div class="container">
+    <div class="wrapper">
+        <div class="grid-item" (click)="navigateToPage('admin/orders')">
+            <fa-stack size="3x">
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon [icon]="faCartShopping" [inverse]="true" stackItemSize="1x"></fa-icon>
+            </fa-stack>
+            <div>
+                {{ "ADMIN.MANAGE_ORDERS" | translate }}
+            </div>
+        </div>
+        <div class="grid-item" (click)="navigateToPage('admin/users')">
+            <fa-stack size="3x">
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon [icon]="faUserPen" [inverse]="true" stackItemSize="1x"></fa-icon>
+            </fa-stack>
+            <div>
+                {{ "ADMIN.MANAGE_USERS" | translate }}
+            </div>
+        </div>
+        <div class="grid-item" (click)="navigateToPage('admin/add-product')">
+            <fa-stack size="3x">
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon [icon]="faPlus" [inverse]="true" stackItemSize="1x"></fa-icon>
+            </fa-stack>
+            <div>
+                {{ "ADMIN.ADD_PRODUCT" | translate }}
+            </div>
+        </div>
+        <div class="grid-item" (click)="navigateToPage('admin/add-post')">
+            <fa-stack size="3x">
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon [icon]="faNewspaper" [inverse]="true" stackItemSize="1x"></fa-icon>
+            </fa-stack>
+            <div>
+                {{ "ADMIN.ADD_BLOG_POST" | translate }}
+            </div>
+        </div>
+        <div class="grid-item" (click)="navigateToPage('admin/add-event')">
+            <fa-stack size="3x">
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon [icon]="faCalendar" [inverse]="true" stackItemSize="1x"></fa-icon>
+            </fa-stack>
+            <div>
+                {{ "ADMIN.ADD_EVENT" | translate }}
+            </div>
+        </div>
+        <div class="grid-item" (click)="navigateToPage('admin/add-category')">
+            <fa-stack size="3x">
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon [icon]="faTags" [inverse]="true" stackItemSize="1x"></fa-icon>
+            </fa-stack>
+            <div>
+                {{ "ADMIN.ADD_CATEGORY" | translate }}
+            </div>
+        </div>
+        <div class="grid-item" (click)="navigateToPage('admin/newsletter')">
+            <fa-stack size="3x">
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon [icon]="faEnvelope" [inverse]="true" stackItemSize="1x"></fa-icon>
+            </fa-stack>
+            <div>
+                {{ "ADMIN.MANAGE_NEWSLETTER" | translate }}
+            </div>
+        </div>
+        <div class="grid-item" (click)="navigateToPage('admin/products')">
+            <fa-stack size="3x">
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon [icon]="faPen" [inverse]="true" stackItemSize="1x"></fa-icon>
+            </fa-stack>
+            <div>
+                {{ "ADMIN.EDIT_PRODUCTS" | translate }}
+            </div>
+        </div>
+        <div class="grid-item" (click)="navigateToPage('admin/posts')">
+            <fa-stack size="3x">
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon [icon]="faPen" [inverse]="true" stackItemSize="1x"></fa-icon>
+            </fa-stack>
+            <div>
+                {{ "ADMIN.EDIT_BLOG_POSTS" | translate }}
+            </div>
+        </div>
+        <div class="grid-item" (click)="navigateToPage('admin/events')">
+            <fa-stack size="3x">
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon [icon]="faPen" [inverse]="true" stackItemSize="1x"></fa-icon>
+            </fa-stack>
+            <div>
+                {{ "ADMIN.EDIT_EVENTS" | translate }}
+            </div>
+        </div>
+        <div class="grid-item" (click)="navigateToPage('admin/categories')">
+            <fa-stack size="3x">
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon [icon]="faPen" [inverse]="true" stackItemSize="1x"></fa-icon>
+            </fa-stack>
+            <div>
+                {{ "ADMIN.EDIT_CATEGORIES" | translate }}
+            </div>
+        </div>
+    </div>
+</div>

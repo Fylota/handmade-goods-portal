@@ -1,11 +1,16 @@
 package hu.bme.edu.handmade.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "privileges")
 public class Privilege {
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,38 +31,6 @@ public class Privilege {
         this.name = name;
     }
     public Privilege() { }
-
-    public Collection<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
-    }
 
     @Override
     public boolean equals(Object o) {

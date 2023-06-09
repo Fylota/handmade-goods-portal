@@ -1,0 +1,56 @@
+<div class="container">
+  <h1 class="title">My Profile</h1>
+  <div class="row row-cols-1 g-2">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Contact Information</h5>
+        <div *ngIf="editContact; else contactInfo">
+          <app-edit-profile
+            [user]="user"
+            (newCancelEvent)="setEditContact($event)"
+          ></app-edit-profile>
+        </div>
+        <ng-template #contactInfo>
+          <app-contact-information
+            [user]="user"
+            (newEditEvent)="setEditContact($event)"
+          ></app-contact-information>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Address Book</h5>
+        <div *ngIf="editAddress; else addressBook">
+          <app-edit-address-book
+            [user]="user"
+            [address]="selectedAddress"
+            (newCancelEvent)="setEditAddress($event)"
+          ></app-edit-address-book>
+        </div>
+        <ng-template #addressBook>
+          <app-address-book
+            [user]="user"
+            (newEditEvent)="setEditAddress($event)"
+            (selectedAddressEvent)="setSelectedAddress($event)"
+          ></app-address-book>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">My Orders</h5>
+        <div class="card-text">
+          <app-orders-list [user]="user"></app-orders-list>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-danger" (click)="logOut()">Log out</button>
+  <button class="btn btn-danger" (click)="deleteUser()">
+    Delete profile
+  </button>
+</div>

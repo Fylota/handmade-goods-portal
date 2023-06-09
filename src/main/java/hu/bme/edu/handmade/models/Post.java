@@ -1,5 +1,7 @@
 package hu.bme.edu.handmade.models;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -8,6 +10,8 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "posts")
 @EntityListeners(AuditingEntityListener.class)
 public class Post {
@@ -21,41 +25,12 @@ public class Post {
     @Basic
     @Column(name = "content")
     private String content;
+
+    @Column(name = "image_url")
+    private String imageUrl;
     @CreatedDate
     @Column(name = "creation_date")
     private LocalDateTime creationDate;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
-    }
 
     @Override
     public boolean equals(Object o) {

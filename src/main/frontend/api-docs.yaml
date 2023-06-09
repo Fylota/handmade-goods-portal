@@ -78,32 +78,6 @@ paths:
       security:
       - Bearer_Authentication: []
   /users/{id}:
-    get:
-      tags:
-      - user-controller
-      operationId: one
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      responses:
-        "404":
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                type: string
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserDto'
-      security:
-      - Bearer_Authentication: []
     put:
       tags:
       - user-controller
@@ -652,6 +626,29 @@ paths:
           description: OK
       security:
       - Bearer_Authentication: []
+  /users/{id}/unsubscribe:
+    post:
+      tags:
+      - user-controller
+      operationId: unsubscribeFromNewsletter
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+      security:
+      - Bearer_Authentication: []
   /users/{id}/cart:
     get:
       tags:
@@ -746,6 +743,112 @@ paths:
                 $ref: '#/components/schemas/AddressDto'
       security:
       - Bearer_Authentication: []
+  /users/updatePassword:
+    post:
+      tags:
+      - user-controller
+      operationId: updatePassword
+      parameters:
+      - name: passwordDto
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/PasswordDto'
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /users/setRole:
+    post:
+      tags:
+      - user-controller
+      operationId: setRole
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: roleIds
+        in: query
+        required: true
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+      security:
+      - Bearer_Authentication: []
+  /users/sendPswResetRequest:
+    post:
+      tags:
+      - user-controller
+      operationId: sendResetPasswordMail
+      parameters:
+      - name: email
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+  /sendNewsletter:
+    post:
+      tags:
+      - email-controller
+      operationId: sendNewsletter
+      parameters:
+      - name: fileId
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - Bearer_Authentication: []
   /register:
     post:
       tags:
@@ -775,6 +878,37 @@ paths:
       tags:
       - product-controller
       operationId: getProducts
+      parameters:
+      - name: categoryId
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 3
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+          default:
+          - id
+          - desc
       responses:
         "404":
           description: Not Found
@@ -787,9 +921,9 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Product'
+                type: object
+                additionalProperties:
+                  type: object
     post:
       tags:
       - product-controller
@@ -966,6 +1100,37 @@ paths:
                 $ref: '#/components/schemas/OrderItemDto'
       security:
       - Bearer_Authentication: []
+  /newsletter/upload:
+    post:
+      tags:
+      - newsletter-controller
+      operationId: uploadFile
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - file
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
+      security:
+      - Bearer_Authentication: []
   /events:
     get:
       tags:
@@ -1011,6 +1176,30 @@ paths:
                 $ref: '#/components/schemas/Event'
       security:
       - Bearer_Authentication: []
+  /contact:
+    post:
+      tags:
+      - email-controller
+      operationId: sendContactUsMessage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactForm'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
   /categories:
     get:
       tags:
@@ -1039,7 +1228,7 @@ paths:
         content:
           application/json:
             schema:
-              type: string
+              $ref: '#/components/schemas/Category'
         required: true
       responses:
         "404":
@@ -1080,6 +1269,30 @@ paths:
             application/json:
               schema:
                 type: object
+  /auth/google:
+    post:
+      tags:
+      - home-controller
+      operationId: loginWithGoogle
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
   /users:
     get:
       tags:
@@ -1100,6 +1313,57 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/UserDto'
+      security:
+      - Bearer_Authentication: []
+  /users/{userId}/roles:
+    get:
+      tags:
+      - user-controller
+      operationId: getUserRoles
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoleDto'
+      security:
+      - Bearer_Authentication: []
+  /users/roles:
+    get:
+      tags:
+      - user-controller
+      operationId: getRoles
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoleDto'
       security:
       - Bearer_Authentication: []
   /users/me:
@@ -1149,6 +1413,51 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Product'
+  /posts/page:
+    get:
+      tags:
+      - post-controller
+      operationId: getPostPages
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 3
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+          default:
+          - id
+          - desc
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
   /orders/user:
     get:
       tags:
@@ -1178,6 +1487,100 @@ paths:
                   $ref: '#/components/schemas/OrderItemDto'
       security:
       - Bearer_Authentication: []
+  /newsletter/files:
+    get:
+      tags:
+      - newsletter-controller
+      operationId: getListFiles
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResponseFile'
+      security:
+      - Bearer_Authentication: []
+  /newsletter/files/{id}:
+    get:
+      tags:
+      - newsletter-controller
+      operationId: getFile
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Newsletter'
+      security:
+      - Bearer_Authentication: []
+  /events/page:
+    get:
+      tags:
+      - event-controller
+      operationId: getEventPages
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 3
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+          default:
+          - id
+          - desc
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
   /categories/{category_name}:
     get:
       tags:
@@ -1202,6 +1605,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Category'
+  /users/delete:
+    delete:
+      tags:
+      - user-controller
+      operationId: deleteOwnProfile
+      responses:
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: string
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - Bearer_Authentication: []
 components:
   schemas:
     CartProductDto:
@@ -1231,6 +1654,8 @@ components:
           type: integer
           format: int64
         name:
+          type: string
+        imageUrl:
           type: string
     Product:
       type: object
@@ -1285,6 +1710,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AddressDto'
+        subscribedToNewsletter:
+          type: boolean
     Address:
       type: object
       properties:
@@ -1299,8 +1726,6 @@ components:
           type: string
         addressLine:
           type: string
-        user:
-          $ref: '#/components/schemas/User'
     User:
       type: object
       properties:
@@ -1321,6 +1746,11 @@ components:
             $ref: '#/components/schemas/Address'
         password:
           type: string
+        subscribedToNewsletter:
+          type: boolean
+        registeredAt:
+          type: string
+          format: date-time
         enabled:
           type: boolean
         cartProducts:
@@ -1331,6 +1761,9 @@ components:
     ProductDto:
       type: object
       properties:
+        id:
+          type: integer
+          format: int64
         name:
           type: string
         description:
@@ -1350,6 +1783,8 @@ components:
           type: string
         content:
           type: string
+        imageUrl:
+          type: string
     Post:
       type: object
       properties:
@@ -1359,6 +1794,8 @@ components:
         title:
           type: string
         content:
+          type: string
+        imageUrl:
           type: string
         creationDate:
           type: string
@@ -1382,6 +1819,9 @@ components:
           type: string
         shippingMethod:
           type: string
+        creationDate:
+          type: string
+          format: date-time
     OrderProductDto:
       type: object
       properties:
@@ -1423,12 +1863,19 @@ components:
         createdDate:
           type: string
           format: date-time
+    PasswordDto:
+      type: object
+      properties:
+        oldPassword:
+          type: string
+        token:
+          type: string
+        newPassword:
+          type: string
     UserRegistrationDto:
       type: object
       properties:
         email:
-          type: string
-        firstName:
           type: string
         password:
           type: string
@@ -1441,6 +1888,8 @@ components:
         userId:
           type: integer
           format: int64
+        reviewerName:
+          type: string
         content:
           type: string
         creationDate:
@@ -1459,6 +1908,18 @@ components:
           type: string
         shippingMethod:
           type: string
+    ResponseMessage:
+      type: object
+      properties:
+        message:
+          type: string
+    ContactForm:
+      type: object
+      properties:
+        email:
+          type: string
+        body:
+          type: string
     JwtRequest:
       type: object
       properties:
@@ -1466,6 +1927,43 @@ components:
           type: string
         password:
           type: string
+    RoleDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+    ResponseFile:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        url:
+          type: string
+        size:
+          type: integer
+          format: int64
+    Newsletter:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        content:
+          type: array
+          items:
+            type: string
+            format: byte
+        creationDate:
+          type: string
+          format: date-time
   securitySchemes:
     Bearer_Authentication:
       type: http

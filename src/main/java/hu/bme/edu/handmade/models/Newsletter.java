@@ -1,58 +1,41 @@
 package hu.bme.edu.handmade.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Type;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "newsletters")
 public class Newsletter {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
-    @Basic
     @Column(name = "title")
     private String title;
-    @Basic
+
+    @Type(type="org.hibernate.type.BinaryType")
     @Column(name = "content")
-    private String content;
-    @Basic
+    private byte[] content;
+    @CreatedDate
     @Column(name = "creation_date")
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate creationDate;
+    private Date creationDate;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
+    public Newsletter(String title, byte[] content) {
         this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
         this.content = content;
-    }
-
-    public LocalDate getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
     }
 
     @Override
@@ -60,11 +43,13 @@ public class Newsletter {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Newsletter that = (Newsletter) o;
-        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(content, that.content) && Objects.equals(creationDate, that.creationDate);
+        return id.equals(that.id) && title.equals(that.title) && Arrays.equals(content, that.content);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, content, creationDate);
+        int result = Objects.hash(id, title);
+        result = 31 * result + Arrays.hashCode(content);
+        return result;
     }
 }

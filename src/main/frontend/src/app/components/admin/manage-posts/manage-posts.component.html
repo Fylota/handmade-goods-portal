@@ -1,0 +1,94 @@
+<div class="container">
+  <h1 class="title">{{"ADMIN.EDIT_BLOG_POSTS" | translate}}</h1>
+  <a routerLink="/admin" class="btn btn-primary">{{"COMMON.BACK_TO_ADMIN_PAGE" | translate}}</a>
+  <div class="grid-wrapper">
+    <section>
+      <mat-form-field appearance="fill">
+        <mat-label>{{"COMMON.SORT" | translate}}</mat-label>
+        <mat-select [(value)]="sort" (selectionChange)="refreshData()">
+          <mat-option
+            *ngFor="let sortValue of sortValues"
+            [value]="sortValue.value"
+          >
+            {{ sortValue.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <table
+        *ngIf="dataSource"
+        mat-table
+        [dataSource]="dataSource"
+        multiTemplateDataRows
+        class="mat-elevation-z8"
+        aria-describedby="orders table"
+      >
+        <ng-container
+          matColumnDef="{{ column }}"
+          *ngFor="let column of columnsToDisplay"
+        >
+          <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+          <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: columnsToDisplay"
+          (click)="handleRowClicked(row)"
+        ></tr>
+      </table>
+
+      <mat-paginator
+        (page)="handlePageEvent($event)"
+        [length]="length"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        [pageIndex]="pageIndex"
+        aria-label="Select page"
+      >
+      </mat-paginator>
+    </section>
+    <section *ngIf="selectedPost !== null">
+      <form>
+        <div class="form-group">
+          <label for="name">{{"COMMON.TITLE" | translate}} </label>
+          <input
+            type="text"
+            [(ngModel)]="selectedPost.title"
+            name="name"
+            class="form-control"
+            id="name"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="description">{{"COMMON.CONTENT" | translate}} </label>
+          <textarea
+            [(ngModel)]="selectedPost.content"
+            name="description"
+            class="form-control"
+            id="description"
+          >
+          </textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="price">{{"COMMON.IMAGE_URL" | translate}} </label>
+          <input
+            type="text"
+            [(ngModel)]="selectedPost.imageUrl"
+            name="price"
+            class="form-control"
+            id="price"
+          />
+        </div>
+
+        <button class="btn btn-success" (click)="updatePost()">
+            {{"COMMON.UPDATE" | translate}}
+        </button>
+        <button class="btn btn-secondary" (click)="cancelEdit()">{{"COMMON.CANCEL" | translate}}</button>
+        <button class="btn btn-danger" (click)="deletePost()">{{"COMMON.DELETE" | translate}}</button>
+      </form>
+    </section>
+  </div>
+</div>

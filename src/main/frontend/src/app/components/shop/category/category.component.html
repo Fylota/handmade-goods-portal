@@ -1,0 +1,5 @@
+<div class="container">
+  <h1 *ngIf="category !== undefined" class="title">Category {{ categoryName }}</h1>
+  <a routerLink="/products" routerLinkActive="active" class="btn btn-primary">Back to all categories</a>
+  <app-products-list *ngIf="category" [category]="category"></app-products-list>
+</div>

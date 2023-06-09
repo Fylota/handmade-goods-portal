@@ -1,0 +1,13 @@
+<div class="card-text">
+  <p>{{ user.lastName }} {{ user.firstName }}</p>
+  <p>{{ user.email }}</p>
+  <p *ngIf="user.phoneNumber">{{ user.phoneNumber }}</p>
+  <mat-slide-toggle [checked]="user.subscribedToNewsletter" [disabled]="true"
+    >Subscribed to Newsletter</mat-slide-toggle
+  >
+  <div>
+    <button type="button" class="btn btn-primary" (click)="editUser()">
+      Edit
+    </button>
+  </div>
+</div>

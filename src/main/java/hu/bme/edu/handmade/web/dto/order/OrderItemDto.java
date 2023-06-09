@@ -1,5 +1,6 @@
 package hu.bme.edu.handmade.web.dto.order;
 
+import java.util.Date;
 import java.util.List;
 
 public class OrderItemDto {
@@ -9,6 +10,8 @@ public class OrderItemDto {
     private List<OrderProductDto> items;
     private String paymentMethod;
     private String shippingMethod;
+
+    private Date creationDate;
 
     public Long getId() {
         return id;
@@ -56,5 +59,13 @@ public class OrderItemDto {
 
     public void setShippingMethod(String shippingMethod) {
         this.shippingMethod = shippingMethod;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 }

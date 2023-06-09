@@ -1,0 +1,29 @@
+<div class="container">
+    <h1 class="title">{{"ADMIN.ADD_EVENT" | translate}}</h1>
+    <a routerLink="/admin" class="btn btn-primary">{{"COMMON.BACK_TO_ADMIN_PAGE" | translate}}</a>
+    <form>
+        <div class="form-group">
+            <label for="title">{{"COMMON.TITLE" | translate}} </label>
+            <input type="text" [(ngModel)]="event.title" name="title"
+                class="form-control" id="title">
+        </div>
+
+        <div class="form-group">
+            <label for="content">{{"COMMON.CONTENT" | translate}} </label>
+            <textarea [(ngModel)]="event.description" name="content" class="form-control"
+                id="content"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="startDate">{{"COMMON.START_DATE" | translate}} </label><br>
+            <input type="datetime-local" id="startDate" [(ngModel)]="event.startDateTime" name="startDate">
+        </div>
+
+        <div class="form-group">
+            <label for="endDate">{{"COMMON.END_DATE" | translate}} </label><br>
+            <input type="datetime-local" id="endDate" [(ngModel)]="event.endDateTime" name="startDate">
+        </div>
+
+        <button class="btn btn-success" (click)="createEvent()">{{"COMMON.CREATE" | translate}}</button>
+    </form>
+</div>

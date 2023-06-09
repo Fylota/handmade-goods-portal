@@ -1,28 +1,97 @@
 {
-    "HOME": {
-      "TITLE": "Szia Angular ngx-translate használatával!",
-      "SELECT": "Nyelv kiválasztása",
-      "HERO": "Egyedi ajándékok tárháza"
-    },
-    "NAV": {
-      "PROFILE": "Profil",
-      "WISHLIST":"Kívánságlista",
-      "CART":"Kosár",
-      "SEARCH": "Termékek keresése...",
-      "PRODUCTS": "Összes Termék",
-      "EVENTS": "Események",
-      "NEWS": "Hírek",
-      "ADMIN": "Admin oldal"
-    },
-    "LOGIN": {
-      "WELCOME": "Üdv újra!",
-      "QUICK": "Gyors bejelentkezés",
-      "GOOGLE_BTN_LOCALE": "hu_HU",
-      "EMAIL_TITLE": "Vagy használd az email címed",
-      "EMAIL_PLACEHOLDER": "Email címed",
-      "PSW_PLACEHOLDER": "Jelszavad",
-      "LOGIN_BTN": "Bejelentkezés",
-      "NOT_REGISTERED": "Még nem regisztráltál?",
-      "SIGNUP_BTN": "Regisztrálás"
-    }
+  "COMMON": {
+    "SNACK_DISMISS": "Bezárás",
+    "UPDATE": "Mentés",
+    "CANCEL": "Mégse",
+    "DELETE": "Törlés",
+    "BACK_TO_ADMIN_PAGE": "Vissza az Admin oldalra",
+    "SORT": "Rendezés",
+    "CREATE": "Létrehozás",
+    "SAVE": "Mentés",
+    "TITLE": "Cím:",
+    "CONTENT": "Tartalom:",
+    "IMAGE_URL": "Kép url:",
+    "NAME": "Név:",
+    "DESCRIPTION": "Leírás:",
+    "PRICE": "Ár:",
+    "CATEGORY": "Kategória:",
+    "ACTIONS": "Műveletek",
+    "START_DATE": "Kezdési dátum:",
+    "END_DATE": "Befejezési dátum:",
+    "PRODUCT_ID": "Termék azonosító: "
+  },
+  "HOME": {
+    "HERO": "Egyedi ajándékok tárháza"
+  },
+  "NAV": {
+    "PROFILE": "Profil",
+    "WISHLIST": "Kívánságlista",
+    "CART": "Kosár",
+    "SHOP": "Termékek",
+    "EVENTS": "Események",
+    "BLOG": "Blog",
+    "ADMIN": "Admin"
+  },
+  "LOGIN": {
+    "WELCOME": "Üdv újra!",
+    "QUICK": "Gyors bejelentkezés",
+    "GOOGLE_BTN_LOCALE": "hu_HU",
+    "EMAIL_TITLE": "Vagy használd az email címed",
+    "EMAIL_PLACEHOLDER": "Email címed",
+    "PSW_PLACEHOLDER": "Jelszavad",
+    "LOGIN_BTN": "Bejelentkezés",
+    "NOT_REGISTERED": "Még nem regisztráltál?",
+    "SIGNUP_BTN": "Regisztrálás",
+    "FORGOTTEN_PSW": "Elfelejtett jelszó",
+    "REGISTER": "Fiók létrehozása"
+  },
+  "CHANGE_PSW": {
+    "UPDATE_BTN": "Új jelszó mentése",
+    "PSW": "Új jelszó",
+    "PSW_AGAIN": "Új jelszó újra",
+    "MATCH_ERROR": "A két jelszó mező nem egyezik meg",
+    "SUCCESS": "Jelszó sikeresen megváltoztatva. Kérlek jelentkezz be.",
+    "ERROR": "Nem sikerült a jelszó változtatás."
+  },
+  "FORGOT": {
+    "TITLE": "Kérjük add meg az email címed, és elküldjük neked a jelszó visszaállító linket.",
+    "SEND_BTN": "Email küldése",
+    "SUCCESS": "Email elküldve!",
+    "ERROR": "Nem sikerült az email küldés",
+    "SNACK_DISMISS": "Bezárás"
+  },
+  "ADMIN": {
+    "TITLE": "Admin Vezérlőpult",
+    "MANAGE_ORDERS": "Rendelések kezelése",
+    "MANAGE_USERS": "Felhasználók kezelése",
+    "ADD_PRODUCT": "Termék hozzáadása",
+    "ADD_BLOG_POST": "Blog poszt hozzáadása",
+    "ADD_EVENT": "Esemény hozzáadása",
+    "ADD_CATEGORY": "Kategória hozzáadása",
+    "MANAGE_NEWSLETTER": "Hírlevelek kezelése",
+    "EDIT_PRODUCTS": "Termékek szerkesztése",
+    "EDIT_BLOG_POSTS": "Blog posztok szerkesztése",
+    "EDIT_EVENTS": "Események szerkesztése",
+    "EDIT_CATEGORIES": "Kategóriák szerkesztése"
+  },
+  "MANAGE_USERS": {
+    "SET_AS_ADMIN": "Admin szerepkör hozzáadása",
+    "UNSET_AS_ADMIN": "Admin szerepkör visszavonása"
+  },
+  "MANAGE_ORDERS": {
+    "CHANGE_ORDER_STATUS": "státusz változtatása"
+  },
+  "NEWSLETTER": {
+    "UPLOAD_FILE_FOR_NEWSLETTER": "Fájl feltöltése a hírlevélhez",
+    "CHOOSE_A_HTML_FILE": "Válassz egy html fájlt:",
+    "UPLOAD": "Feltöltés",
+    "SELECT_A_FILE_TO_SEND": "Válassz egy fájlt a küldéshez",
+    "SELECTED_FILE_IS": "Választott fájl: ",
+    "SEND_OUT_NEWSLETTER": "Hírlevél kiküldése"
+  },
+  "FOOTER": {
+    "QUESTION": "Kérdésed van? ",
+    "CONTACT_LINK": "Írj nekünk!"
   }
+
+}

@@ -1,0 +1,29 @@
+<div *ngIf="products.length === 0; then thenBlock else elseBlock"></div>
+
+<ng-template #thenBlock>
+  <div class="cart-empty--container">
+    <h1>Your cart is empty</h1>
+    <button class="btn btn-primary" (click)="navigateToHome()">Back to the main page</button>
+  </div>
+</ng-template>
+
+<ng-template #elseBlock>
+  <main>
+    <section class="cart--container">
+      <h2 class="cart--title">Shopping cart</h2>
+      <app-cart-items-table 
+        [products]="products"
+        (removeFromCart)="removeFromCart($event)"
+        (increaseQty)="increaseQty($event)"
+        (decreaseQty)="decreaseQty($event)">
+      </app-cart-items-table>
+      <button class="btn btn-primary" (click)="navigateToProducts()">Continue Shopping</button>
+    </section>
+
+    <section class="cart--summary">
+      <h2 class="cart--title">Summary</h2>
+      <p>Total: {{ subTotal }} Ft</p>
+      <button class="btn btn-primary" (click)="navigateToCheckout()">Proceed to checkout</button>
+    </section>
+  </main>
+</ng-template>

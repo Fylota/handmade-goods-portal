@@ -1,6 +1,8 @@
 package hu.bme.edu.handmade.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -10,6 +12,8 @@ import java.util.*;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Getter
+@Setter
 @Table(name = "orders")
 public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -56,62 +60,6 @@ public class Order {
                 orderProduct.setProduct(null);
             }
         }
-    }
-
-    public List<OrderProduct> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<OrderProduct> products) {
-        this.products = products;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public LocalDate getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public String getShippingMethod() {
-        return shippingMethod;
-    }
-
-    public void setShippingMethod(String shippingMethod) {
-        this.shippingMethod = shippingMethod;
     }
 
     @Override

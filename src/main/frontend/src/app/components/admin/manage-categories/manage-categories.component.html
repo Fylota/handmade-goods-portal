@@ -1,0 +1,60 @@
+<div class="container">
+  <h1 class="title">{{"ADMIN.EDIT_CATEGORIES" | translate}}</h1>
+  <a routerLink="/admin" class="btn btn-primary">{{"COMMON.BACK_TO_ADMIN_PAGE" | translate}}</a>
+  <div class="grid-wrapper">
+    <section>
+      <table
+        *ngIf="dataSource"
+        mat-table
+        [dataSource]="dataSource"
+        multiTemplateDataRows
+        class="mat-elevation-z8"
+        aria-describedby="orders table"
+      >
+        <ng-container
+          matColumnDef="{{ column }}"
+          *ngFor="let column of columnsToDisplay"
+        >
+          <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+          <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: columnsToDisplay"
+          (click)="handleRowClicked(row)"
+        ></tr>
+      </table>
+
+    </section>
+    <section *ngIf="selectedCategory !== null">
+      <form>
+        <div class="form-group">
+          <label for="name">{{"COMMON.NAME" | translate}} </label>
+          <input
+            type="text"
+            [(ngModel)]="selectedCategory.name"
+            name="name"
+            class="form-control"
+            id="name"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="description">{{"COMMON.IMAGE_URL" | translate}} </label>
+          <textarea
+            [(ngModel)]="selectedCategory.imageUrl"
+            name="description"
+            class="form-control"
+            id="description"
+          >
+          </textarea>
+        </div>
+
+        <button class="btn btn-success" (click)="updateCategory()">{{"COMMON.UPDATE" | translate}}</button>
+        <button class="btn btn-secondary" (click)="cancelEdit()">{{"COMMON.CANCEL" | translate}}</button>
+        <button class="btn btn-danger" (click)="deleteCategory()">{{"COMMON.DELETE" | translate}}</button>
+      </form>
+    </section>
+  </div>
+</div>

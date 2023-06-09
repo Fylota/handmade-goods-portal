@@ -6,6 +6,8 @@ import hu.bme.edu.handmade.repositories.CategoryRepository;
 import hu.bme.edu.handmade.repositories.ProductRepository;
 import hu.bme.edu.handmade.services.IProductService;
 import hu.bme.edu.handmade.web.dto.ProductDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,11 +52,21 @@ public class ProductService implements IProductService {
 
     @Override
     public List<Product> findAllProducts() {
-        return (List<Product>) productRepository.findAll();
+        return productRepository.findAll();
     }
 
     @Override
     public List<Product> findProductsByCategory(Long categoryId) {
         return productRepository.findProductsByCategory_Id(categoryId);
+    }
+
+    @Override
+    public Page<Product> findPagesByCategory(Pageable paging, Long categoryId) {
+        return productRepository.findAllByCategory_Id(paging, categoryId);
+    }
+
+    @Override
+    public Page<Product> findAll(Pageable paging) {
+        return productRepository.findAll(paging);
     }
 }

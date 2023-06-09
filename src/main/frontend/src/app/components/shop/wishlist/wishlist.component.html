@@ -1,0 +1,52 @@
+<div *ngIf="products.length === 0; then thenBlock else elseBlock" class="container"></div>
+
+<div class="container">
+    <ng-template #thenBlock>
+        <div>
+            <h1>Your wishlist is empty</h1>
+            <a routerLink="/products" class="btn btn-primary">Back to shopping</a>
+        </div>
+    </ng-template>
+    
+    <ng-template #elseBlock>
+        <div class="container">
+            <h2 class="title">My Wishlist</h2>
+            <a routerLink="/products" class="btn btn-primary">Back to shopping</a>
+            <table aria-labelledby="wishlist table">
+                <thead class="cart--header">
+                  <tr class="cart-item--container">
+                    <th class="col">Item</th>
+                    <th class="col"></th>
+                    <th class="col">Price</th>
+                    <th class="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="cart-item--container" *ngFor="let item of products">
+                    <td class="col">
+                      <img
+                        class="item--image"
+                        src="{{item.imageURL}}"
+                        alt="{{ item.name }}"
+                      />
+                    </td>
+                    <td class="col">
+                      <h4>{{ item.name }}</h4>
+                    </td>
+                    <td class="col">
+                      <p>{{ item.price }} Ft</p>
+                    </td>
+                    <td class="col">
+                      <button class="icon-btn" (click)="removeFromWishlist(item)">
+                        <fa-icon [icon]="faX"></fa-icon>
+                      </button>
+                      <button class="btn btn-success" (click)="addToCart(item)">
+                        Add to cart
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </ng-template>
+</div>

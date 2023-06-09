@@ -1,1 +1,50 @@
 <app-home-hero></app-home-hero>
+<div class="container">
+  <div class="category--container">
+    <div
+      *ngFor="let cat of topCategories"
+      class="category--card"
+      (click)="goToCategory(cat)"
+    >
+      <img src="{{ cat.imageUrl }}" class="category--card-img" alt="..." />
+      <h5 class="category--card-title">{{ cat.name }}</h5>
+    </div>
+  </div>
+  <a routerLink="/products" class="btn btn-primary">All Categories</a>
+</div>
+
+<div class="container">
+  <h1 class="text-center">New Products</h1>
+  <div class="products--container">
+    <div *ngFor="let product of newProducts">
+      <div class="product--card">
+        <img
+          src="https://source.unsplash.com/random/200x200"
+          alt="..."
+          class="product--card-img"
+          (click)="navigateToProductDetails(product)"
+        />
+        <h5 class="card--title">{{ product.name }}</h5>
+      </div>
+    </div>
+  </div>
+  <a routerLink="/products" class="btn btn-primary">All Products</a>
+</div>
+
+<div class="container">
+  <h1 class="text-center">New Posts</h1>
+  <div class="products--container">
+    <div *ngFor="let post of newPosts">
+      <div class="product--card">
+        <img
+          src="https://source.unsplash.com/random/200x200"
+          alt="..."
+          class="product--card-img"
+          (click)="navigateToPost(post)"
+        />
+        <h5 class="card--title">{{ post.title }}</h5>
+      </div>
+    </div>
+  </div>
+  <a routerLink="/posts" class="btn btn-primary">All Posts</a>
+</div>

@@ -1,0 +1,41 @@
+<div class="container">
+  <h1 class="title">{{"ADMIN.MANAGE_NEWSLETTER" | translate}}</h1>
+  <a routerLink="/admin" class="btn btn-primary">{{"COMMON.BACK_TO_ADMIN_PAGE" | translate}}</a>
+
+  <h4>{{"NEWSLETTER.UPLOAD_FILE_FOR_NEWSLETTER" | translate}}</h4>
+  <form enctype="multipart/form-data">
+    <label for="newsletterFile">{{"NEWSLETTER.CHOOSE_A_HTML_FILE" | translate}} </label>
+    <input
+      type="file"
+      id="newsletterFile"
+      name="newsletterFile"
+      accept=".html"
+      (change)="onChange($event)"
+    />
+    <div>
+      <button *ngIf="fileToUpload !== null" class="btn btn-success" (click)="onSaveFile()">{{"NEWSLETTER.UPLOAD" | translate}}</button>
+    </div>
+  </form>
+
+  <h4>{{"NEWSLETTER.SEND_OUT_NEWSLETTER" | translate}}</h4>
+  <div>
+    <label id="example-radio-group-label">{{"NEWSLETTER.SELECT_A_FILE_TO_SEND" | translate}}</label>
+    <mat-radio-group
+      aria-labelledby="example-radio-group-label"
+      class="example-radio-group"
+      [(ngModel)]="selectedFile"
+    >
+      <mat-radio-button
+        class="example-radio-button"
+        *ngFor="let file of allFiles"
+        [value]="file"
+      >
+        {{ file.name }}
+      </mat-radio-button>
+    </mat-radio-group>
+    <div *ngIf="selectedFile !== undefined">{{"NEWSLETTER.SELECTED_FILE_IS" | translate}}{{ selectedFile.name }}</div>
+    <div>
+        <button *ngIf="selectedFile !== undefined" (click)="sendNewsletter(selectedFile.id!)" class="btn btn-success">{{"NEWSLETTER.SEND_OUT_NEWSLETTER" | translate}}</button>
+    </div>
+  </div>
+</div>

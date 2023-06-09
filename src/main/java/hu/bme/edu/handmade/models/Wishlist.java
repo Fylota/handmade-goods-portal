@@ -1,9 +1,14 @@
 package hu.bme.edu.handmade.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "wishlists")
 public class Wishlist {
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,30 +29,6 @@ public class Wishlist {
     public Wishlist(){}
     public Wishlist(User user) {
         this.user = user;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public void addProduct(Product prod) {

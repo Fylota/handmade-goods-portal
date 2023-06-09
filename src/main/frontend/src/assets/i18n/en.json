@@ -1,17 +1,36 @@
 {
+  "COMMON": {
+    "SNACK_DISMISS": "Dismiss",
+    "UPDATE": "Update",
+    "CANCEL": "Cancel",
+    "DELETE": "Delete",
+    "BACK_TO_ADMIN_PAGE": "Back to Admin Page",
+    "SORT": "Sort",
+    "CREATE": "Create",
+    "SAVE": "Save",
+    "TITLE": "Title:",
+    "CONTENT": "Content:",
+    "IMAGE_URL": "Image url:",
+    "NAME": "Name:",
+    "DESCRIPTION": "Description:",
+    "PRICE": "Price:",
+    "CATEGORY": "Category:",
+    "ACTIONS": "Actions",
+    "START_DATE": "Start date:",
+    "END_DATE": "End date:",
+    "PRODUCT_ID": "Product id: "
+  },
   "HOME": {
-    "SELECT": "Change language",
     "HERO": "Unique products Handmade for You"
   },
   "NAV": {
     "PROFILE": "Profile",
     "WISHLIST": "Wishlist",
     "CART": "Cart",
-    "SEARCH": "Search...",
-    "PRODUCTS": "All Products",
+    "SHOP": "Shop",
     "EVENTS": "Events",
-    "NEWS": "News",
-    "ADMIN": "Admin Page"
+    "BLOG": "Blog",
+    "ADMIN": "Admin"
   },
   "LOGIN": {
     "WELCOME": "Welcome back!",
@@ -22,6 +41,56 @@
     "PSW_PLACEHOLDER": "Your password",
     "LOGIN_BTN": "Login",
     "NOT_REGISTERED": "Haven't registered yet?",
-    "SIGNUP_BTN": "Sign up"
+    "SIGNUP_BTN": "Sign up",
+    "FORGOTTEN_PSW": "Forgot password",
+    "REGISTER": "Create Account"
+  },
+  "CHANGE_PSW": {
+    "UPDATE_BTN": "Save new password",
+    "PSW": "New password",
+    "PSW_AGAIN": "New password again",
+    "MATCH_ERROR": "The two password fields do not match",
+    "SUCCESS": "Password changed. Please log in",
+    "ERROR": "Something went wrong, try again"
+  },
+  "FORGOT": {
+    "TITLE": "Please enter your email address and we will send a password reset link.",
+    "SEND_BTN": "Send email",
+    "SUCCESS": "Email sent!",
+    "ERROR": "Something went wrong..."
+  },
+  "ADMIN": {
+    "TITLE":"Admin Console",
+    "MANAGE_ORDERS": "Manage Orders",
+    "MANAGE_USERS": "Manage Users",
+    "ADD_PRODUCT": "Add Product",
+    "ADD_BLOG_POST": "Add Blog Post",
+    "ADD_EVENT": "Add Event",
+    "ADD_CATEGORY": "Add Category",
+    "MANAGE_NEWSLETTER": "Manage Newsletter",
+    "EDIT_PRODUCTS": "Edit Products",
+    "EDIT_BLOG_POSTS": "Edit Blog Posts",
+    "EDIT_EVENTS": "Edit Events",
+    "EDIT_CATEGORIES": "Edit Categories"
+  },
+  "MANAGE_USERS": {
+    "SET_AS_ADMIN": "Set as Admin",
+    "UNSET_AS_ADMIN": "Unset as Admin"
+  },
+  "MANAGE_ORDERS": {
+    "CHANGE_ORDER_STATUS": "Change order status"
+  },
+  "NEWSLETTER": {
+    "UPLOAD_FILE_FOR_NEWSLETTER": "Upload file for Newsletter",
+    "CHOOSE_A_HTML_FILE": "Choose a html file:",
+    "UPLOAD": "Upload",
+    "SELECT_A_FILE_TO_SEND": "Select a file to send",
+    "SELECTED_FILE_IS": "Selected file is: ",
+    "SEND_OUT_NEWSLETTER": "Send out newsletter"
+  },
+  "FOOTER": {
+    "QUESTION": "Got any questions? ",
+    "CONTACT_LINK": "Write to us!"
   }
+
 }

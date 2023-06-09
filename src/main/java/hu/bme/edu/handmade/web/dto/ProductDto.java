@@ -3,6 +3,7 @@ package hu.bme.edu.handmade.web.dto;
 import java.util.Objects;
 
 public class ProductDto {
+    private Long id;
     private String name;
     private String description;
     private double price;
@@ -10,6 +11,14 @@ public class ProductDto {
     private Long categoryId;
 
     private String imageURL;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getDescription() {
         return description;

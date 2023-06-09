@@ -5,6 +5,7 @@ import java.util.Date;
 public class ReviewDto {
     private Long productId;
     private Long userId;
+    private String reviewerName;
     private String content;
     private Date creationDate;
 
@@ -22,6 +23,14 @@ public class ReviewDto {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getReviewerName() {
+        return reviewerName;
+    }
+
+    public void setReviewerName(String reviewerName) {
+        this.reviewerName = reviewerName;
     }
 
     public String getContent() {

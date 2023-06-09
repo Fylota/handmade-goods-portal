@@ -42,6 +42,8 @@ public class OrderController {
         return orderService.createNewOrder(order);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @SecurityRequirement(name = "Bearer_Authentication")
     @GetMapping("/{id}")
     public OrderItemDto getOrderById(@PathVariable("id") Long orderId) {
         return orderService.getOrderById(orderId);

@@ -1,0 +1,57 @@
+<form *ngIf="address !== undefined" class="card-text">
+    <div class="form-group">
+        <label for="city">City:</label>
+        <input
+          type="text"
+          [(ngModel)]="address.city"
+          placeholder="City"
+          name="city"
+          class="form-control"
+          id="city"
+          required
+        />
+      </div>
+    
+      <div class="form-group">
+        <label for="zip">Postal code</label>
+        <input
+          type="text"
+          [(ngModel)]="address.zip"
+          placeholder="1117"
+          name="zip"
+          class="form-control"
+          id="zip"
+          required
+        />
+      </div>
+    
+      <div class="form-group">
+        <label for="country">Country:</label>
+        <input
+          [(ngModel)]="address.country"
+          placeholder="Hungary"
+          name="country"
+          class="form-control"
+          id="country"
+          required
+        />
+      </div>
+    
+      <div class="form-group">
+        <label for="addLine">Address line</label>
+        <input
+          type="text"
+          [(ngModel)]="address.addressLine"
+          placeholder="Pázmány Péter stny. 1d"
+          name="addLine"
+          class="form-control"
+          id="addLine"
+        />
+      </div>
+    <div>
+    <button class="btn btn-success" (click)="saveAddress()">Save</button>
+    </div>
+  <div>
+    <button class="btn" (click)="cancelEdit()">Cancel</button>
+  </div>
+</form>

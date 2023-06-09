@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="images-wrapper">
+    <img
+      src="https://source.unsplash.com/random/200x200"
+      alt=""
+      class="main-image"
+    />
+  </div>
+  <div class="details-wrapper" *ngIf="product !== undefined">
+    <h1>{{ product.name }}</h1>
+    <h3>{{ product.price }}</h3>
+    <div>
+      <h3>Description</h3>
+      <p>{{ product.description }}</p>
+    </div>
+    <div *ngIf="loggedIn">
+      <button class="btn btn-primary" (click)="addToCart()">Add to cart</button>
+      <button class="btn" (click)="addToWishlist()">
+        <fa-icon [icon]="faStar"></fa-icon> Add to wishlist</button>
+    </div>
+    <div *ngIf="!loggedIn">
+      <p>Log in to add to cart or to wishlist</p>
+    </div>
+    <h3>Reviews</h3>
+    <div class="rewiew-card" *ngFor="let review of reviews">
+      <h4 *ngIf="review.reviewerName === undefined">Anonymus user</h4>
+      <h4>{{ review.reviewerName }}</h4>
+      <p>{{ review.creationDate }}</p>
+      <p>{{ review.content }}</p>
+    </div>
+    <div *ngIf="loggedIn">
+      <div class="add-review-wrapper">
+        <label for="review">Write a review:</label>
+        <textarea id="review" name="review" rows="5" cols="33" [(ngModel)]="reviewContent"></textarea>
+      </div>
+      <button class="btn btn-primary" (click)="postReview()">Send</button>
+    </div>
+    <div *ngIf="!loggedIn">
+        <p>Log in to post a review</p>
+    </div>
+  </div>
+</div>

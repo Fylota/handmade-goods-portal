@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="title">
+        <h2>Register</h2>
+    </div>
+    
+    <form>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input [(ngModel)]="user.email" placeholder="Email" name="email" class="form-control" id="email">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" [(ngModel)]="user.password" placeholder="Password" name="password"
+                class="form-control" id="password">
+        </div>
+
+        <div class="form-group">
+            <label for="matchingPassword">Password again</label>
+            <input type="password" placeholder="Password again" name="matchingPassword"
+                class="form-control" id="matchingPassword">
+        </div>
+
+        <button class="btn btn-success" (click)="createUser()">Create</button>
+    </form>
+    <div class="error-output" *ngIf="errors.length > 0">
+        <ul>
+            <li *ngFor="let error of errors">{{ error }}</li>
+        </ul>
+    </div>
+</div>

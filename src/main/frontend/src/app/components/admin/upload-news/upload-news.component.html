@@ -1,0 +1,24 @@
+<div class="container">
+    <h1 class="title">{{"ADMIN.ADD_BLOG_POST" | translate}}</h1>
+    <a routerLink="/admin" class="btn btn-primary">{{"COMMON.BACK_TO_ADMIN_PAGE" | translate}}</a>
+    <form>
+        <div class="form-group">
+            <label for="title">{{"COMMON.TITLE" | translate}} </label>
+            <input type="text" [(ngModel)]="post.title" name="title"
+                class="form-control" id="title">
+        </div>
+
+        <div class="form-group">
+            <label for="content">{{"COMMON.CONTENT" | translate}} </label>
+            <textarea [(ngModel)]="post.content" name="content" class="form-control"
+                id="content"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="image">{{"COMMON.IMAGE_URL" | translate}} </label>
+            <input type="text" [(ngModel)]="post.imageUrl" name="image" class="form-control" id="image">
+        </div>
+
+        <button class="btn btn-success" (click)="createPost()">{{"COMMON.CREATE" | translate}}</button>
+    </form>
+</div>
