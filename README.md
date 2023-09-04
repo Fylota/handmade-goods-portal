@@ -13,3 +13,6 @@ A Java Spring Boot and Angular E-commerce site.
  - OpenAPI, Swagger
  - Bootstrap
  - Angular Material
+
+## Data structure
+![entities](https://github.com/Fylota/handmade-goods-portal/assets/36311796/d0de4d0e-e331-4ea5-8568-a3de8699d625)
